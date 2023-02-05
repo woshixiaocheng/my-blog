@@ -1,0 +1,10 @@
+{
+    "extends": "../tsconfig.json", // 继承根目录的tsconfig，别写错了
+    "compilerOptions": {
+      "outDir": "../build", // 编译后的js文件地址
+      "moduleResolution": "node", // 模块解析策略
+      "esModuleInterop": true // 支持按照es6模块规范导入commonjs模块
+    },
+    "include": ["./*.ts"], // 包含的文件
+    "exclude": ["../node_modules"] // 不包含的文件
+  }

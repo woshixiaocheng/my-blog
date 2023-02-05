@@ -1,0 +1,204 @@
+.banner{
+    color: #fff;
+    width: 100%;
+    height: 500px;
+text-align: center;    
+h1{
+    font-size: 50px;
+    font-weight: bolder;
+    padding-top: 150px;
+}
+
+}
+.wave{
+width: 100%;
+height: 150px;
+position: relative;
+overflow: hidden;
+.arrow{//实现箭头的定位和动画
+    position: absolute;
+    width: 50px;
+    z-index: 99;
+    bottom: 2vw;
+    left: 50%;
+    transform: translateX(-32px);
+     animation: move-5 3s ease-out infinite;
+     cursor: pointer;
+}
+img{
+&:not(.arrow){
+    position: absolute;
+    left: 0;
+}
+&:nth-child(2){
+    bottom: 1vw;
+    opacity: 0.6;
+    animation: wave-1 5s infinite;
+}
+   &:nth-child(3){
+    opacity: 0.8;
+     bottom: 0.5vw;
+animation: wave-2 4s infinite;
+}
+ &:nth-child(4){
+    bottom: -4vw;
+    opacity: 0.7;
+    animation: wave-3 3s infinite;
+}
+     &:nth-child(5){
+     bottom: 0.1vw;
+opacity: 0.5;
+animation: wave-4 3s infinite;
+}
+}   
+}
+.main{
+background-color: var(--content-bgc);
+border-top-right-radius: 10px;border-top-left-radius: 10px;
+.content{
+width:90%;
+padding: 0 20px 40px 20px;
+margin: 0 auto;//让内容居中，别忘了
+display: flex;
+justify-content: center;
+//左边栏
+.left{
+    width: calc(30%,-40px);
+    margin-top: 60px;
+    margin-right: 40px;
+    max-width: 300px;
+//用户卡片
+.userInfo{
+background: linear-gradient(-45deg,#e8d8b9,#eccec5,#a3e9eb,#bdbdf0,#eec1ea);
+background-size: 200% 200%;
+animation: userInfo 10s infinite;
+padding: 20px 40px;
+text-align: center;
+img{
+width:60%;
+border-radius:50%
+}
+h3{
+font-weight: bold;
+}
+.detail{
+padding:10px 0 ;
+padding: 0px 10px 20px 10px;
+display: flex;
+justify-content: space-between;
+font-size: 16px;
+}
+.button{
+/deep/ .el-button{
+position: relative;
+height: 35px;
+width: 180px;
+overflow: hidden;
+border: 0;
+color: #fff;
+font-weight: 600;
+font-size: 15px;
+background-color: #626aef;
+// 在前面加一个按钮弹出动画效果
+// transition: all 0.5s ease-outS;
+z-index: 10;
+}
+.buttonChange1,.buttonChange2{
+        position: absolute;
+        left: -180px;
+        border: 0;
+        background-color: var(--buttonHover);
+        z-index: -1;
+    }
+&:nth-child(1):hover .buttonChange1,&:nth-child(2):hover .buttonChange2{
+animation: buttonChange 0.5s forwards ;
+animation-timing-function: cubic-bezier(.45,1.64,.47,.66);//写好了可以实现回弹
+}
+}
+}
+.articleMenu{
+margin-top: 40px;
+&:hover{
+box-shadow: var(--boxHoverShadow);
+}
+img{
+    position: relative;
+    top: -2px;
+    width: 26px;
+    margin-right: 10px;
+    animation: var(--iconScale);
+}
+span{
+    font-weight: bold;
+    font-size: 18px;
+}
+ //分类文章的
+ul{ 
+li{
+    font-size: 16px;
+    padding: 0 6px;
+    margin: 12px 10px;
+    cursor: pointer;
+    border-radius: 35px;
+    transition: background-color,padding-left 0.4s ease-in-out;
+        -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    &:hover{
+        background-color: var(--buttonHover);
+        color: #fff;
+        padding: 3px 6px;
+        padding-left: 15px;
+        
+    }
+} 
+}
+//文章标签的
+.sign{
+    margin: 0px 10px 10px 0;
+    /deep/ .el-tag{
+        margin-right: 10px;
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: 400;
+        border: 0;
+        cursor: pointer;
+    }
+}
+}
+}
+.right{
+width: 70%;
+.notice{
+    width: 100%;
+    height: 130px;
+    margin:60px auto 40px ;
+    max-width: 780px;
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    color: var(--fontGray);
+    font-size: 16px;
+    img{
+        width: 30px;
+        margin-right: 20px;
+        animation: var(--iconScale);
+    }
+}
+.article{
+    margin-top: 40px;
+    margin: auto;
+    max-width: 780px;
+    .find{
+        padding-left: 8px;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed var(--border);
+        color: var(--fontGray);
+        font-size: 20px;
+    }
+
+}
+}
+}   
+}

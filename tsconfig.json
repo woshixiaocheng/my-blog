@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2019",//指定编译的js脚本
+    "useDefineForClassFields": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",//相对导入
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,//开启后会强制要求开发者保持模块的隔离性
+    "esModuleInterop": true,//支持import的方式引入common.js的包
+    "lib": ["ES2019", "DOM","DOM.Iterable"],
+
+    "skipLibCheck": true,
+    "noEmit": true,//不输出文件，即编译后不会生成任何js文件
+    "paths": {
+      "@/*": ["src/*"],
+      "comps*": ["src/components/*"],
+      "views/*": ["src/views/*"],
+      "store/*": ["src/store/*"]
+    },
+  },
+  "exclude": ["./node_modules"], // 不包含的文件
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","vue-shim.d.ts","axios.d.ts","src/main.ts","vite.config.ts","./server/tsconfig.json"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -1,0 +1,61 @@
+/* 波浪的动画 */
+@keyframes wave-1{
+    50%{
+        transform: translateY(15px);
+    }
+}
+  @keyframes wave-2{
+    50%{
+        transform: translateY(15px);
+    }
+}
+@keyframes wave-3{
+    50%{
+        transform: translateY(20px);
+    }
+}
+@keyframes wave-4 {
+50% {
+transform: translateY(20px);
+}
+}
+    @keyframes wave-5 {
+50% {
+transform: translate(-32px,20px);
+}
+}
+@keyframes iconScale {
+50%{
+    transform: scale(1.1);
+}
+}
+@keyframes music{
+    50%{
+      transform:rotateZ(360deg)
+    }
+    }
+@keyframes userInfo {
+    0%{
+        background-position: 0% 0%;
+    }
+    50%{
+        background-position: 100% 100%;
+    }
+    100%{
+        background-position: 0% 0%;
+    }
+}
+@keyframes buttonChange {
+    100%{
+        transform: translateX(100%);
+    }
+}
+/* 登录注册按钮放大缩小 */
+@keyframes buttonBig{
+50%{
+    transform:scale(1.2);
+}
+100%{
+    transform: scale(1);
+}
+}
