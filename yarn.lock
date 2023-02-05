@@ -176,6 +176,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/js-cookie@^3.0.2":
+  "integrity" "sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA=="
+  "resolved" "https://registry.npmmirror.com/@types/js-cookie/-/js-cookie-3.0.2.tgz"
+  "version" "3.0.2"
+
 "@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8":
   "integrity" "sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ=="
   "resolved" "https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.11.tgz"
@@ -1249,6 +1254,11 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
+"js-cookie@^3.0.1":
+  "integrity" "sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw=="
+  "resolved" "https://registry.npmmirror.com/js-cookie/-/js-cookie-3.0.1.tgz"
+  "version" "3.0.1"
+
 "json-parse-even-better-errors@^2.3.1":
   "integrity" "sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w=="
   "resolved" "https://registry.npmmirror.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz"
@@ -1559,6 +1569,14 @@
   "integrity" "sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g=="
   "resolved" "https://registry.npmmirror.com/pify/-/pify-4.0.1.tgz"
   "version" "4.0.1"
+
+"pinia@^2.0.30":
+  "integrity" "sha512-q6DUmxWwe/mQgg+55QQjykpKC+aGeGdaJV3niminl19V08dE+LRTvSEuqi6/NLSGCKHI49KGL6tMNEOssFiMyA=="
+  "resolved" "https://registry.npmmirror.com/pinia/-/pinia-2.0.30.tgz"
+  "version" "2.0.30"
+  dependencies:
+    "@vue/devtools-api" "^6.4.5"
+    "vue-demi" "*"
 
 "postcss@^8.1.10", "postcss@^8.4.20":
   "integrity" "sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg=="
@@ -1957,7 +1975,7 @@
     "media-typer" "0.3.0"
     "mime-types" "~2.1.24"
 
-"typescript@*", "typescript@^4.9.5", "typescript@>=2.7":
+"typescript@*", "typescript@^4.9.5", "typescript@>=2.7", "typescript@>=4.4.4":
   "integrity" "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g=="
   "resolved" "https://registry.npmmirror.com/typescript/-/typescript-4.9.5.tgz"
   "version" "4.9.5"
@@ -2042,7 +2060,7 @@
     "@volar/vue-language-core" "1.0.24"
     "@volar/vue-typescript" "1.0.24"
 
-"vue@^3.0.0-0 || ^2.6.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.45", "vue@3.2.45":
+"vue@^2.6.14 || ^3.2.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.45", "vue@3.2.45":
   "integrity" "sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-3.2.45.tgz"
   "version" "3.2.45"

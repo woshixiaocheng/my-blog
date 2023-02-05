@@ -33,8 +33,8 @@ function commonRes(res:Response,data:unknown,options?:ResOption){
 
     return res.status(resStatus).send(sendRes)
 }
-commonRes.error=function(res:Response,data: unknown, message?: unknown, status?: number){
-    this(res,data,{type:'serverError',message:CodeMessage['serverError'],status:status||409})
+commonRes.error=function(res:Response,type: codeType,data?: unknown, message?: unknown){
+    this(res,data||'',{type:type,message:message||CodeMessage[type],status:Code[type]||409})
 }
 
 export default commonRes

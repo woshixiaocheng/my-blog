@@ -2,14 +2,14 @@
 let express=require('express')
 let router=express.Router()
 //引入接口
-// let user=require('./api/user')
+let user=require('./api/user')
 let article=require('./api/article')
 let sort=require('./api/sort')
 let label=require('./api/label')
 let daily=require('./api/daily')
 //给接口设置路由路径,这里的路径是接口路径
 //用户
-// router.post('/login',user.login)//登录
+router.post('/login',user.login)//登录
 // router.post('/register',user.register)//注册
 // router.get('/user',user.getUser)
 //文章

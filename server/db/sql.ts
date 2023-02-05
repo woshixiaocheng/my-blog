@@ -1,4 +1,7 @@
 //对操作不同表的sql语句进行封装
+let user={
+    queryByPhone:"select * from users where user_phone=?"
+}
 let article={
     queryAll:"select * from articles order by article_date desc",
     queryBySortId:"select * from articlesort where sort_id=?",
@@ -21,6 +24,7 @@ module.exports={
     article,
     sort,
     label,
-    daily
+    daily,
+    user
 }
 export{}
