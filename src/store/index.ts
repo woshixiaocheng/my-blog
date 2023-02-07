@@ -1,15 +1,29 @@
 import {defineStore} from 'pinia'
-export const user=defineStore('user',{
+import {getToken,setToken,removeToken,setTimeStamp} from '@/utils/auth'
+import {Login} from '@/utils/type'
+import {login} from '@/api/user'
+export const userStore=defineStore('user',{
     state:()=>{
         return {
-            token:null,
+            token:getToken(),
+            userInfo:{}
         }
+    },
+    actions:{
+        //登录写在这
+    async login(data:Login){
+        const {token}=await login(data)
+        if(token){
+            this.token=token
+            setToken(token)
+            setTimeStamp()
+        }
+    },
     }
 })
 // //存登录
-// import {createStore} from 'vuex'
-// import {getToken,setToken,removeToken,setTimeStamp} from '@/utils/auth'
-// import {login} from '@/api/user'
+
+
 // // 状态
 // const state = {
 //     token:null,//登录成功后把钥匙存在本地缓存
@@ -30,16 +44,7 @@ export const user=defineStore('user',{
 // }
 // // 执行异步
 // const actions = {
-//     //登录
-//     async login(context,data){
-//         const result=await login(data)
-//         if(result.data.bool){
-//             context.commit('setToken',result.data.result)
-//         setTimeStamp()
-//         }
-        
-//         return result
-//     },
+
 //     //登出
 //     logout(context){
 //         //删除token

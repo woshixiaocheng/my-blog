@@ -27,5 +27,6 @@ export function getTimeStamp(){
 
 //设置时间戳
 export function setTimeStamp(){
-    return Cookies.set(timeKey,Date.now())
+    console.log('11')
+    return Cookies.set(timeKey,Date.now().toString())
 }

@@ -10,6 +10,19 @@ interface articles{
     article_like_count:number
     article_description:Text
 }
+//articleList
+interface ArticleList{
+    article_id:number
+    article_title:string
+    user_name:string
+    sort_id:number
+    label_id:number
+    label_name:string
+    article_date:Date
+    article_like_count:number
+    article_comment_count:number
+    article_view:number
+}
 //分类
 interface sorts{
     sort_id:number
@@ -51,4 +64,16 @@ interface Daily{
     daily_content:Text
     daily_date:Date
 }
-export type {articles,sorts,labels,articleSort,articleLabel,Banner,Daily}
+
+//login
+interface Login{
+    phone:string
+    password:string
+}
+//page
+interface Page{
+    size:number
+    page:number
+    total:number
+}
+export type {articles,sorts,labels,articleSort,articleLabel,Banner,Daily,Login,ArticleList,Page}

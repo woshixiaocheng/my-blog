@@ -4,288 +4,208 @@
     <el-card>
       <el-row type="flex" justify="space-between" align="middle">
         <div style="display:flex">
-      <el-select 
-      v-model="sortValue"
-      @change="(val)=>{showArticleSort(val,1)}" class="m-2" placeholder="按照分类查找" size="default" style="margin-right:10px">
-    <el-option label="所有"
-      :value="0"></el-option>
-    <el-option
-      v-for="item in sorts"
-      :key="item.sort_id"
-      :label="item.sort_name"
-      :value="item.sort_id"
-    />
-  </el-select>
-     <el-select class="m-2"
-     v-model="labelValue"
-     @change="(val)=>{showArticleLabel(val,1)}" placeholder="按照标签查找" size="default" style="margin-right:10px">
-    <el-option label="所有"
-    :value="0"></el-option>
-    <el-option
-      v-for="item in labels"
-      :key="item.label_id"
-      :label="item.label_name"
-      :value="item.label_id"
-    />
-  </el-select>
- 
+          <el-select v-model="sortValue"  class="m-2" placeholder="按照分类查找"
+            size="default" style="margin-right:10px">
+            <el-option label="所有" :value="0"></el-option>
+            <el-option v-for="item in sorts" :key="item.sort_id" :label="item.sort_name" :value="item.sort_id" />
+          </el-select>
+          <el-select class="m-2" v-model="labelValue"  placeholder="按照标签查找"
+            size="default" style="margin-right:10px">
+            <el-option label="所有" :value="0"></el-option>
+            <el-option v-for="item in labels" :key="item.label_id" :label="item.label_name" :value="item.label_id" />
+          </el-select>
+
         </div>
-        <el-button type="primary" size="mini" class="button"  @click="$router.push({path:`/admin/doArticle`,query:{way:'add'},})">
-          <el-icon><Plus/></el-icon> 新增文章</el-button>
+        <el-button type="primary" size="mini" class="button"
+          @click="$router.push({ path: `/admin/doArticle`, query: { way: 'add' }, })">
+          <el-icon>
+            <Plus />
+          </el-icon> 新增文章</el-button>
       </el-row>
     </el-card>
     <!-- 主要表单展示 -->
     <el-card class="main">
-       <el-table 
-    :data="list"
-    border
-    style="width: 100%">
-    <el-table-column
-      type="index" :index="1"
-      label="序号"
-      align="center"
-      width="60">
-    </el-table-column>
-     <el-table-column
-      prop="article_title"
-      label="文章标题"
-      sortable
-      width="270"> 
-    </el-table-column>
-      <el-table-column
-      prop="user_name"
-      label="发布人"
-      sortable
-      width="120">
-    </el-table-column>
-         <el-table-column
-      prop="sort_name"
-      label="文章分类"
-      sortable
-      width="120"> 
-    </el-table-column>
-    <el-table-column
-      prop="label_name"
-      label="文章标签"
-      sortable
-      width="120"> 
-    </el-table-column>
-  
-    <el-table-column
-      prop="article_date"
-      label="更新时间"
-      sortable
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="article_like_count"
-      label="点赞数"
-      sortable
-      width="100">
-    </el-table-column>
-    <el-table-column
-    prop="article_comment_count"
-      label="评论数"
-      sortable
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="article_view"
-      label="浏览量"
-      sortable
-      width="100">
-    </el-table-column>
-    <el-table-column
-      fixed="right"
-      align="center"
-      label="操作"
-      width="300px;display:flex">
-      <template v-slot="{row}" >
-        <el-button link  type="primary" size="default" @click="editDialog(row)">修改分类和标签</el-button>
-        <el-button link  type="primary" size="default" @click="$router.push({path:`/admin/doArticle`,query:{id:row.article_id},})">编辑</el-button>
-        <el-button link type="danger" size="default" @click="deleteArticle(row.article_id)">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <div class="pag">
-  <span class="total">共 {{total}} 条</span>
-  <el-pagination 
-  layout="prev, pager, next" 
-  :total="total"
-  :current-page="page.page"
-  :page-size="page.size"
-  @current-change="changePage"
-   />
-  </div>
+      <el-table :data="list" border style="width: 100%">
+        <el-table-column type="index" :index="1" label="序号" align="center" width="60">
+        </el-table-column>
+        <el-table-column prop="article_title" label="文章标题" sortable width="270">
+        </el-table-column>
+        <el-table-column prop="user_name" label="发布人" sortable width="120">
+        </el-table-column>
+        <el-table-column label="文章分类" sortable width="120">
+          <template #default="scope">
+            {{scope.row.sort_name||"暂无"}}
+          </template>
+        </el-table-column>
+        <el-table-column  label="文章标签" sortable width="120">
+          <template #default="scope">
+            {{scope.row.label_name||"暂无"}}
+          </template>
+        </el-table-column>
+
+        <el-table-column  label="更新时间" sortable width="120">
+          <template #default="scope">
+            {{formatDate( scope.row.article_date)}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="article_like_count" label="点赞数" sortable width="100">
+        </el-table-column>
+        <el-table-column prop="article_comment_count" label="评论数" sortable width="100">
+        </el-table-column>
+        <el-table-column prop="article_views" label="浏览量" sortable width="100">
+        </el-table-column>
+        <el-table-column fixed="right" align="center" label="操作" width="300px;display:flex">
+          <template v-slot="{ row }">
+            <el-button link type="primary" size="default" @click="editDialog(row)">修改分类和标签</el-button>
+            <el-button link type="primary" size="default"
+              @click="$router.push({ path: `/admin/doArticle`, query: { id: row.article_id }, })">编辑</el-button>
+            <el-button link type="danger" size="default" @click="deleteArticle(row.article_id)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pag">
+        <span class="total">共 {{ page.total }} 条</span>
+        <el-pagination layout="prev, pager, next" :total="page.total" :current-page="page.page" :page-size="page.size"
+          @current-change="changePage" />
+      </div>
     </el-card>
-    <EditSortLabel v-model:showDialog="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="getAll(1)"></EditSortLabel>
+    <EditSortLabel v-model:showDialog="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="showArticle">
+    </EditSortLabel>
   </div>
 </template>
 
-<script>
-import {  ref } from '@vue/reactivity'
-import {showArticle,getArticleByPage,getSortArticleByPage,getLabelArticleByPage,getArticleSort,getArticleLabel,getArticleUser,getSortArticle,getLabelArticle,getSorts,getLabels,delArticle} from '@/api/article'
-import formatDate from '@/assets/js/formatDate.js'
-import {useRouter} from 'vue-router'
+<script setup lang="ts">
+import { ref,watchEffect } from 'vue'
+import {getArticleByPage, getSortArticleByPage, getLabelArticleByPage, getSLArticleByPage, getSorts, getLabels, delArticle } from '@/api/article'
+import formatDate from '@/utils/formatDate'
+import { useRouter } from 'vue-router'
 import EditSortLabel from './components/edit-sort-label.vue'
-export default{ 
-  components:{
-    EditSortLabel
-  },
-  setup(){
-    const $router=useRouter()
-    const list=ref([])//存储文章数据
-    const sortValue=ref()//绑定分类的select
-    const labelValue=ref()//绑定标签的select
-    const page=ref({
-      size:8,//一页显示的条数
-      page:1,//当前页码
-    })
-    const total=ref(0)//总数
-//页面分页改变
-const changePage=(newPage)=>{
-  page.value.page=newPage
-  if(sortValue.value){
-    showArticleSort(sortValue.value,newPage)//在切换页点击时也能取到数据，因为取数据要传入id
-  }else if(labelValue.value){
-    showArticleLabel(labelValue.value,newPage)
-  }else{
-     getAll(1)
-  }
- 
-}
-//获取文章赋值的时候给没分类和标签的赋值
-const resolveNullSort=(data)=>{
-if(typeof(data)==="undefined"){
-  return {0:{sort_name:'暂无'}}
-}
-  return data
-}
-const resolveNullLabel=(data)=>{
-if(typeof(data)==="undefined"){
-  return {0:{label_name:'暂无'}}
-}
-  return data
-}
-
-//获取文章函数
-    //文章进行整合获取
- const getArticle=async (list1)=>{
-  list.value=[]
- list1.forEach(async(item)=>{
-  //获取文章的分类
-const data1=await getArticleSort({id:item.article_id})
-const sort=ref([])
-sort.value=resolveNullSort(data1.data.result)//重新给没有分类的赋值
-//获取文章的标签
-const data2=await getArticleLabel({id:item.article_id})
-const label=ref([])
-label.value=resolveNullLabel(data2.data.result)
-//获取文章的用户名
-const data3=await getArticleUser({id:item.article_id})
-const user=ref([])
-user.value=data3.data.result
-console.log(user.value)
-list.value.push(
-  {article_id:item.article_id,
-    article_title:item.article_title,
-      user_name:user.value[0].user_name,
-      sort_id:sort.value[0].sort_id,
-      sort_name:sort.value[0].sort_name,
-      label_id:label.value[0].label_id,
-      label_name:label.value[0].label_name,
-      article_date:formatDate(item.article_date),
-      article_like_count:item.article_like_count,
-      article_comment_count:item.article_comment_count,
-      article_view:item.article_views
-      })
- })
-}
+import { ArticleList, Page,sorts,labels} from '@/utils/type'
+import { ElMessage, ElMessageBox } from 'element-plus'
+const $router = useRouter()
+const list = ref<ArticleList[]>([])//存储文章数据
+const sortValue = ref<number>(0)//绑定分类的select
+const labelValue = ref<number>(0)//绑定标签的select
+const page = ref<Page>({
+  size: 1,//一页显示的条数
+  page: 1,//当前页码
+  total: 0//总数
+})
 
 //调用获取文章函数的主要代码
 //获取文章全部数据
-const getAll=async(page1)=>{
-  page.value.page=page1
-const data=await getArticleByPage({page:page1,size:page.value.size})
- //获取文章总条数
-    const data1=await showArticle()
-   total.value=data1.data.length
- getArticle(data.data)
+const showAllArticle = async () => {
+  const {rows,total} = await getArticleByPage(page.value)
+  list.value=rows
+  //获取文章总条数
+  page.value.total =total
 }
-getAll(1)
-//根据分类获取指定文章
-const showArticleSort=async(val,page1)=>{
-  if(val===0){
-    getAll(1)
-  }else{
-    page.value.page=page1
-    const data=await getSortArticleByPage({id:val,page:page1,size:page.value.size})
+
+//按照分类展示文章
+const showSortArticle=async()=>{
+  const {rows,total} = await getSortArticleByPage({ id: sortValue.value,...page.value })
+    list.value=rows
+    page.value.total = total
+}
+//按照标签展示文章
+const showLabelArticle=async()=>{
+  const {rows,total} = await getLabelArticleByPage({ id: labelValue.value,...page.value })
     //获取文章总条数
-    const data1=await getSortArticle({id:val})
-   total.value=data1.data.result.length
- getArticle(data.data.result)
-  }
-  
+    page.value.total =total
+    list.value=rows
 }
-//根据标签获取指定文章
-const showArticleLabel=async(val,page1)=>{
-  if(val===0){
-    getAll(1)
-  }else{
-    page.value.page=page1
-   const data=await getLabelArticleByPage({id:val,page:page1,size:page.value.size})
- //获取文章总条数
-    const data1=await getLabelArticle({id:val})
-   total.value=data1.data.result.length
-  getArticle(data.data.result) 
-  }
-  
+
+//按照标签和分类展示文章
+const showSLArticle=async()=>{
+  const {rows,total}=await getSLArticleByPage({sortId:sortValue.value,labelId:labelValue.value})
+  page.value.total =total
+    list.value=rows
 }
+  //页面分页改变获取新数据
+const changePage = (newPage: number) => {
+  page.value.page = newPage
+}
+//供监听和删除修改等刷新页面调用
+const showArticle=()=>{
+ //都没选中取全部
+ if(sortValue.value===0&&labelValue.value===0){
+  showAllArticle()
+}else if(sortValue.value!==0&&labelValue.value===0){
+  //选中分类
+  showSortArticle()
+}else if(labelValue.value!==0&&sortValue.value===0){
+  //选中标签
+  showLabelArticle()
+}else{
+  //两者都有
+  showSLArticle()
+}
+}
+
+//四种情况，都没选，选中分类，选中标签，两者都满足来渲染列表
+//page在里面使用了所以也被监听了，当page变化也会触发
+watchEffect(async()=>{
+showArticle()
+})
+
 //获取全部分类
-const sorts=ref([])
-const showSorts=async()=>{
-  const data=await getSorts()
- sorts.value=data.data
+const sorts = ref<sorts[]>([])
+const showSorts = async () => {
+  sorts.value = await getSorts()
 }
 showSorts()
 //获取全部标签
-const labels=ref([])
-const showLabels=async()=>{
-  const data=await getLabels()
-  labels.value=data.data
+const labels = ref<labels[]>([])
+const showLabels = async () => {
+  labels.value = await getLabels()
 }
 showLabels()
 //删除文章
-const deleteArticle=async(id)=>{
-const data=await delArticle({id:id})
-console.log(data)
-getAll(1)
+const deleteArticle = async (id:any) => {
+  const data = await delArticle({ id: id })
+  console.log(data)
+  ElMessageBox.confirm(
+    '您确定要删除吗？',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      ElMessage({
+        type: 'success',
+        message: '删除成功！',
+      })
+      showArticle()
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '删除失败！',
+      })
+    })
+  
 }
-
 //修改分类和标签
-const showDialog=ref(false)
-const articleItem=ref()
+const showDialog = ref(false)
+const articleItem = ref()
 //修改标签的窗口
-const editDialog=(row)=>{
-  console.log(row)
-  articleItem.value=row
-  showDialog.value=true
-}
-
-    return{$router,list,page,total,sortValue,labelValue,sorts,labels,showArticleSort,showArticleLabel,changePage,deleteArticle,editDialog,showDialog,articleItem,getAll}
-  }
+const editDialog = (row:any) => {
+  articleItem.value = row
+  showDialog.value = true
 }
 </script>
 
 <style scoped lang="less">
-.main{
+.main {
   margin-top: 20px;
-.pag{
-margin: 10px 0;
-display: flex;
-align-items: center;
-float: right;  
-}
-}
 
+  .pag {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    float: right;
+  }
+}
 </style>

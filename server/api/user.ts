@@ -29,26 +29,32 @@ exports.login=(req:Request,res:Response)=>{
     })
 }
 
-// //用户注册
-// exports.register=(req,res)=>{
-//     const user=req.body
-//     const sql=`insert into users (user_name,user_phone,user_password,user_registration_time) values (?,?,?,?)`
-//     conn.query(sql,[user.name,user.phone,user.password,user.createTime],(err)=>{
-//         if(err){
-//             throw err
-//         }
-        
-//         res.send({status:200,message:'注册成功'})
-//     })
-// }
-
-// exports.getUser=(req,res)=>{
-//     var sql="select * from users"
-//     conn.query(sql,(err,data)=>{
-//         if(err){
-//             return err
-//         }
-//         res.send(data)
-//     })
-// }
+//用户注册
+exports.register=(req:Request,res:Response)=>{
+    let user=req.body
+        // 要先判断有没有之前已经出现手机号的才能注册吧
+    db.query("select * from users where user_phone=?",[user.phone],(err:any,results:any)=>{
+        if(err){
+            throw err
+        }
+        if(results[0]!==undefined){
+            //该手机号已经注册，不能再注册了返回传参错误
+            commonRes.error(res,'paramError')
+        }
+    })
+    const sql=`insert into users (user_name,user_phone,user_password,user_registration_time) values (?,?,?,?)`
+    db.query(sql,[user.name,user.phone,user.password,user.createTime],(err:any,data:any)=>{
+        if(err){
+            throw err
+        }
+        commonRes(res,data)
+    })
+}
+//获取用户信息
+exports.getUser=(req:Request,res:Response)=>{
+    var sql="select user_id,user_name,user_phone,user_photo,user_registration_time from users"
+    db.query(sql,(err:any,data:any)=>{
+        commonRes(res,data)
+    })
+}
 export{}

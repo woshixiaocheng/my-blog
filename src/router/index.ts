@@ -57,22 +57,22 @@ const constantRoutes:RouteRecordRaw[]=[
         ]
         },
 
-    //后台管理系统的登录
-    {
-        path:'/admin/login',
-        name:'adminLogin',
-        component:()=>import('@/view/admin/login/index.vue')
-    }
+    // //后台管理系统的登录
+    // {
+    //     path:'/admin/login',
+    //     name:'adminLogin',
+    //     component:()=>import('@/view/admin/login/index.vue')
+    // }
 ]
 
 //动态路由，主要是后台管理系统
 const asyncRoutes:RouteRecordRaw[]=[
 {
     path:'/admin',
-    redirect:'/admin/main',
+    redirect:'/admin',
     component:()=>import('@/view/admin/layout/index.vue'),
     children:[{
-        path:'/admin/main',
+        path:'/admin',
         name:'main',
         component:()=>import('@/view/admin/main/index.vue')
     },{

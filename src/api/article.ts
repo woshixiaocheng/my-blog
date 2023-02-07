@@ -93,6 +93,15 @@ export function getLabelArticleByPage(data:Object){
         data
     })
 }
+
+//通过分页获取分类标签的文章
+export function getSLArticleByPage(data:Object){
+    return request({
+        method:'POST',
+        url:'/article/SLByPage',
+        data
+    })
+}
 //获取某文章的所有分类
 export function getArticleSort(data:Object){
     return request({

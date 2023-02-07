@@ -3,7 +3,7 @@ import  axios from 'axios'
 import { Message } from 'element-plus'
 const service=(axios as any).create({
     baseURL:'http://127.0.0.1:3000',
-    timeout: 5000,
+    timeout: 3600,
     headers: {
         'Content-Type': 'application/json; charset=utf-8'
       }

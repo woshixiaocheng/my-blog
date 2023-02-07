@@ -5,7 +5,6 @@
     class="el-menu-demo"
     mode="horizontal"
     :ellipsis="false"
-    @select="handleSelect"
   >
     <el-menu-item index="0" class="logo">后台管理</el-menu-item>
     <div class="flex-grow" />
@@ -18,18 +17,9 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue'
-export default{
-  setup(){
-    const activeIndex = ref('1')
-const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-return {activeIndex,handleSelect}
-  }
-}
-
+ const activeIndex = ref('1')
 </script>
 
 <style lang="less">

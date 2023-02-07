@@ -11,7 +11,8 @@ export const signStr='lalala'//密钥
 //把解析出来的用户信息，挂载到 `req.user` 属性上
 app.use(
     expressjwt({ secret: signStr, algorithms: ["HS256"] }).unless({
-      path: [/^\/api\//],
+      //不想要带请求头请求的都放这
+      path: ['/article','/article/assign','/sort/article','/label/article','/sort','/article/sort','/label','/article/label','/daily','/login','/user','/register','/article/page','/article/sortByPage','/article/labelByPage','/article/SLByPage','/del/article','/edit/articleLabel','/edit/articleSort','/edit/article','/add/article'],
     })
   );
 app.use(cors())

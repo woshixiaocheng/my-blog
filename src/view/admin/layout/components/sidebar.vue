@@ -3,11 +3,9 @@
   <div class="sidebar">
       <el-menu class="sidebar-el-menu"
         default-active="2"
-        @open="handleOpen"
-        @close="handleClose"
         router
       >
-      <el-menu-item index="/admin/main" >
+      <el-menu-item index="/admin" >
           <el-icon><House /></el-icon>
           <span>主页</span>
         </el-menu-item>
@@ -30,20 +28,7 @@
       </el-menu>
   </div>
 </template>
-<script >
-export default{
-  setup(){
-
-    const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-return{handleClose,handleOpen}
-  }
-}
-
+<script setup lang="ts">
 </script>
 <style scoped>
   .sidebar {

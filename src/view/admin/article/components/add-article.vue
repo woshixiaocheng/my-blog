@@ -1,178 +1,141 @@
 <template>
   <!-- 主要文章 -->
   <div class="content">
-     <el-form ref="articleForm" :model="form" :rules="rules" label-width="60px" >
-  <el-form-item prop="title" label="标题">
-    <el-input  placeholder="文章标题" v-model="form.title" style="height:40p"></el-input >
-  </el-form-item>
-  <el-form-item prop="description" label="摘要" >
-    <el-input  placeholder="文章摘要"
-    v-model="form.description" style="height:40px"></el-input>
-  </el-form-item>
+    <el-form ref="articleForm" :model="form" :rules="rules" label-width="60px">
+      <el-form-item prop="title" label="标题">
+        <el-input placeholder="文章标题" v-model="form.title" style="height:40p"></el-input>
+      </el-form-item>
+      <el-form-item prop="description" label="摘要">
+        <el-input placeholder="文章摘要" v-model="form.description" style="height:40px"></el-input>
+      </el-form-item>
 
-  
- 
+
+
     </el-form>
-<!-- 富文本编辑器 -->
-<div class="editor">
-  <div class="neirong">内容</div>
-   <div  style="border: 1px solid #ccc">
-      
-      <Toolbar
-        style="border-bottom: 1px solid #ccc"
-        :editor="editorRef"
-        :defaultConfig="toolbarConfig"
-        :mode="mode"
-      />
-      <Editor
-        style="height:300px; overflow-y: hidden;font-size:16px;"
-        v-model="valueHtml"
-        :defaultConfig="editorConfig"
-        :mode="mode"
-        @onCreated="handleCreated"
-      />
+    <!-- 富文本编辑器 -->
+    <div class="editor">
+      <div class="neirong">内容</div>
+     <Editor :content="content" @update="updateContent"></Editor>
     </div>
-</div>
-<div class="button">
-  <el-button type="primary" @click="submit">提交</el-button> 
-  <el-button @click="reset">重置</el-button>
+    <div class="button">
+      <el-button type="primary" @click="submit(articleForm)">提交</el-button>
+      <el-button @click="reset(articleForm)">重置</el-button>
+    </div>
   </div>
-</div>
 </template>
 
-<script>
-import '@wangeditor/editor/dist/css/style.css'
-import { onBeforeUnmount, ref,reactive, shallowRef} from 'vue'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {addArticle} from '@/api/article'
-import formatDate from '@/assets/js/formatDate'
-import {useRouter} from 'vue-router'
-import {getAssignArticle,editArticle} from '@/api/article'
-import {ElMessage} from 'element-plus'
-export default {
-  components: { Editor, Toolbar },
-  props:{
-    articleId:{
-      type:Number,
-    required:true
-    }
-  },
-  setup(props) {
-    const $router=useRouter()
-    const articleForm=ref(null)
-        //存数据的
-    const form =reactive({
-     title: '',
-     description: '',
-    })
-    const rules=reactive({
-    title:[
-    {required:true,message:'文章标题输入不能为空',trigger:'blur'},
-    {min:1,max:20,message:'不能超过20个字！',trigger:'blur'},
-    ],
-    })
-    //创建文章 //
-    const submit=()=>{
-     articleForm.value.validate( async(valid)=>{
-        if(valid){
-            console.log("通过")
-           if(props.articleId){
-            //编辑文章
-            await editArticle({...form,id:props.articleId,content:valueHtml.value})
-             ElMessage({
-              message:'修改成功',
-              type:'success'
-            })
+<script setup lang="ts">
+import { ref, reactive, defineProps,watchEffect} from 'vue'
+import { addArticle,getAssignArticle, editArticle } from '@/api/article'
+import formatDate from '@/utils/formatDate'
+import { useRouter } from 'vue-router'
+import Editor from '@/components/Editor/index.vue'
+import { ElMessage, FormInstance } from 'element-plus'
 
-           }else{
-            const {data}= await addArticle({...form,content:valueHtml.value,id:1,date:formatDate(Date.now())})
-          console.log(data)
-           }
-          
-        }else{
-            console.log("未通过")
-        }
-    })  
-    }
+const props = defineProps<{
+  articleId?: number
+}>()
+const $router = useRouter()
+const articleForm = ref<FormInstance>()
+const content=ref()//富文本编辑器的内容
 
-    //编辑文章
-  
-    const showArticle=async ()=>{
-      const {data}=await getAssignArticle({id:props.articleId})
-      form.title=data[0].article_title
-      form.description=data[0].article_description
-      valueHtml.value=data[0].article_content
-
-    }
-    showArticle()
-  
-  //重置
-  const reset=()=>{
-    articleForm.value?.resetFields()
-    valueHtml.value=''
-  }
-
-
-    
-    //编辑器的
-    // 编辑器实例，必须用 shallowRef
-    const editorRef = shallowRef()
-
-    // 内容 HTML
-    const valueHtml = ref('')
-
-    const toolbarConfig = {}
-    const editorConfig = { placeholder: '请输入内容...' }
-
-    // 组件销毁时，也及时销毁编辑器
-    onBeforeUnmount(() => {
-        const editor = editorRef.value
-        if (editor == null) return
-        editor.destroy()
-    })
-
-    const handleCreated = (editor) => {
-      editorRef.value = editor // 记录 editor 实例，重要！
-    }
-
-    return {
-      $router,
-      articleForm,
-      form,
-      rules,
-      submit,
-      editorRef,
-      valueHtml,
-      reset,
-      mode: 'default', // 或 'simple'
-      toolbarConfig,
-      editorConfig,
-      handleCreated,
-    };
-  }
+//同步content内容
+const updateContent=(html:any)=>{
+  content.value=html
 }
+//编辑文章的内容展示
+const showArticle = async () => {
+  const  data  = await getAssignArticle({ id: props.articleId })
+  form.title = data[0].article_title
+  form.description = data[0].article_description
+  content.value = data[0].article_content
+}
+watchEffect(()=>{
+//如果有id传入就显示内容
+if(props.articleId){
+  showArticle()
+}
+})
+
+//存数据的
+const form = reactive({
+  title: '',
+  description: '',
+})
+console.log(form)
+const rules = reactive({
+  title: [
+    { required: true, message: '文章标题输入不能为空', trigger: 'blur' },
+    { min: 1, max: 20, message: '不能超过20个字！', trigger: 'blur' },
+  ],
+})
+//创建文章 //
+const submit = (formEl:FormInstance|undefined) => {
+  if(!formEl) return 
+  formEl.validate(async (valid) => {
+    if (valid) {
+      if (props.articleId) {
+        //编辑文章
+        await editArticle({ ...form, id: props.articleId, content: content.value,newDate: formatDate(Date.now())})
+        $router.push({
+          path:'/admin/article'
+        })
+        ElMessage({
+          message: '修改成功',
+          type: 'success'
+        })     
+        //新增
+      } else {
+        const  data  = await addArticle({ ...form, content: content.value, userId: 1, date: formatDate(Date.now()) })
+        ElMessage({
+          message: '新增成功',
+          type: 'success'
+        }) 
+      }
+
+    } else {
+      console.log("未通过")
+    }
+  })
+}
+
+//重置
+const reset = (formEl:FormInstance|undefined) => {
+  //编辑情况下是回到之前的内容
+  if(props.articleId){
+    showArticle()
+  }else{
+    formEl?.resetFields()
+  content.value = ''
+  }
+ 
+ 
+}
+
+
 </script>
 
 <style scoped lang="less">
-.content{
+.content {
   margin: 0 40px 0 20px;
-  width: calc(90%,-80px); 
-  .editor{
-  display: flex;
-  justify-content: space-between;
-  .neirong{
-    width: 50px;
-    margin-left: 18px;
-    color: #606266;
-        font-size: 14px;
+  width: calc(90%, -80px);
+
+  .editor {
+    display: flex;
+    justify-content: space-between;
+
+    .neirong {
+      width: 50px;
+      margin-left: 18px;
+      color: #606266;
+      font-size: 14px;
+    }
   }
-}
-  .button{
+
+  .button {
     margin-top: 30px;
     display: flex;
     justify-content: center;
   }
 }
-
-
 </style>

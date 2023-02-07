@@ -1,5 +1,7 @@
 import { Request,Response } from "express" //标注类型
 let db=require('../db/api')//数据库处理封装
+
+/*查找系列*/
 //获取文章分类
 exports.getSorts=(req:Request,res:Response)=>{
     db.dbQueryAll("sort",res)
@@ -7,6 +9,12 @@ exports.getSorts=(req:Request,res:Response)=>{
 // //获取某文章下的所有分类
 exports.getArticleSort=(req:Request,res:Response)=>{
     db.dbQueryById('sort','queryByArticleId',res,[req.body.id])
+}
+/*修改系列*/
+//修改文章的分类
+exports.editArticleSort=(req:Request,res:Response)=>{
+  [req.query.sortId,req.query.articleId,req.query.articleId]
+  db.dbUpdateById('sort','updateByArticleId',res,[req.query.sortId,req.query.articleId,req.query.articleId])
 }
 
 // //通过分页获取文章分类

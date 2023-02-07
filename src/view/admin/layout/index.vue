@@ -9,16 +9,9 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import myHeader from './components/myHeader.vue'
 import sidebar from './components/sidebar.vue'
-export default{
-    components:{
-        myHeader,
-        sidebar,
-    }
-
-}
 </script>
 <style scoped lang="less">
 .content-box{
