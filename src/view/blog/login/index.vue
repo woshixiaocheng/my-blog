@@ -59,6 +59,7 @@ import { register, getUser } from '@/api/user'
 import formatDate from '@/utils/formatDate'
 import { Login } from '@/utils/type'
 import { ElMessage } from 'element-plus'
+import { val } from 'dom7'
 
 const user = userStore()
 //注册编程式导航
@@ -77,12 +78,15 @@ const formLogin = reactive<Login>({
 //判断手机号是否注册
 const checkPhoneLogin = async function (rule: any, value: any, callback: any): Promise<any> {
   const result = await getUser()
-  result.forEach((item: any) => {
-    if (item.user_phone === value) {
-      return callback()
-    }
-    return callback(new Error('该手机号未注册！'))
-  })
+  console.log(result)
+ const data= result.every((item: any) =>item.user_phone!== value)
+ console.log(data)
+ if(data===false){//有一个值==value说明注册了
+    return callback()
+ }else{
+      return callback(new Error('该手机号未注册！'))
+ }
+  
 }
 //规则
 const loginrules = reactive({

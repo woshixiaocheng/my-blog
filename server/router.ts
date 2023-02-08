@@ -14,6 +14,7 @@ let daily=require('./api/daily')
 router.post('/login',user.login)//登录
 router.post('/register',user.register)//注册
 router.get('/user',user.getUser)//获取用户基本资料
+router.get('/userinfo',user.getUserInfo)//根据id获取用户基本信息
 //文章
 router.get('/article',article.getAll)//获取所有文章
 router.get('/article/assign',article.getAssignArticle)//根据特定id获取文章
@@ -25,12 +26,13 @@ router.post('/article/labelByPage',article.getLabelArticleByPage)//通过分页�
 router.post('/article/SLByPage',article.getSLArticleByPage)
 //分类
 router.get('/sort',sort.getSorts)//获取文章分类
+router.get('/sort/assign',sort.getAssignSort)//通过分类id获取分类详情
 router.post('/article/sort',sort.getArticleSort)//获取某文章的所有分类
-// router.get('/sort/page',article.getSortsByPage)//通过分页获取文章分类
+router.get('/sort/page',sort.getSortsByPage)//通过分页获取文章分类
 //标签
 router.get('/label',label.getLabels)//获取文章标签
 router.post('/article/label',label.getArticleLabel)//获取某文章的所有标签
-// router.get('/label/page',article.getLabelsByPage)//通过分页获取文章标签
+router.get('/label/page',label.getLabelsByPage)//通过分页获取文章标签
 // 日记
 router.get('/daily',daily.getDaily)//获取日记列表
 
@@ -39,18 +41,18 @@ router.get('/daily',daily.getDaily)//获取日记列表
 
 //删除系列
 router.get('/del/article',article.delArticle)
-// router.get('/del/sort',article.delSort)
-// router.get('del/label',article.delLabel)
+router.get('/del/sort',sort.delSort)
+router.get('/del/label',label.delLabel)
 
 //增加系列
 router.get('/add/article',article.addArticle)
-// router.get('/add/sort',article.addSort)
-// router.get('/add/label',article.addLabel)
+router.get('/add/sort',sort.addSort)
+router.get('/add/label',label.addLabel)
 
 // //修改系列
 router.get('/edit/article',article.editArticle)//修改某文章
-// router.get('/edit/sort',article.editSort)
-// router.get('/edit/label',article.editLabel)
+router.get('/edit/sort',sort.editSort)//修改某分类
+router.get('/edit/label',label.editLabel)
 router.get('/edit/articleLabel',label.editArticleLabel)//修改某文章的标签
 router.get('/edit/articleSort',sort.editArticleSort)//修改某文章的分类
 

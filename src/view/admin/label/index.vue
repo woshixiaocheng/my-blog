@@ -43,9 +43,9 @@
     </el-table-column>
   </el-table>
   <div class="pag">
-  <span class="total">共 {{total}} 条</span>
+  <span class="total">共 {{page.total}} 条</span>
   <el-pagination
-   layout="prev, pager, next" :total="total"
+   layout="prev, pager, next" :total="page.total"
   :current-page="page.page"
   :page-size="page.size"
   @current-change="changePage"
@@ -59,40 +59,35 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import {getLabels,getLabelsByPage,delLabel} from '@/api/article'
 import {ref} from 'vue'
 import AddLabel from './components/add-label.vue'
 import {ElMessageBox,ElMessage} from 'element-plus'
-export default{
-  components:{
-    AddLabel
-  },
-  setup(){
-    const showDialog=ref(false)
+
+    const showDialog=ref(false)//添加和修改窗口的显示隐藏
     const list=ref([])//标签数据
     const page=ref({
       page:1,//当前页码
       size:8,//每一页的条数
+      total:0
     })
-    const total=ref(0)//总条数
     //页面分页改变
-const changePage=(newPage)=>{
+const changePage=(newPage:number)=>{
   page.value.page=newPage
      showLabelsByPage()
 }
     //根据分页获取标签信息
     const showLabelsByPage=async()=>{
-      const data =await getLabelsByPage({page:page.value.page,size:page.value.size})
-      list.value=data.data
-      const data1=await getLabels()
-      total.value=data1.data.length
+      const {rows,total} =await getLabelsByPage({page:page.value.page,size:page.value.size})
+      list.value=rows
+      page.value.total=total
 
     }
     showLabelsByPage()
 
     //删除指定分类
-    const deleteLabel=(id)=>{
+    const deleteLabel=(id:number)=>{
       ElMessageBox.confirm('确认删除？',{ confirmButtonText: '确定',
           cancelButtonText: '取消',}).then(async()=>{
            const {data}= await delLabel({id:id})
@@ -111,23 +106,18 @@ const changePage=(newPage)=>{
         }).catch(()=>{
         })
     } 
-    const editContent=ref(0)//存储传入编辑的信息
+    const editContent=ref()//存储传入编辑的信息
     //新增窗口弹出
     const addDialog=()=>{
       editContent.value=null
       showDialog.value=true
     }
     //编辑窗口弹出
-    const editDialog=(row)=>{
+    const editDialog=(row:any)=>{
       editContent.value=row
     showDialog.value=true
 
     }
-
-
-    return {showDialog,list,page,total,changePage,deleteLabel,addDialog,editDialog,editContent,showLabelsByPage}
-  }
-}
 </script>
 
 <style scoped lang="less">

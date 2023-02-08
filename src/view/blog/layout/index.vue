@@ -33,7 +33,11 @@
       <template #title>
         <img src="@/assets/img/photo.jpeg" alt="" style="width:40px;border-radius:50%;">
       </template>
-      <el-menu-item index="/login">登录</el-menu-item>
+      <div>
+        <el-menu-item index="/login" v-if="!user.token">登录</el-menu-item>
+        <el-menu-item index="/login" v-else  @click="user.logout()">登出</el-menu-item>
+      </div>
+      <el-menu-item index="/admin" v-if="user.userInfo">去后台</el-menu-item>
     </el-sub-menu>
   </el-menu>
   </el-affix> 
@@ -43,7 +47,8 @@
 <script lang="ts" setup>
 import { ref,onMounted } from 'vue'
 import {useRouter} from 'vue-router'
-
+import {userStore} from '@/store/index'
+const user=userStore()
 const activeIndex = ref('/')//设置目前高亮的
 
 //导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式

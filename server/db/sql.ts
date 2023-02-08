@@ -1,6 +1,7 @@
 //对操作不同表的sql语句进行封装
 let user={
-    queryByPhone:"select * from users where user_phone=?"
+    queryByPhone:"select * from users where user_phone=?",
+    queryById:"select * from userpermissions where user_phone=?"
 }
 let article={
     queryAll:"select * from articles order by article_date desc",
@@ -22,13 +23,24 @@ let article={
 }
 let sort={
     queryAll:"select * from sorts",
+    queryById:"select * from sorts where sort_id=?",
     queryByArticleId:"select * from articlesort where article_id=?",
-    updateByArticleId:"update set_article_sort set sort_id=?,article_id=? where article_id=?"
+    updateByArticleId:"update set_article_sort set sort_id=?,article_id=? where article_id=?",
+    queryByPage:"select * from sorts limit ?,?",
+    queryCount:"select count(*) as total from sorts",
+    delById:"delete from sorts where sort_id=?",
+    insertAll:"insert into sorts (sort_name,sort_description) values (?,?)",
+    updateAll:"update sorts set sort_name=?,sort_description=? where sort_id=?"
 }
 let label={
     queryAll:"select * from labels",
     queryByArticleId:"select * from articlelabel where article_id=?",
-    updateByArticleId:"update set_article_label set label_id=?,article_id=? where article_id=?"
+    updateByArticleId:"update set_article_label set label_id=?,article_id=? where article_id=?",
+    queryByPage:"select * from labels limit ?,?",
+    queryCount:"select count(*) as total from labels",
+    delById:"delete from labels where label_id=?",
+    insertAll:"insert into labels (label_name,label_description) values (?,?)",
+    updateAll:"update labels set label_name=?,label_description=? where label_id=?"
 }
 let daily={
     queryAll:"select * from dailys"

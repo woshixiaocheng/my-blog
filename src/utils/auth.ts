@@ -25,6 +25,10 @@ export function getTimeStamp(){
     return Cookies.get(timeKey)
 }
 
+export function removeTimeStamp(){
+    return Cookies.remove(timeKey)
+}
+
 //设置时间戳
 export function setTimeStamp(){
     console.log('11')

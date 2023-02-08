@@ -82,12 +82,13 @@ import { useRouter } from 'vue-router'
 import EditSortLabel from './components/edit-sort-label.vue'
 import { ArticleList, Page,sorts,labels} from '@/utils/type'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import {getUserInfo} from '@/api/user'
 const $router = useRouter()
 const list = ref<ArticleList[]>([])//存储文章数据
 const sortValue = ref<number>(0)//绑定分类的select
 const labelValue = ref<number>(0)//绑定标签的select
 const page = ref<Page>({
-  size: 1,//一页显示的条数
+  size: 8,//一页显示的条数
   page: 1,//当前页码
   total: 0//总数
 })
@@ -141,7 +142,11 @@ const showArticle=()=>{
   showSLArticle()
 }
 }
-
+const getUser1=async()=>{
+const data=await getUserInfo()
+console.log(data)
+}
+getUser1()
 //四种情况，都没选，选中分类，选中标签，两者都满足来渲染列表
 //page在里面使用了所以也被监听了，当page变化也会触发
 watchEffect(async()=>{

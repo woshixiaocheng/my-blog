@@ -107,17 +107,11 @@ import { ref,defineAsyncComponent } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
 import type { articles,sorts,labels } from '@/utils/type'
-import {login} from '@/api/user'
 const ArticleItem=defineAsyncComponent(()=>import('@/components/article-item/index.vue'))
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {
     window.scrollTo(0, 760)
 }
-const login1=async()=>{
-   let result= await login({phone:'13537311172',password:"123456"})
-   console.log(result)
-}
-login1()
 //展示文章
 const articleList= ref<articles[]>([])
 const showArticle1 = async () => {

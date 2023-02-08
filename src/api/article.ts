@@ -110,6 +110,14 @@ export function getArticleSort(data:Object){
         data
     })
 }
+//根据id查找分类
+export function getAssignSort(params:Object){
+    return request({
+        method:'GET',
+        url:'/sort/assign',
+        params
+    })
+}
 
 //获取某文章的所有标签
 export function getArticleLabel(data:Object){

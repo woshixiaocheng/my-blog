@@ -1,4 +1,4 @@
-import { query, Request,Response } from "express" //标注类型
+import {  Request,Response } from "express" //标注类型
 import commonRes from "../utils/commonRes"
 let db=require('../db/api')//数据库处理封装
 let conn=require('../db/index')
@@ -73,24 +73,6 @@ exports.editArticle=(req:Request,res:Response)=>{
   db.dbUpdateById('article','updateAll',res,[req.query.title,req.query.description,req.query.content,req.query.newDate,req.query.id])
 }
 
-// //删除指定标签
-// exports.delLabel=(req:Request,res)=>{
-//     var id=Number(req.query.id)
- 
-//     if(id===1||id===2){
-//         console.log(id)
-//         res.send({code:0,message:'不能删除该数据！'})
-//     }else{
-//          var sql='delete from labels where label_id=?'
-// conn.query(sql,[id],(err)=>{
-//     if(err){
-//         throw err
-//     }
-//     res.send({status:200,message:'删除成功'})
-// })
-//     }
-   
-// }
 
 
 // //增加系列
@@ -99,35 +81,4 @@ exports.addArticle=(req:Request,res:Response)=>{
   
   db.dbInsertAll('article',res,[req.query.title,req.query.description,req.query.content,req.query.userId,req.query.date])
 }
-
-
-
-// //增加标签
-// exports.addLabel=(req:Request,res)=>{
-//     var sql='insert into labels (label_name,label_description) values (?,?)'
-// conn.query(sql,[req.query.name,req.query.description],(err)=>{
-//     if(err){
-//         throw err 
-//     }
-//     res.send({status:200,message:'添加成功'})
-// })
-// }
-
-
-
-
-// //修改标签
-// exports.editLabel=(req:Request,res)=>{
-//     var sql='update labels set label_name=?,label_description=? where label_id=?'
-//     conn.query(sql,[req.query.name,req.query.description,req.query.id],(err,data)=>{
-//         if(err){
-//             throw err 
-//         }
-//         res.send({status:200,message:'修改成功'})
-//     })
-// }
-
-
-
-
 export{}

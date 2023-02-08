@@ -40,7 +40,6 @@ let dbQueryByPage=(table:string,key:string,count:string,req:Request,res:Response
     let size=(req as any).body.size||8
     let first=(page-1)*size
     let total:any
-
     if((req as any).body.id){
         db.query(sql[table][count],[(req as any).body.id],(err:any,data:any)=>{
             total=JSON.parse(JSON.stringify(data))[0]
@@ -75,7 +74,7 @@ let dbDelById=(table:string,res:Response,req?:Object)=>{
 let dbUpdateById=(table:string,key:string,res:Response,req:Object)=>{
     db.getConnection((err:any,conn:any)=>{
         conn.query(sql[table][key],req,(err:any,data:object)=>{
-            commonRes(res,data)
+            commonRes(res,{...data,message:'修改成功！'})
             conn.release()
     })
     })
@@ -85,7 +84,7 @@ let dbUpdateById=(table:string,key:string,res:Response,req:Object)=>{
 let dbInsertAll=(table:string,res:Response,req:Object)=>{
     db.getConnection((err:any,conn:any)=>{
         conn.query(sql[table].insertAll,req,(err:any,data:object)=>{
-            commonRes(res,data)
+            commonRes(res,{...data,message:'增加成功！'})
             conn.release()
     })
     })

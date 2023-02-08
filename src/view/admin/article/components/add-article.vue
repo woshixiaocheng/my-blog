@@ -92,9 +92,11 @@ const submit = (formEl:FormInstance|undefined) => {
           type: 'success'
         }) 
       }
-
     } else {
-      console.log("未通过")
+      ElMessage({
+          message: '失败',
+          type: 'info'
+        })
     }
   })
 }

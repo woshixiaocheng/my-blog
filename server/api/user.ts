@@ -1,4 +1,5 @@
- let db=require('../db/index')
+ let conn=require('../db/index')
+ let db=require('../db/api')
 import { Request,Response } from "express" //标注类型
 import commonRes from "../utils/commonRes"
 let jwt=require('jsonwebtoken')//处理token的
@@ -6,7 +7,7 @@ import {signStr} from '../app'
 //用户登录判断
 exports.login=(req:Request,res:Response)=>{
     let user=req.body
-    db.query("select * from users where user_phone=?",[user.phone],(err:any,results:any)=>{
+    conn.query("select * from users where user_phone=?",[user.phone],(err:any,results:any)=>{
         if(err){
             throw err
         }
@@ -21,7 +22,7 @@ exports.login=(req:Request,res:Response)=>{
                 //规则 加密名字（签名的任意字符串） 
                 //expiresIn加密的时间 
                 const tokenStr=jwt.sign(rule,signStr,{expiresIn:3600})
-                commonRes(res,{token:tokenStr},{message:'登陆成功！'})
+                commonRes(res,{token:tokenStr,phone:user.phone},{message:'登陆成功！'})
             }else{
                 commonRes.error(res,'paramError',undefined,"密码或手机号错误！")
             }
@@ -33,7 +34,7 @@ exports.login=(req:Request,res:Response)=>{
 exports.register=(req:Request,res:Response)=>{
     let user=req.body
         // 要先判断有没有之前已经出现手机号的才能注册吧
-    db.query("select * from users where user_phone=?",[user.phone],(err:any,results:any)=>{
+    conn.query("select * from users where user_phone=?",[user.phone],(err:any,results:any)=>{
         if(err){
             throw err
         }
@@ -43,18 +44,23 @@ exports.register=(req:Request,res:Response)=>{
         }
     })
     const sql=`insert into users (user_name,user_phone,user_password,user_registration_time) values (?,?,?,?)`
-    db.query(sql,[user.name,user.phone,user.password,user.createTime],(err:any,data:any)=>{
+    conn.query(sql,[user.name,user.phone,user.password,user.createTime],(err:any,data:any)=>{
         if(err){
             throw err
         }
         commonRes(res,data)
     })
 }
-//获取用户信息
+//获取用户信息列表
 exports.getUser=(req:Request,res:Response)=>{
+
     var sql="select user_id,user_name,user_phone,user_photo,user_registration_time from users"
-    db.query(sql,(err:any,data:any)=>{
+    conn.query(sql,(err:any,data:any)=>{
         commonRes(res,data)
     })
+}
+//根据用户id获取用户信息
+exports.getUserInfo=(req:Request,res:Response)=>{
+    db.dbQueryById('user','queryById',res,[req.query.phone])
 }
 export{}
