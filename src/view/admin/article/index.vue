@@ -69,7 +69,7 @@
           @current-change="changePage" />
       </div>
     </el-card>
-    <EditSortLabel v-model:showDialog="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="showArticle">
+    <EditSortLabel v-model="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="showArticle">
     </EditSortLabel>
   </div>
 </template>
@@ -142,11 +142,7 @@ const showArticle=()=>{
   showSLArticle()
 }
 }
-const getUser1=async()=>{
-const data=await getUserInfo()
-console.log(data)
-}
-getUser1()
+
 //四种情况，都没选，选中分类，选中标签，两者都满足来渲染列表
 //page在里面使用了所以也被监听了，当page变化也会触发
 watchEffect(async()=>{

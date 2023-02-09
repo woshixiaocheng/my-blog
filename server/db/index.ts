@@ -4,7 +4,8 @@ let db=mysql.createPool({
     user:'root',//数据库登录账号
     password:'123456',//密码
     port:'3306',
-    database:'blog'//要操作的数据库
+    database:'blog',//要操作的数据库
+    charset:'utf8mb4'
 })
 module.exports=db
 export{}

@@ -4,10 +4,10 @@
         <div class="main">
             <!-- 制作时间轴 -->
             <div class="wrap">
-                <div class="box" v-for="item in dailyList" :key="item.daily_id">
+                <div class="box" v-for="(item,index) in dailyList" :key="item.daily_id">
                     <div class="left">
-                        <div v-if="item.daily_id%2===0">
-                            <div class="content">{{ item.daily_content }}</div>
+                        <div v-if="index%2!==0">
+                            <div class="content" v-html="item.daily_content"></div>
                         <div class="time">{{ formatDate(item.daily_date) }}</div>
                         </div>
                        
@@ -16,8 +16,8 @@
                         <div></div>
                     </div>
                     <div class="right" >
-                        <div v-if="item.daily_id%2!==0">
-                            <div class="content">{{ item.daily_content }}</div>
+                        <div v-if="index%2===0">
+                            <div class="content" v-html="item.daily_content"></div>
                         <div class="time">{{ formatDate(item.daily_date) }}</div>
                         </div>
                         
@@ -43,7 +43,7 @@ const banner = reactive<Banner>({
 const dailyList = ref<Daily[]>([])
 //获取日记信息展示
 const showDaily = async () => {
-    dailyList.value = await getDaily()   
+    dailyList.value = await getDaily() 
 }
 showDaily()
 

@@ -25,11 +25,13 @@
           <el-icon><Paperclip /></el-icon>
           <span>标签管理</span>
         </el-menu-item>
+        <el-menu-item index="/admin/daily">
+          <el-icon><Paperclip /></el-icon>
+          <span>日记管理</span>
+        </el-menu-item>
       </el-menu>
   </div>
 </template>
-<script setup lang="ts">
-</script>
 <style scoped>
   .sidebar {
     position: absolute;

@@ -5,13 +5,14 @@
     class="el-menu-demo"
     mode="horizontal"
     :ellipsis="false"
+    router
   >
     <el-menu-item index="0" class="logo">后台管理</el-menu-item>
     <div class="flex-grow" />
-    <el-sub-menu index="2">
+    <el-sub-menu router>
       <template #title>头像</template>
       <el-menu-item index="2-1">退出</el-menu-item>
-      <el-menu-item index="2-2">返回前台</el-menu-item>
+      <el-menu-item index="/">返回前台</el-menu-item>
     </el-sub-menu>
   </el-menu>
   </div>

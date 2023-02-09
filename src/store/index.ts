@@ -18,8 +18,8 @@ export const userStore=defineStore('user',{
             token:getToken()||null,
             phone:JSON.parse(localStorage.getItem('userPhone') as string),//缓存本地为了让刷新页面不丢失
             userInfo:JSON.parse(localStorage.getItem('userInfo') as string) ||'1',
-            routes:constantRoutes// 所有人默认有静态路由
-        }
+            routes: constantRoutes,// 所有人默认有静态路由
+                   }
     },
     actions:{
         //登录写在这
@@ -63,7 +63,7 @@ export const userStore=defineStore('user',{
       routes.push(...data)
     })
     this.routes=[...constantRoutes,...routes]
-    localStorage.setItem('routes',JSON.stringify(routes) )
+    // localStorage.setItem('routes',JSON.stringify(routes) )
     return routes// 这里是为了路由addRoutes
   }
     }

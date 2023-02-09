@@ -4,6 +4,7 @@ import { defineAsyncComponent } from 'vue'
 
 //引入要和路由关联的组件们
 import Layout from '@/view/blog/layout/index.vue'
+import Layout2 from '../view/admin/layout/index.vue'
 //路由规则
 export const constantRoutes:RouteRecordRaw[]=[
     //静态路由是都可以访问的内容(博客网页的全部)
@@ -71,33 +72,43 @@ export const asyncRoutes:RouteRecordRaw[]=[
 {
     path:'/admin',
     name:'管理',
-    redirect:'/admin',
-    component:defineAsyncComponent(()=>import('@/view/admin/layout/index.vue')),
+    // redirect:'/admin',
+    component:Layout2,
     children:[{
-        path:'/admin1',
+        path:'',
         name:'main',
-        component:defineAsyncComponent(()=>import('@/view/admin/main/index.vue'))
+        component:()=>import('../view/admin/main/index.vue')
     },{
-        path:'/admin/user',
+        path:'user',
         name:'user',
-        component:defineAsyncComponent(()=>import('@/view/admin/user/index.vue'))
+        component:()=>import('../view/admin/user/index.vue')
     },{
-        path:'/admin/sort',
+        path:'sort',
         name:'sort',
-        component:defineAsyncComponent(()=>import('@/view/admin/sort/index.vue'))
+        component:()=>import('../view/admin/sort/index.vue')
     },{
-        path:'/admin/label',
+        path:'label',
         name:'label',
-        component:defineAsyncComponent(()=>import('@/view/admin/label/index.vue'))
+        component:()=>import('../view/admin/label/index.vue')
     },{
-        path:'/admin/article',
+        path:'article',
         name:'adminArticle',
-        component:defineAsyncComponent(()=>import('@/view/admin/article/index.vue'))
+        component:()=>import('../view/admin/article/index.vue')
     },
     {
-        path:'/admin/doArticle',
+        path:'doArticle',
         name:'adminDoArticle',
-        component:defineAsyncComponent(()=>import('@/view/admin/article/detail.vue'))
+        component:()=>import('../view/admin/article/detail.vue')
+    },
+    {
+        path:'daily',
+        name:'adminDaily',
+        component:()=>import('../view/admin/daily/index.vue')
+    },
+    {
+        path:'doDaily',
+        name:'adminDoDaily',
+        component:()=>import('../view/admin/daily/add-daily.vue')
     },
 ]
 }
@@ -121,11 +132,49 @@ router.afterEach(()=>{
     window.scrollTo(0,0)//跳转后自动返回页面顶部
 })
 
-if(!router.hasRoute('管理')){
+if(!router.hasRoute('tempRoute')){
 router.addRoute({
-    path:window.location.pathname,
+    path:'/admin',
     name:'tempRoute',
-    component:()=>import('@/view/admin/layout/index.vue')
+    component:Layout2,
+    children:[{
+        path:'',
+        name:'main',
+        component:()=>import('../view/admin/main/index.vue')
+    },{
+        path:'user',
+        name:'user',
+        component:()=>import('../view/admin/user/index.vue')
+    },{
+        path:'sort',
+        name:'sort',
+        component:()=>import('../view/admin/sort/index.vue')
+    },{
+        path:'label',
+        name:'label',
+        component:()=>import('../view/admin/label/index.vue')
+    },
+    {
+        path:'daily',
+        name:'adminDaily',
+        component:()=>import('../view/admin/daily/index.vue')
+    },
+    {
+        path:'doDaily',
+        name:'adminDoDaily',
+        component:()=>import('../view/admin/daily/add-daily.vue')
+    },
+    {
+        path:'article',
+        name:'adminArticle',
+        component:()=>import('../view/admin/article/index.vue')
+    },
+    {
+        path:'doArticle',
+        name:'adminDoArticle',
+        component:()=>import('../view/admin/article/detail.vue')
+    },
+]
 })
 }
 export default router

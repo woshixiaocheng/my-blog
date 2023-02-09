@@ -1,3 +1,5 @@
+import { da, ro } from "element-plus/es/locale"
+
 //配置对应路由
 let express=require('express')
 let router=express.Router()
@@ -35,7 +37,8 @@ router.post('/article/label',label.getArticleLabel)//获取某文章的所有标
 router.get('/label/page',label.getLabelsByPage)//通过分页获取文章标签
 // 日记
 router.get('/daily',daily.getDaily)//获取日记列表
-
+router.get('/daily/page',daily.getDailyByPage)//按照分页获取日记列表
+router.get('/daily/assign',daily.getAssignDaily)//根据id获取日记
 
 // router.post('/article/user',article.getArticleUser)//获取文章的用户信息
 
@@ -43,11 +46,13 @@ router.get('/daily',daily.getDaily)//获取日记列表
 router.get('/del/article',article.delArticle)
 router.get('/del/sort',sort.delSort)
 router.get('/del/label',label.delLabel)
+router.get('/del/daily',daily.delDaily)
 
 //增加系列
 router.get('/add/article',article.addArticle)
 router.get('/add/sort',sort.addSort)
 router.get('/add/label',label.addLabel)
+router.get('/add/daily',daily.addDaily)
 
 // //修改系列
 router.get('/edit/article',article.editArticle)//修改某文章
@@ -55,6 +60,7 @@ router.get('/edit/sort',sort.editSort)//修改某分类
 router.get('/edit/label',label.editLabel)
 router.get('/edit/articleLabel',label.editArticleLabel)//修改某文章的标签
 router.get('/edit/articleSort',sort.editArticleSort)//修改某文章的分类
+router.get('/edit/daily',daily.editDaily)
 
 
 

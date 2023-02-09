@@ -43,7 +43,13 @@ let label={
     updateAll:"update labels set label_name=?,label_description=? where label_id=?"
 }
 let daily={
-    queryAll:"select * from dailys"
+    queryAll:"select * from dailys order by daily_id desc",
+    queryByPage:"select * from dailys limit ?,?",
+    queryCount:"select count(*) as total from dailys",
+    delById:"delete from dailys where daily_id=?",
+    insertAll:"insert into dailys (daily_content,daily_date) values (?,?)",
+    updateAll:"update dailys set daily_content=?,daily_date=? where daily_id=?",
+    queryById:"select * from dailys where daily_id=?"
 }
 module.exports={
     article,

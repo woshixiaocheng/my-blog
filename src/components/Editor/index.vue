@@ -15,7 +15,8 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 const props=defineProps({
     content:{
         default:''
-    }
+    },
+
 })
 //子传父把valueHtml传给父处理
 const emit=defineEmits(['update'])
