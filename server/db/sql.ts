@@ -43,7 +43,7 @@ let label={
     updateAll:"update labels set label_name=?,label_description=? where label_id=?"
 }
 let daily={
-    queryAll:"select * from dailys order by daily_id desc",
+    queryAll:"select * from dailys order by daily_date desc",
     queryByPage:"select * from dailys limit ?,?",
     queryCount:"select count(*) as total from dailys",
     delById:"delete from dailys where daily_id=?",

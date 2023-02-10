@@ -25,7 +25,13 @@
         <div v-html="row.daily_content"></div>
       </template>
     </el-table-column>
-
+    <el-table-column
+      label="发布时间" align="center"
+      width="120">
+      <template #default="{row}" >
+        {{ formatDate(row.daily_date) }}
+      </template>
+      </el-table-column>
     <el-table-column
       fixed="right"
       align="center"
@@ -53,7 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import { getDailyByPage,delDaily,addDaily,editDaily } from '@/api/daily';
+import { getDailyByPage,delDaily } from '@/api/daily';
+import formatDate from '@/utils/formatDate';
 import {ref} from 'vue'
 import AddDaily from './add-daily.vue'
 import {ElMessageBox,ElMessage} from 'element-plus'

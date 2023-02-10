@@ -5,7 +5,7 @@
             <!-- 制作时间轴 -->
             <div class="wrap">
                 <div class="box" v-for="(item,index) in dailyList" :key="item.daily_id">
-                    <div class="left">
+                    <div class="left" >
                         <div v-if="index%2!==0">
                             <div class="content" v-html="item.daily_content"></div>
                         <div class="time">{{ formatDate(item.daily_date) }}</div>
@@ -53,8 +53,10 @@ showDaily()
 .main {
     display: flex;
     justify-content: center;
-    height: 1000px;
+    // height: 1000px;
+    margin-bottom:100px;
     background-color: #fff;
+    overflow: hidden;
 }
 
 .wrap {
@@ -62,7 +64,7 @@ showDaily()
     position: relative;
     top: 100px;
     z-index: 999;
-    // margin: 0 auto;
+    margin-bottom:100px;
 }
 
 //写中间的线
@@ -72,7 +74,7 @@ showDaily()
     position: absolute;
     top: -100px;
     left: 50%; //会放到页面中心
-    height: 100%;
+    height: 120%;
     width: 5px;
     background-color: rgba(164, 164, 164, 0.557);
     z-index: -1;
@@ -81,7 +83,7 @@ showDaily()
 //盒子
 .box {
     width: 100%;
-    margin-bottom: 80px;
+    // margin-bottom: 80px;
     display: flex;
     justify-content: center;
 
@@ -105,6 +107,7 @@ showDaily()
         max-width: 400px;
         min-width: 250px;
         border-radius: 10px;
+        transition: 0.1s all;
 
         .content {
             padding: 15px;
