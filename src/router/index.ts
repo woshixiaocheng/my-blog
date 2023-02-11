@@ -79,10 +79,6 @@ export const asyncRoutes:RouteRecordRaw[]=[
         name:'main',
         component:()=>import('../view/admin/main/index.vue')
     },{
-        path:'user',
-        name:'user',
-        component:()=>import('../view/admin/user/index.vue')
-    },{
         path:'sort',
         name:'sort',
         component:()=>import('../view/admin/sort/index.vue')
@@ -113,7 +109,11 @@ export const asyncRoutes:RouteRecordRaw[]=[
 ]
 }
 ]
-
+// {
+//     path:'user',
+//     name:'user',
+//     component:()=>import('../view/admin/user/index.vue')
+// },
 //生成路由对象，写法和vue2不同的是，vue2用的是 new VueROUter，引入也是vueRouter
 const router=createRouter({
     history:createWebHistory(),//用这个来配置路由模式
@@ -141,10 +141,6 @@ router.addRoute({
         path:'',
         name:'main',
         component:()=>import('../view/admin/main/index.vue')
-    },{
-        path:'user',
-        name:'user',
-        component:()=>import('../view/admin/user/index.vue')
     },{
         path:'sort',
         name:'sort',

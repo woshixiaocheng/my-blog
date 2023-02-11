@@ -1,10 +1,26 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path';
+import Components from 'unplugin-vue-components/vite' // 按需加载自定义组件
+import { ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+
 const resolve = (dir: string) => path.join(__dirname, dir);
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  esbuild:{
+//打包时去除console
+drop:["console"]
+  },
+  plugins: [vue(), // 按需引入
+  Components({
+    dts: true,
+    dirs: ['src'], // 按需加载的文件夹
+    resolvers: [
+        ElementPlusResolver(),  //   按需加载
+
+    ]
+  })
+],
   resolve: {
     alias: {
       "@": resolve("src"),

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video src="@/assets/video/bg.mp4" class="bg" muted loop autoplay></video>
+    <!-- <video src="@/assets/video/bg.mp4" class="bg" muted loop autoplay></video> -->
     <div class="main">
       <div class="login left" :class="{ loginChange: !isLogin }">
         <div class="title">登录</div>

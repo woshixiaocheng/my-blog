@@ -5,6 +5,8 @@ let  { expressjwt } = require("express-jwt");
 let cors=require('cors')//处理跨域问题
 let bodyParser = require('body-parser')//解析中间件为了能用到res.body
 let router=require('./router')
+// 托管静态资源
+app.use(express.static('./dist'))
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());  //配置解析，用于解析json和urlencoded格式的数据
 export const signStr='lalala'//密钥
@@ -18,7 +20,7 @@ app.use(
 app.use(cors())
 app.use(router)//配置路由
 //指定端口号并启动服务器
-app.listen(3000,()=>{
+app.listen(3088,()=>{
 console.log('run111')
 })
 export{}
