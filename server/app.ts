@@ -20,7 +20,7 @@ app.use(
 app.use(cors())
 app.use(router)//配置路由
 //指定端口号并启动服务器
-app.listen(3088,()=>{
+app.listen(3000,()=>{
 console.log('run111')
 })
 export{}

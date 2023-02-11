@@ -13,7 +13,8 @@ function isCheckTimeOut(){
 }
 let user:any=null
 const service=(axios as any).create({
-    baseURL:'http://127.0.0.1:3000',
+  baseURL:'http://localhost:3088',
+    // baseURL:'http://47.97.125.199:3088',
     timeout: 5000,//获取请求的最大时间，大于5秒就报超时
     headers: {
         'Content-Type': 'application/json; charset=utf-8'

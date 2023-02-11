@@ -1,10 +1,16 @@
 {
-    "extends": "../tsconfig.json", // 继承根目录的tsconfig，别写错了
-    "compilerOptions": {
-      "outDir": "../build", // 编译后的js文件地址
-      "moduleResolution": "node", // 模块解析策略
-      "esModuleInterop": true // 支持按照es6模块规范导入commonjs模块
-    },
-    "include": ["./*.ts"], // 包含的文件
-    "exclude": ["../node_modules"] // 不包含的文件
-  }
+  "compilerOptions": {
+    "outDir": "../build", // 编译后的js文件地址
+    "esModuleInterop": true, // 支持按照es6模块规范导入commonjs模块
+    "module": "CommonJS",
+      "target": "ES2019",//指定编译的js脚本
+  "useDefineForClassFields": true,
+   "moduleResolution": "node",//相对导入
+       "resolveJsonModule": true,
+  "isolatedModules": true,//开启后会强制要求开发者保持模块的隔离性
+    "lib": ["ES2019", "DOM","DOM.Iterable"],
+  },
+  "include": ["./*.ts","./tsconfig.json"], // 包含的文件
+  "exclude": ["../node_modules",""] // 不包含的文件
+}
+

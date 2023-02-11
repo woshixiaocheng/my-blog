@@ -37,12 +37,14 @@ let sortId = ref<number>(0)//获取分类id//设置为0其实是undefined
 let labelId = ref<number>(0)//获取标签id
 let articleList = ref<articleSort[]|articleLabel[]>([])
 //当路由参数变化时页面数据无法更新时
-watchEffect(() => {
-    sortId.value = route.query.sort_id as any
+
+const stop=watchEffect(async() => {
+    sortId.value =route.query.sort_id as any
     labelId.value = route.query.label_id as any
+   
     //分类的
     if (sortId.value !== undefined) {
-         getSortArticle({ id: sortId.value }).then((res:any)=>articleList.value=res)
+         await getSortArticle({ id: sortId.value }).then((res:any)=>articleList.value=res)
        if(articleList.value.length<=0){
            banner.title = '此分类暂无文章'
         //    banner.content = '快催博主写文章！'
@@ -53,13 +55,12 @@ watchEffect(() => {
     }   
     //获取标签
     if (labelId.value !== undefined) {
-         getLabelArticle({ id: labelId.value }).then((res:any) => {
+          await getLabelArticle({ id: labelId.value }).then((res:any) => {
             articleList.value = res
-            // banner.title = articleList.value[0].label_name
-            // banner.content = articleList.value[0].label_description
         })
     }
 })
+
 </script>
 <style scoped lang="less">
 .main {
