@@ -6,7 +6,7 @@ let user:any=null
 import NProgress from 'nprogress' // 这个是进度条插件
 import 'nprogress/nprogress.css' // 进度条插件的样式
 // 定义白名单
-const whiteList = ['/login','/','/daily','/article','/classify']
+const whiteList = ['/login','/','/daily','/article','/classify','/articledetail']
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
     // console.log(router.getRoutes())
@@ -17,7 +17,6 @@ router.beforeEach(async(to, from, next) => {
 
   if (user.token) {
     if (to.path === '/login') {
-        // console.log('1')
       next('/')
     } else if(to.path==='/admin'){
         //userInfo里没有内容的时候会进来

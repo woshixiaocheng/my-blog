@@ -6,16 +6,20 @@
             <div class="wrap">
                 <div class="box" v-for="(item,index) in dailyList" :key="item.daily_id">
                     <div class="left" >
+                        <div v-if="index%2!==0" class="center">
+                        <div></div>
+                    </div>
                         <div v-if="index%2!==0">
                             <div class="content" v-html="item.daily_content"></div>
                         <div class="time">{{ formatDate(item.daily_date) }}</div>
                         </div>
-                       
+
                     </div>
-                    <div class="center">
-                        <div></div>
-                    </div>
+                   
                     <div class="right" >
+                        <div v-if="index%2==0" class="center">
+                        <div></div>
+                        </div>
                         <div v-if="index%2===0">
                             <div class="content" v-html="item.daily_content"></div>
                         <div class="time">{{ formatDate(item.daily_date) }}</div>
@@ -32,7 +36,7 @@
 
 <script lang="ts" setup>
 import BannerShow from '@/components/banner/index.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref ,onMounted} from 'vue'
 import { getDaily } from '@/api/daily'
 import formatDate from '@/utils/formatDate'
 import { Banner, Daily } from '@/utils/type'
@@ -46,57 +50,60 @@ const showDaily = async () => {
     dailyList.value = await getDaily() 
 }
 showDaily()
+onMounted(()=>{
+   console.log(document.body.clientWidth)
+   //临界点是660px
+})
 
 </script>
 
 <style scoped lang="less">
+
 .main {
     display: flex;
     justify-content: center;
-    // height: 1000px;
     margin-bottom:100px;
     background-color: #fff;
     overflow: hidden;
 }
-
 .wrap {
     width: 80%;
     position: relative;
     top: 100px;
     z-index: 999;
     margin-bottom:100px;
-}
-
-//写中间的线
-//想要伪元素能随心所欲移动，先给父元素个相对定位
-.wrap::after {
+    &::after {
     content: ''; //必须设置这个属性才生效
     position: absolute;
     top: -100px;
-    left: 50%; //会放到页面中心
     height: 120%;
     width: 5px;
     background-color: rgba(164, 164, 164, 0.557);
     z-index: -1;
 }
-
-//盒子
 .box {
     width: 100%;
-    // margin-bottom: 80px;
     display: flex;
-    justify-content: center;
-
     .center {
+        position: absolute;
+        top: 10px;
         div {
-            margin-top: 30px;
-            margin-left: 5px;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             border: 5px solid rgb(91, 70, 209);
             background-color: #fff;
         }
+    }
+    .left .center{
+      
+        right: -50px;
+        transform: translateX(50%);
+    }
+    .right .center{
+        position: absolute;
+        left: -50px;
+        transform: translateX(-50%);
     }
 
     .left,
@@ -145,7 +152,7 @@ showDaily()
         width: 0;
         height: 0;
         left: 100%;
-        top: 20%;
+        top: 10px;
         border: 10px solid transparent;
     }
 
@@ -155,7 +162,7 @@ showDaily()
         width: 0;
         height: 0;
         right: 100%;
-        top: 20%;
+        top: 10px;
         border: 10px solid transparent;
     }
 
@@ -175,9 +182,36 @@ showDaily()
         border-left-color: var(--colorful4);
     }
 }
-
-//可见性
-.show {
-    visibility: hidden;
 }
+@media screen and (min-width: 660px) {
+//写中间的线
+.wrap::after {
+    left: 50%; //会放到页面中心
+    transform: translateX(-50%);
+}
+//盒子
+.box {
+    justify-content: center;
+}
+}
+@media screen and(max-width:660px) {
+    //写中间的线
+.wrap::after {
+    left: 0; //会放到页面中心
+    transform: translateX(-50%);
+}
+.box{
+    margin-bottom: 20px;
+    &:nth-child(odd) .left {
+  display: none;
+    }
+    &:nth-child(even) .right {
+  display: none;
+    }
+    &:nth-child(even){
+        justify-content: flex-end;
+    }
+}
+}
+
 </style>

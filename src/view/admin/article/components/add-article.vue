@@ -8,14 +8,11 @@
       <el-form-item prop="description" label="摘要">
         <el-input placeholder="文章摘要" v-model="form.description" style="height:40px"></el-input>
       </el-form-item>
-
-
-
     </el-form>
-    <!-- 富文本编辑器 -->
+        <!-- md编辑器 -->
     <div class="editor">
       <div class="neirong">内容</div>
-     <Editor :content="content" @update="updateContent"></Editor>
+      <v-md-editor v-model="content" height="400px"></v-md-editor>
     </div>
     <div class="button">
       <el-button type="primary" @click="submit(articleForm)">提交</el-button>
@@ -29,20 +26,17 @@ import { ref, reactive, defineProps,watchEffect} from 'vue'
 import { addArticle,getAssignArticle, editArticle } from '@/api/article'
 import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
-import Editor from '@/components/Editor/index.vue'
 import { ElMessage, FormInstance } from 'element-plus'
+import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
 
 const props = defineProps<{
   articleId?: number
 }>()
 const $router = useRouter()
 const articleForm = ref<FormInstance>()
-const content=ref()//富文本编辑器的内容
+const content=ref('')//富文本编辑器的内容
+const htmlContent=ref()//html的内容
 
-//同步content内容
-const updateContent=(html:any)=>{
-  content.value=html
-}
 //编辑文章的内容展示
 const showArticle = async () => {
   const  data  = await getAssignArticle({ id: props.articleId })
@@ -62,7 +56,6 @@ const form = reactive({
   title: '',
   description: '',
 })
-console.log(form)
 const rules = reactive({
   title: [
     { required: true, message: '文章标题输入不能为空', trigger: 'blur' },
@@ -74,9 +67,10 @@ const submit = (formEl:FormInstance|undefined) => {
   if(!formEl) return 
   formEl.validate(async (valid) => {
     if (valid) {
+      htmlContent.value = xss.process(VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(content.value));//把content变成html格式的
       if (props.articleId) {
         //编辑文章
-        await editArticle({ ...form, id: props.articleId, content: content.value,newDate: formatDate(Date.now())})
+        await editArticle({ ...form, id: props.articleId, content: htmlContent.value,newDate: formatDate(Date.now())})
         $router.push({
           path:'/admin/article'
         })
@@ -86,7 +80,7 @@ const submit = (formEl:FormInstance|undefined) => {
         })     
         //新增
       } else {
-        const  data  = await addArticle({ ...form, content: content.value, userId: 1, date: formatDate(Date.now()) })
+        await addArticle({ ...form, content: htmlContent.value, userId: 1, date: formatDate(Date.now()) })
         ElMessage({
           message: '新增成功',
           type: 'success'
@@ -109,6 +103,7 @@ const reset = (formEl:FormInstance|undefined) => {
   }else{
     formEl?.resetFields()
   content.value = ''
+  htmlContent.value=''
   }
  
  

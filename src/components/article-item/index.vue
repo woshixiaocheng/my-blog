@@ -2,7 +2,7 @@
 <template>
     <!-- 文章条 -->
     <div class="box">
-        <el-card class="article-item" ref="articleItem">
+        <el-card class="article-item" ref="articleItem" @click="goDetail">
               <!-- 图片 -->
               <div class="image">
                 <img src="@/assets/img/banner.jpg" alt="">
@@ -23,10 +23,10 @@
                 <div class="content" v-html="article[0].article_content"></div>
                 <ul class="signal">
                     <!-- 文件分类 -->
-                            <li v-for="item in sortList" :key="item.sort_id" @click="goSortArticle(item.sort_id)"><img
+                            <li v-for="item in sortList" :key="item.sort_id" @click.stop="goSortArticle(item.sort_id)"><img
                             src="@/assets/icon/folder.svg" alt="">{{ item.sort_name }}</li>
                     <!-- 标签 -->
-                    <li v-for="item in labelList" :key="item.label_id" @click="goLabelArticle(item.label_id)"><img
+                    <li v-for="item in labelList" :key="item.label_id" @click.stop="goLabelArticle(item.label_id)"><img
                             src="@/assets/icon/sign.svg" alt="">
                         {{ item.label_name }}</li>
                 </ul>
@@ -75,14 +75,23 @@ const goSortArticle = (sortId: number) => {
     })
 }
 //按照标签跳转具体页面
-let router2 = useRouter()
+let router = useRouter()
 const goLabelArticle = (labelId: number) => {
-    router2.push({
+    router1.push({
         path: '/article',
         query: {
             label_id: labelId
         }
     })
+}
+//点击跳转到对应页面
+const goDetail=()=>{
+router1.push({
+    path:'/articledetail',
+    query:{
+        article_id:artId
+    }
+})
 }
 </script>
 

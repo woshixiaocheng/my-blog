@@ -38,8 +38,7 @@ let sortId = ref<number>(0)//获取分类id//设置为0其实是undefined
 let labelId = ref<number>(0)//获取标签id
 let articleList = ref<articleSort[]|articleLabel[]>([])
 //当路由参数变化时页面数据无法更新时
-
-const stop=watchEffect(async() => {
+watchEffect(async() => {
     sortId.value =route.query.sort_id as any
     labelId.value = route.query.label_id as any
    

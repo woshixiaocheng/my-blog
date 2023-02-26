@@ -38,6 +38,12 @@ export const constantRoutes:RouteRecordRaw[]=[
         name:'article',
         component:()=>import('@/view/blog/article/index.vue'),
      },
+     //文章详情
+     {
+        path:'/articledetail',
+        name:'article detail',
+        component:()=>import('@/view/blog/article-detail/index.vue'),
+     },
 
     //日记
     {

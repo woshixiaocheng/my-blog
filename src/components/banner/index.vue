@@ -1,7 +1,7 @@
 <template>
         <div class="banner">
-    <h1>{{banner?.title||1}}</h1>
-    <h2>{{banner?.content||2}}</h2> 
+                <h1>{{banner?.title||1}}</h1>
+    <h2>{{banner?.content||2}}</h2>    
     </div>
 </template>
 <script lang="ts" setup>
@@ -17,7 +17,6 @@ import {Banner} from '@/utils/type'
         color: #fff;
     margin-top:50px ;
     height: 200px;
-    /* widows: 100%; */
     text-align: center;
     h2{
         margin-top: 50px;

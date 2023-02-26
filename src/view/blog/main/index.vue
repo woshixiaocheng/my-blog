@@ -15,7 +15,7 @@
             <img src="@/assets/svg/wave-5.svg" alt="">
         </div>
         <!-- content -->
-        <div :class="{main:true,start:startAn}">
+        <div :class="{ main: true, start: startAn }">
             <div class="content">
                 <!-- 左侧栏 -->
                 <div class="left">
@@ -25,7 +25,7 @@
                         <h3>小成</h3>
                         <div class="detail">
                             <div class="firstD">
-                                <div >文章</div>
+                                <div>文章</div>
                                 <div>10</div>
                             </div>
                             <div>
@@ -34,11 +34,11 @@
                             </div>
                         </div>
                         <div class="button" to="/me">
-                            <el-button round size="large" class="button">
+                            <el-button round size="large" class="button" @click="goPage('/me')">
                                 <el-button round size="large" class="buttonChange1" />
                                 我是谁</el-button>
-                            <el-button round size="large"  class="button"><el-button round
-                                    size="large" class="buttonChange2" />前端日记</el-button>
+                            <el-button round size="large" class="button" @click="goPage('/daily')"><el-button round size="large"
+                                    class="buttonChange2" />前端日记</el-button>
                         </div>
 
                     </el-card>
@@ -79,7 +79,7 @@
                     <!-- 文章展示 -->
                     <div class="article">
                         <div class="find">
-                            <i class="iconfont icon-find"/> 发现
+                            <i class="iconfont icon-find" /> 发现
                         </div>
                         <div v-for="(item, index) in articleList" :key="index">
                             <Suspense>
@@ -101,11 +101,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, defineAsyncComponent,computed,onMounted } from 'vue'
+import { ref, defineAsyncComponent, computed, onMounted } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
 import type { articles, sorts, labels } from '@/utils/type'
-import bodyParser from 'body-parser';
 const ArticleItem = defineAsyncComponent(() => import('@/components/article-item/index.vue'))
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {
@@ -132,9 +131,9 @@ const showLabels = async () => {
 }
 showLabels()
 //按照分类跳转具体文章展示页面
-let router1 = useRouter()
+let router = useRouter()
 const goSortArticle = (sortId: number) => {
-    router1.push({
+    router.push({
         path: '/article',
         query: {
             sort_id: sortId
@@ -142,9 +141,8 @@ const goSortArticle = (sortId: number) => {
     })
 }
 //按照标签跳转具体页面
-let router2 = useRouter()
 const goLabelArticle = (labelId: number) => {
-    router2.push({
+    router.push({
         path: '/article',
         query: {
             label_id: labelId
@@ -152,24 +150,31 @@ const goLabelArticle = (labelId: number) => {
     })
 }
 
+//跳转到指定页面
+const goPage=(path:string)=>{
+    router.push({
+        path:path
+    })
+}
+
 //滚动到内容区出现动画
-let scrollHeight=ref<number>(0)
-let timer:any
-onMounted(()=>{
-    window.addEventListener('scroll',()=>{
+let scrollHeight = ref<number>(0)
+let timer: any
+onMounted(() => {
+    window.addEventListener('scroll', () => {
         clearInterval(timer)
-       timer= setTimeout(()=>{
-        scrollHeight.value=window.scrollY
-        console.log(scrollHeight.value)
-       },100)
-       
+        timer = setTimeout(() => {
+            scrollHeight.value = window.scrollY
+            console.log(scrollHeight.value)
+        }, 100)
+
     })
 })
-const startAn=computed(()=>{
+const startAn = computed(() => {
     console.log(scrollHeight.value)
-    if( scrollHeight.value>=560){
+    if (scrollHeight.value >= 560) {
         return true
-    }else{
+    } else {
         return false
     }
 })
