@@ -15,7 +15,7 @@
             <img src="@/assets/svg/wave-5.svg" alt="">
         </div>
         <!-- content -->
-        <div class=" main">
+        <div :class="{main:true,start:startAn}">
             <div class="content">
                 <!-- 左侧栏 -->
                 <div class="left">
@@ -24,8 +24,8 @@
                         <img src="@/assets/img/photo.jpeg" alt="">
                         <h3>小成</h3>
                         <div class="detail">
-                            <div>
-                                <div>文章</div>
+                            <div class="firstD">
+                                <div >文章</div>
                                 <div>10</div>
                             </div>
                             <div>
@@ -37,8 +37,8 @@
                             <el-button round size="large" class="button">
                                 <el-button round size="large" class="buttonChange1" />
                                 我是谁</el-button>
-                            <el-button round size="large" style="margin:0;margin-top:15px" class="button"><el-button
-                                    round size="large" class="buttonChange2" />前端日记</el-button>
+                            <el-button round size="large"  class="button"><el-button round
+                                    size="large" class="buttonChange2" />前端日记</el-button>
                         </div>
 
                     </el-card>
@@ -79,7 +79,7 @@
                     <!-- 文章展示 -->
                     <div class="article">
                         <div class="find">
-                            <img src="@/assets/icon/find.svg" /> 发现
+                            <i class="iconfont icon-find"/> 发现
                         </div>
                         <div v-for="(item, index) in articleList" :key="index">
                             <Suspense>
@@ -90,7 +90,7 @@
                                     <div>loading...</div>
                                 </template>
                             </Suspense>
-                          
+
                         </div>
                     </div>
                 </div>
@@ -99,21 +99,20 @@
         <!-- footer -->
         <div class="footer"></div>
     </div>
-
-
 </template>
 <script lang="ts" setup>
-import { ref,defineAsyncComponent } from 'vue'
+import { ref, defineAsyncComponent,computed,onMounted } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
-import type { articles,sorts,labels } from '@/utils/type'
-const ArticleItem=defineAsyncComponent(()=>import('@/components/article-item/index.vue'))
+import type { articles, sorts, labels } from '@/utils/type'
+import bodyParser from 'body-parser';
+const ArticleItem = defineAsyncComponent(() => import('@/components/article-item/index.vue'))
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {
     window.scrollTo(0, 760)
 }
 //展示文章
-const articleList= ref<articles[]>([])
+const articleList = ref<articles[]>([])
 const showArticle1 = async () => {
     const result = await showArticle()
     articleList.value = result
@@ -129,12 +128,12 @@ showSorts()
 //展示文章标签
 const labels = ref<labels[]>([])
 const showLabels = async () => {
-    labels.value   = await getLabels()
+    labels.value = await getLabels()
 }
 showLabels()
 //按照分类跳转具体文章展示页面
 let router1 = useRouter()
-const goSortArticle = (sortId:number) => {
+const goSortArticle = (sortId: number) => {
     router1.push({
         path: '/article',
         query: {
@@ -144,7 +143,7 @@ const goSortArticle = (sortId:number) => {
 }
 //按照标签跳转具体页面
 let router2 = useRouter()
-const goLabelArticle = (labelId:number) => {
+const goLabelArticle = (labelId: number) => {
     router2.push({
         path: '/article',
         query: {
@@ -152,6 +151,28 @@ const goLabelArticle = (labelId:number) => {
         }
     })
 }
+
+//滚动到内容区出现动画
+let scrollHeight=ref<number>(0)
+let timer:any
+onMounted(()=>{
+    window.addEventListener('scroll',()=>{
+        clearInterval(timer)
+       timer= setTimeout(()=>{
+        scrollHeight.value=window.scrollY
+        console.log(scrollHeight.value)
+       },100)
+       
+    })
+})
+const startAn=computed(()=>{
+    console.log(scrollHeight.value)
+    if( scrollHeight.value>=560){
+        return true
+    }else{
+        return false
+    }
+})
 </script>
 
 <style scoped lang="less">

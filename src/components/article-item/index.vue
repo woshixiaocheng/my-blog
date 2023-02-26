@@ -2,14 +2,18 @@
 <template>
     <!-- 文章条 -->
     <div class="box">
-        <el-card class="article-item" ref="articleItem" :body-style="direction">
+        <el-card class="article-item" ref="articleItem">
+              <!-- 图片 -->
+              <div class="image">
+                <img src="@/assets/img/banner.jpg" alt="">
+            </div>
             <!-- 文章详情 -->
             <div class="neirong">
                 <img src="@/assets/icon/time.svg" alt="">
                 <span>发布于{{ formatDate(article[0].article_date) }}</span>
                 <h4>{{ article[0].article_title }}</h4>
                 <div>
-                    <img src="@/assets/icon/hot.svg" alt="">
+                    <i class="iconfont icon-hot"/>
                     <span>{{ article[0].article_views }}热度</span>
                     <img src="@/assets/icon/message.svg" alt="">
                     <span>{{ article[0].article_comment_count }}评论</span>
@@ -27,16 +31,14 @@
                         {{ item.label_name }}</li>
                 </ul>
             </div>
-            <!-- 图片 -->
-            <div class="image">
-                <img src="@/assets/img/banner.jpg" alt="">
-            </div>
+          
         </el-card>
+
     </div>
 
 </template>
 <script lang="ts" setup>
-import { ref, defineProps,reactive } from 'vue'
+import {  defineProps,computed } from 'vue'
 import formatDate from '@/utils/formatDate'
 import { getArticleSort, getArticleLabel,getAssignArticle } from '@/api/article'
 import { useRouter } from 'vue-router'
@@ -54,10 +56,14 @@ let sortList:sorts[]=await getArticleSort({ id: artId})
 //获取文章的所有标签
 let labelList:labels[]=await getArticleLabel({ id: artId })
 //实现内容交叉显示
-let direction = ref("")
-if (props.index % 2 === 0) {
-    direction.value = "flex-direction:row-reverse"
+let direction = computed(()=>{
+    if (props.index % 2 === 0) {
+   return "row-reverse"
+}else{
+    return "row"
 }
+})
+
 //按照分类跳转具体文章展示页面
 let router1 = useRouter()
 const goSortArticle = (sortId: number) => {
@@ -81,20 +87,27 @@ const goLabelArticle = (labelId: number) => {
 </script>
 
 <style scoped lang="less">
+/* 文章组件默认盒子排列样式为文字在左 */
+
 .article-item {
+    max-width: 780px;
     margin-top: 40px;
-    height: 300px;
     cursor: pointer;
     border: 0;
     user-select: none; //不允许复制
     transition: all 0.5s ease-out;
-
+    /deep/.el-card__body{
+    padding:0;
+    height:100%;
+    width:100%;
+    display: flex;
+}
     &:hover {
         box-shadow: var(--boxHoverShadow);
     }
 
     .neirong {
-        width: 50%;
+        box-sizing: border-box;
         padding: 20px 40px;
         background-color: #fff;
 
@@ -109,10 +122,12 @@ const goLabelArticle = (labelId: number) => {
             padding: 10px 0;
             font-weight: bold;
         }
+        img{
+            vertical-align: middle;
+        }
 
         .content {
             padding: 10px 0;
-            height: 110px;
             line-height: 25px;
             overflow: hidden;
 
@@ -150,8 +165,8 @@ const goLabelArticle = (labelId: number) => {
     }
 
     .image {
-        width: 50%;
         overflow: hidden;
+      
 
         img {
             width: 100%;
@@ -165,5 +180,41 @@ const goLabelArticle = (labelId: number) => {
         }
 
     }
+} 
+@media screen and(min-width: 770px)  {
+    .article-item {
+    height: 300px;
+    /deep/.el-card__body{
+    flex-direction: v-bind(direction);//实现交叉展示
+
+
+}
+    .neirong {
+        width: 50%;
+        .content {
+            padding: 10px 0;
+            line-height: 25px;
+            overflow: hidden;
+        }
+    }
+    .image {
+        width: 50%;
+    }
+}  
+}
+@media screen and(max-width: 770px)  {
+    .article-item {
+    /deep/.el-card__body{
+    flex-direction:column;//实现交叉展示
+}
+    .neirong {
+        width: 100%;
+    }
+
+    .image {
+        width: 100%;
+        height: 180px;
+    }
+}  
 }
 </style>

@@ -6,7 +6,8 @@
                 <div v-for="(item, index) in articleList" :key="(item as any).sort_id?(item as any).sort_id:(item as any).label_id">
                     <Suspense>
                         <template #default>
-                            <ArticleItem :index="index" :articleId="item.article_id"></ArticleItem>
+                            <ArticleItem 
+                            class="item" :index="index" :articleId="item.article_id"></ArticleItem>
                         </template>
                         <template #fallback>
                             <div>loading</div>
@@ -65,12 +66,15 @@ const stop=watchEffect(async() => {
 <style scoped lang="less">
 .main {
     background-color: #fff;
-}
-.main .content {
-    width: 70%;
+    .content {
     min-height: 490px;
     margin: 0 auto;
     padding: 10px 0;
     max-width: 780px;
+    .item{
+        margin: 0 30px;
+    }
 }
+}
+
 </style>

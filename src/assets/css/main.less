@@ -1,3 +1,4 @@
+
 .banner{
     color: #fff;
     width: 100%;
@@ -16,14 +17,15 @@ height: 150px;
 position: relative;
 overflow: hidden;
 .arrow{//实现箭头的定位和动画
+    cursor: pointer;
     position: absolute;
     width: 50px;
-    z-index: 99;
+    z-index: 999;
     bottom: 2vw;
     left: 50%;
     transform: translateX(-32px);
-     animation: move-5 3s ease-out infinite;
-     cursor: pointer;
+     animation: wave-5 3s ease-out infinite;
+     
 }
 img{
 &:not(.arrow){
@@ -45,28 +47,29 @@ animation: wave-2 4s infinite;
     opacity: 0.7;
     animation: wave-3 3s infinite;
 }
-     &:nth-child(5){
-     bottom: 0.1vw;
+&:nth-child(5){
+bottom: 0.1vw;
 opacity: 0.5;
 animation: wave-4 3s infinite;
 }
+&:nth-child(6){
+    bottom: -1vw;
+    }
 }   
 }
 .main{
+
 background-color: var(--content-bgc);
-border-top-right-radius: 10px;border-top-left-radius: 10px;
+overflow-x:hidden ;
+//写两套content样式！！
 .content{
 width:90%;
 padding: 0 20px 40px 20px;
 margin: 0 auto;//让内容居中，别忘了
-display: flex;
-justify-content: center;
+
 //左边栏
 .left{
-    width: calc(30%,-40px);
     margin-top: 60px;
-    margin-right: 40px;
-    max-width: 300px;
 //用户卡片
 .userInfo{
 background: linear-gradient(-45deg,#e8d8b9,#eccec5,#a3e9eb,#bdbdf0,#eec1ea);
@@ -75,7 +78,7 @@ animation: userInfo 10s infinite;
 padding: 20px 40px;
 text-align: center;
 img{
-width:60%;
+width:108px;
 border-radius:50%
 }
 h3{
@@ -85,23 +88,27 @@ font-weight: bold;
 padding:10px 0 ;
 padding: 0px 10px 20px 10px;
 display: flex;
-justify-content: space-between;
+justify-content: center;
 font-size: 16px;
+.firstD{
+    margin-right: 40%;
+}
 }
 .button{
 /deep/ .el-button{
 position: relative;
 height: 35px;
-width: 180px;
+
 overflow: hidden;
 border: 0;
 color: #fff;
 font-weight: 600;
 font-size: 15px;
 background-color: #626aef;
-// 在前面加一个按钮弹出动画效果
-// transition: all 0.5s ease-outS;
 z-index: 10;
+
+
+
 }
 .buttonChange1,.buttonChange2{
         position: absolute;
@@ -167,12 +174,9 @@ li{
 }
 }
 .right{
-width: 70%;
 .notice{
-    width: 100%;
     height: 130px;
     margin:60px auto 40px ;
-    max-width: 780px;
     padding: 20px 20px;
     display: flex;
     align-items: center;
@@ -187,8 +191,8 @@ width: 70%;
     }
 }
 .article{
+    margin: 0 auto;
     margin-top: 40px;
-    margin: auto;
     max-width: 780px;
     .find{
         padding-left: 8px;
@@ -196,9 +200,61 @@ width: 70%;
         border-bottom: 1px dashed var(--border);
         color: var(--fontGray);
         font-size: 20px;
+        .icon-find{
+            font-size: 22px;
+            color: #07c1c8;
+        }
     }
 
 }
 }
+@media screen and(min-width:1100px) {
+    display: flex;
+    justify-content: center;
+    .left{
+        width: calc(30% - 40px);//-前后要空格才生效
+        max-width: 300px;
+        margin-right: 40px;
+        .userInfo{
+            .button{
+                width: 100%;
+               &:last-child{
+                margin: 0;
+                margin-top: 15px;
+               }
+            }
+        }
+    }
+    .right{
+        width: 70%;
+        .notice{
+            max-width: 780px;
+        }
+    }
+    }
+    @media screen and(max-width:1100px){
+        .left{
+            width: 100%;
+            .userInfo{
+                .button{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    /deep/ .el-button{
+                        width: 180px;
+                    }
+                }
+            }
+        }
+        .right{
+            width: 100%;
+        }
+    }
 }   
+}
+
+.start{
+    .el-card{
+        animation: zoomIn 0.8s ease-in-out;
+    }
 }

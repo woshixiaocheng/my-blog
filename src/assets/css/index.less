@@ -1,16 +1,36 @@
+@import './iconfont.css';
 html{
     height: 100%;
 }
 body{
-    background: radial-gradient(300% 100% at top,#14253e 10%,#75517d 40%,#e98296 65%,#f7eca7)no-repeat ;
+    background:  var(--bgc);
     background-size: cover;
     height:100%;
     width:100%;
     /* overflow-x: hidden; */
     /* 超出水平页面的内容隐藏 */
     font-family: ZhuZiAwa1n,serif;
-   
+    &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+        height: 10px;
+     
+    }
+
+    &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #7ec5c8;
+    }
+    &::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
+        background: #c3ddde;
+    }
 }
+
 /* 注册字体的 */
 @font-face {
     font-family: zhuziAwa1n;
@@ -38,12 +58,7 @@ list-style: none;
 .el-card{
 border: 0;
 border-radius: 15px !important;
-}
-/* 文章组件默认盒子排列样式为文字在左 */
-.article-item .el-card__body{
-    padding:0;height:100%;width:100%;
-    display: flex;
-    justify-content: space-between;
+
 }
 .footer{
     margin-top: 50px;
@@ -51,9 +66,27 @@ border-radius: 15px !important;
       height: 60px;
       background-color: palevioletred;
   }
+  //菜单抽屉
+.drawer{
+    background: var(--bgc);
+    font-size: 10px;
+    .el-drawer__header{
+        color: #fff;
+        margin: 0 auto;
+        margin-bottom:20px ;
+        font-size: 22px;
+        font-weight: bold;
+        
+    }
+    .el-drawer__body{
+overflow-y: hidden;
+    }
+
+ }
 :root{
     /* 公共样式 */
     --content-bgc:#fff;//内容的背景颜色
+    --bgc:radial-gradient(300% 100% at top,#14253e 10%,#75517d 40%,#e98296 65%,#f7eca7)no-repeat;
     
     /* 颜色 */
     /* 灰色 */

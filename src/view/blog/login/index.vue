@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="main">
     <!-- <video src="@/assets/video/bg.mp4" class="bg" muted loop autoplay></video> -->
-    <div class="main">
+    <div class="box">
       <div class="login left" :class="{ loginChange: !isLogin }">
         <div class="title">登录</div>
 
@@ -196,29 +196,32 @@ const goLogin = () => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 740px;
+  width: 95%;
+  max-width: 740px;
   height: 440px;
   border-radius: 15px;
-  overflow: hidden;//很关键，移动的出了这个框就看不见了
+  // overflow: hidden;//很关键，移动的出了这个框就看不见了
 
   //左边的面板的核心代码
   .left {
+    box-sizing: border-box;
     position: absolute;
     top: 0;
     left: 0;
     padding: 100px 20px 20px 20px;//布局内部内容
-    width: 330px;
-    height: 320px;
+    width: 50%;
+    height: 440px;
     border-radius: 15px 0 0 15px;
     text-align: center;
   }
 
   //右边的面板核心代码
   .right {
+    box-sizing: border-box;
     position: absolute;
     top: 0;
-    left: 370px;
-    width: 330px;
+    left: 50%;
+    width: 50%;
     border-radius: 0 15px 15px 0;
     text-align: center;
   }
@@ -238,7 +241,7 @@ const goLogin = () => {
   //去注册板块///去登录板块
   .goChange {
     padding: 130px 20px 20px 20px;
-    height: 290px;
+    height: 440px;
     background-color: var(--blueGreen);
     opacity: 0.8;
     transition: 0.5s all;
@@ -252,7 +255,7 @@ const goLogin = () => {
   //去登录
   //绿色版面藏起来
   .goLogin {
-    left: 370px;
+    left: 50%;
     z-index: -1;
     opacity: 0;
   }
@@ -274,7 +277,6 @@ const goLogin = () => {
   .register {
     left: 0;
     padding: 40px 20px 20px 20px;
-    height: 380px;
     background-color: #fff;
     opacity: 0;
     z-index: -1;
@@ -282,7 +284,7 @@ const goLogin = () => {
   }
 
   .registerChange {
-    left: 370px;
+    left: 50%;
     opacity: 0.8;
   }
 
@@ -324,6 +326,6 @@ const goLogin = () => {
   .button:hover {
     animation: buttonBig 0.8s ease-in-out;
   }
-
 }
+
 </style>

@@ -19,9 +19,9 @@
 transform: translateY(20px);
 }
 }
-    @keyframes wave-5 {
+@keyframes wave-5 {
 50% {
-transform: translate(-32px,20px);
+transform: translate(-32px,10px);
 }
 }
 @keyframes iconScale {
@@ -58,4 +58,25 @@ transform: translate(-32px,20px);
 100%{
     transform: scale(1);
 }
+}
+
+@keyframes hideToShow {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+/* 打开网页时滚动到内容处所有el-card的动画 */
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
