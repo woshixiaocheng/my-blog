@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    Hoverbutton: typeof import('./src/components/hoverbutton/index.vue')['default']
     Label: typeof import('./src/view/admin/label/index.vue')['default']
     Layout: typeof import('./src/view/admin/layout/index.vue')['default']
     Login: typeof import('./src/view/admin/login/index.vue')['default']

@@ -33,12 +33,15 @@
                                 <div>3</div>
                             </div>
                         </div>
-                        <div class="button" to="/me">
-                            <el-button round size="large" class="button" @click="goPage('/me')">
+                       
+                        <div class="buttonContainer">
+                            <HoverButton width="180px" text="我是谁" @click="goPage('/me')"></HoverButton>
+                            <HoverButton width="180px" text="前端日记" @click="goPage('/daily')"></HoverButton>
+                            <!-- <el-button round size="large" class="button" @click="goPage('/me')">
                                 <el-button round size="large" class="buttonChange1" />
                                 我是谁</el-button>
                             <el-button round size="large" class="button" @click="goPage('/daily')"><el-button round size="large"
-                                    class="buttonChange2" />前端日记</el-button>
+                                    class="buttonChange2" />前端日记</el-button> -->
                         </div>
 
                     </el-card>
@@ -105,6 +108,7 @@ import { ref, defineAsyncComponent, computed, onMounted } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
 import type { articles, sorts, labels } from '@/utils/type'
+import HoverButton from '@/components/hoverbutton/index.vue'
 const ArticleItem = defineAsyncComponent(() => import('@/components/article-item/index.vue'))
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {

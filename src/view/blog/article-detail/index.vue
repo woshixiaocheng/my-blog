@@ -28,6 +28,10 @@
     </div>
     <div class="comment">
       <textarea class="comment-textarea" placeholder="写下点什么..." maxlength="2500"></textarea>
+      <!-- //按钮 -->
+      <div>
+        <HoverButton text="111"></HoverButton>
+      </div>
     </div>
     </div>
    
@@ -40,14 +44,16 @@ import { ref, reactive } from 'vue'
 import { getAssignArticle } from '@/api/article'
 import { useRoute } from 'vue-router'
 import formatDate from '@/utils/formatDate'
+import HoverButton from '@/components/hoverbutton/index.vue'
 //获取路由传入的值
 let route = useRoute()//当前路由对象
 let article = ref([])
-const a = async () => {
+const getArticleDeatail = async () => {
   article.value = await getAssignArticle({ id: Number(route.query.article_id as any) })
-  console.log(article.value)
 }
-a()
+getArticleDeatail()
+
+// 没有内容的时候宽度固定
 
 
 </script>
@@ -94,6 +100,7 @@ a()
     margin: 0 auto;
     padding: 50px 20px;
     max-width: 780px;
+    min-width: 400px;
     width: fit-content;//能够保证内容完全居中
    
     .lastTime{
@@ -110,7 +117,11 @@ a()
 
   }
 }
+.comment{
+  width: 100%;
+}
 .comment-textarea{
+  box-sizing: border-box;
   width: 100%;
   padding: 15px;
   font-size: 14px;
@@ -122,5 +133,8 @@ a()
     outline: none;
     border-radius: 4px;
     margin-bottom: 10px;
+   &:focus {
+    border-color: var(--buttonHover);
+  }
 }
 </style>
