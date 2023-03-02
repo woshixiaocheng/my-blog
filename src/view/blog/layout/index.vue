@@ -29,7 +29,6 @@
         <el-menu-item>IceCream</el-menu-item>
         <div class="flex-grow" />
         <i class="iconfont icon-menu ham " @click="drawer=true"></i>
-       
       </el-menu>
 
     </el-affix>
@@ -59,14 +58,22 @@
           <el-menu-item index="/admin">去后台</el-menu-item>
       </el-menu>
   </el-drawer>
-  <el-popconfirm  width="220">
+  <el-popover  :width="90" placement="right">
     <template #reference>
       <div class="tool">
-    <img class="setting" src="@/assets/icon/setting.svg" alt="">
+        <i class="iconfont icon-shezhi setting" aria-hidden="true"></i>
+
   </div>
     </template>
+    <template #default >
+      <div class="popover">
+        <i class="iconfont icon-texiao" style="margin:0 20px;"></i>
+     <i class="iconfont icon-heiye" style="margin:0 20px;" @click="changeStyle"></i>
+      </div>
+  
+    </template>
 
-</el-popconfirm>
+</el-popover>
   <!-- 音乐 -->
   <!-- <el-menu-item class="music">
      <img src="@/assets/icon/music.png" alt="" >
@@ -165,6 +172,31 @@ const goSortArticle = (sortId: string) => {
     }
   })
 }
+
+//改变黑夜模式,枚举用ref限制类型
+let isDark=ref(false)
+//进入页面时读取用户的设置偏好就可以在刷新时仍然可以拿到用户的设置偏好
+let darkMode=localStorage.getItem('theme')
+const enableDarkMode=()=>{
+   //黑夜的
+   document.body.classList.add('dark-mode')
+   localStorage.setItem('theme','dark')
+}
+const enableLightMode=()=>{
+  //白天的
+  document.body.classList.remove('dark-mode')
+  localStorage.setItem('theme','light')
+}
+if(darkMode==='dark'){ enableDarkMode()} 
+const changeStyle=()=>{
+  isDark.value=!isDark.value
+  if(isDark.value===true){
+    enableDarkMode()
+  }else{
+    enableLightMode()
+  }
+}
+
 
 
 </script>
@@ -270,8 +302,17 @@ const goSortArticle = (sortId: string) => {
     bottom: 25px;
     right:25px;
   cursor: pointer;
+  -webkit-animation: rotate  3s linear infinite;
+      animation:rotate 3s linear infinite;
+
+  .popover{
+    display: flex;
+    justify-content: center;
+    padding:40px 40px ;
+  }
     .setting{
-      animation: setting 3s linear infinite;
+     
+    
     }
   }
 

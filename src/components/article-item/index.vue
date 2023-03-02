@@ -112,21 +112,23 @@ h1{
     user-select: none; //不允许复制
     transition: all 0.5s ease-out;
 
-    /deep/.el-card__body {
+    ::v-deep .el-card__body {
         padding: 0;
         height: 100%;
         width: 100%;
         display: flex;
     }
 
-    &:hover {
-        box-shadow: var(--boxHoverShadow);
+        &:hover {
+        box-shadow: var(--boxHoverShadow) !important;
+    
     }
+ 
 
     .neirong {
         box-sizing: border-box;
         padding: 20px 40px;
-        background-color: #fff;
+        background-color: var(  --articleItem-bgc);
         .description{
             span {
             padding-left: 3px;

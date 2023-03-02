@@ -62,15 +62,15 @@ onMounted(()=>{
 .main {
     display: flex;
     justify-content: center;
-    margin-bottom:100px;
-    background-color: #fff;
+    padding-bottom:100px;
+    background-color: var(--content-bgc);
     overflow: hidden;
 }
 .wrap {
     width: 80%;
     position: relative;
     top: 100px;
-    z-index: 999;
+    z-index: 10;
     margin-bottom:100px;
     &::after {
     content: ''; //必须设置这个属性才生效

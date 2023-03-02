@@ -64,7 +64,7 @@ watchEffect(async() => {
 </script>
 <style scoped lang="less">
 .main {
-    background-color: #fff;
+    background-color: var(--content-bgc);
     .content {
     min-height: 490px;
     margin: 0 auto;

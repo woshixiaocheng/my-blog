@@ -96,7 +96,7 @@ getArticleDeatail()
 }
 
 .main {
-  background-color: #fff;
+  background-color: var(--content-bgc);
   .content {
     min-height: 490px;
     margin: 0 auto;

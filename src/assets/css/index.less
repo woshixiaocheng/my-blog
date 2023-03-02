@@ -1,4 +1,4 @@
-@import './iconfont.css';
+
 html{
     height: 100%;
 }
@@ -7,6 +7,7 @@ body{
     background-size: cover;
     height:100%;
     width:100%;
+    color: var(--fontNormal);
     /* overflow-x: hidden; */
     /* 超出水平页面的内容隐藏 */
     font-family: ZhuZiAwa1n,serif;
@@ -51,11 +52,13 @@ list-style: none;
 /* 全局布局 */
 
 /* 全局卡片的阴影样式 */
- .el-card.is-always-shadow{
-    box-shadow: 0.2vw 0.2vw 1vw rgba(0,0,0,0.2);
+.el-card.is-always-shadow{
+    box-shadow:var(--box-shadow) !important;
 }
 /* 全局去掉卡片的边框+设置边框圆角 */
 .el-card{
+color: var( --fontNormal) !important;
+background-color: var( --box-bgc) !important;
 border: 0;
 border-radius: 15px !important;
 
@@ -67,7 +70,6 @@ border-radius: 15px !important;
    
 }
 .footer{
-    margin-top: 50px;
       width: 100%;
       height: 60px;
       background-color: palevioletred;
@@ -92,16 +94,18 @@ overflow-y: hidden;
 :root{
     /* 公共样式 */
     --content-bgc:#fff;//内容的背景颜色
+    --box-bgc:#fff;//盒子的白
+    --box-shadow:0.2vw 0.2vw 1vw rgba(0,0,0,0.2);//卡片的阴影样式
+        /* 边框hover的阴影样式 */
+    --boxHoverShadow:0.5vw 0.5vw 1.1vw rgba(0,0,0,0.3);
     --bgc:radial-gradient(300% 100% at top,#14253e 10%,#75517d 40%,#e98296 65%,#f7eca7)no-repeat;
     
     /* 颜色 */
-    /* 灰色 */
-    /* 边框灰 */
     --border:rgb(207, 207, 207);
-    /* 字体灰 */
-    --fontGray:rgb(104, 104, 104); 
-    /* 边框hover的阴影样式 */
-    --boxHoverShadow:0.5vw 0.5vw 1.1vw rgba(0,0,0,0.3);
+    
+    --fontGray:rgb(104, 104, 104); //字体灰
+    --fontNormal:#000;//常规
+
     /* hover的按钮变色 */
     --buttonHover:#7ec5c8;
     /* icon动的动画 */
@@ -115,7 +119,17 @@ overflow-y: hidden;
     --purple:#626aef;
     /* 经典绿 */
     --blueGreen:#7ec5c8;
+    --settingColor:#000;
 
 }
-
+.dark-mode{
+    --content-bgc:#272727;//内容的背景颜色
+    --box-bgc:#272727;
+    --box-shadow:0 1px 20px -6px rgba(255, 255, 255, 0.406);
+    --boxHoverShadow:0.5vw 0.5vw 1.1vw rgba(0,0,0,0.3);
+    --settingColor:#fff;
+    --fontNormal:#fff;//常规
+}
+@import './animation.css';
+@import '../icon/iconfont.css';
  

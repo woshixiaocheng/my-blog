@@ -5,7 +5,6 @@ import '@/permission'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/assets/css/index.less'
-import '@/assets/css/animation.css'
 import {createPinia} from 'pinia'
 import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';

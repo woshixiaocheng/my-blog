@@ -1,8 +1,9 @@
+@import '../css/animation.css';
 @font-face {
   font-family: "iconfont"; /* Project id 3916470 */
-  src: url('../icon/iconfont.woff2') format('woff2'),
-       url('../icon/iconfont.woff') format('woff'),
-       url('../icon/iconfont.ttf') format('truetype');
+  src: url('iconfont.woff2?t=1677767868873') format('woff2'),
+       url('iconfont.woff?t=1677767868873') format('woff'),
+       url('iconfont.ttf?t=1677767868873') format('truetype');
 }
 
 .iconfont {
@@ -12,9 +13,27 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-hot{
-  color: red;
+
+.icon-texiao:before {
+  content: "\e652";
 }
+
+.icon-liuyan:before {
+  content: "\e615";
+}
+
+.icon-dianzan:before {
+  content: "\ec7f";
+}
+
+.icon-shezhi:before {
+  content: "\e63e";
+}
+
+.icon-heiye:before {
+  content: "\e628";
+}
+
 .icon-xiaolaba:before {
   content: "\e64c";
 }
@@ -70,8 +89,28 @@
 .icon-hot:before {
   content: "\e614";
 }
-
 .icon-caidan:before {
   content: "\e662";
 }
 
+
+.icon-hot{
+  color: red;
+}
+.icon-texiao{
+  font-size: 18px;
+}
+.icon-heiye{
+  font-size: 18px;
+}
+
+.icon-heiye:hover{
+  color: #7ec5c8;
+}
+.icon-texiao:hover{
+  color: #7ec5c8;
+}
+.icon-shezhi{
+  font-size: 24px;
+  color: var(--settingColor);
+}

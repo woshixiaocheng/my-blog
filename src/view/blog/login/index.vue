@@ -200,7 +200,8 @@ const goLogin = () => {
   max-width: 740px;
   height: 440px;
   border-radius: 15px;
-  // overflow: hidden;//很关键，移动的出了这个框就看不见了
+ 
+  overflow: hidden;//很关键，移动的出了这个框就看不见了
 
   //左边的面板的核心代码
   .left {
@@ -213,6 +214,7 @@ const goLogin = () => {
     height: 440px;
     border-radius: 15px 0 0 15px;
     text-align: center;
+    color: #000;
   }
 
   //右边的面板核心代码

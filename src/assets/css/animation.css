@@ -81,7 +81,7 @@ transform: translate(-32px,10px);
     }
 }
 
-@keyframes setting {
+@keyframes rotate {
     0%{
       transform:rotate(0)
     }
