@@ -26,16 +26,12 @@
         <img  src="@/assets/icon/goodnormal.svg" alt="">
       </div>
     </div>
-    <div class="comment">
-      <textarea class="comment-textarea" placeholder="写下点什么..." maxlength="2500"></textarea>
-      <!-- //按钮 -->
-      <div>
-        <HoverButton text="111"></HoverButton>
-      </div>
-    </div>
+    <Comment></Comment>
     </div>
    
   </div>
+  <div class="footer"></div>
+
 </template>
 
 
@@ -44,7 +40,8 @@ import { ref, reactive } from 'vue'
 import { getAssignArticle } from '@/api/article'
 import { useRoute } from 'vue-router'
 import formatDate from '@/utils/formatDate'
-import HoverButton from '@/components/hoverbutton/index.vue'
+
+import Comment from '@/components/comment/comment.vue'
 //获取路由传入的值
 let route = useRoute()//当前路由对象
 let article = ref([])
@@ -53,7 +50,7 @@ const getArticleDeatail = async () => {
 }
 getArticleDeatail()
 
-// 没有内容的时候宽度固定
+
 
 
 </script>
@@ -67,7 +64,12 @@ getArticleDeatail()
   .description {
     position: absolute;
     bottom: 5px;
-    left: 20%;
+    @media screen and (min-width:570px) {
+      left: 20%;
+    }
+    @media screen and(max-width:570px) {
+      left: 5%;
+    }
 
     .other {
       margin-top: 10px;
@@ -117,24 +119,6 @@ getArticleDeatail()
 
   }
 }
-.comment{
-  width: 100%;
-}
-.comment-textarea{
-  box-sizing: border-box;
-  width: 100%;
-  padding: 15px;
-  font-size: 14px;
-  min-height: 180px;
-  border: 1px solid #c7c7c7;
-  /* 不改变大小 */
-  resize: none;
-    /* 不改变边框 */
-    outline: none;
-    border-radius: 4px;
-    margin-bottom: 10px;
-   &:focus {
-    border-color: var(--buttonHover);
-  }
-}
+
+
 </style>

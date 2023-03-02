@@ -1,17 +1,18 @@
 <template>
     <div class="button" >
-        <el-button round size="large" >
-            <el-button round size="large" class="buttonChange" />
+        <el-button :round="isRound" size="large" >
+            <el-button :round="isRound" size="large" class="buttonChange" />
             {{text}}</el-button>
     </div>
 </template>
 <script setup lang='ts'>
 import { defineProps,computed } from
     'vue';
-    //按钮的内容和宽度都由外界决定
+    //按钮的内容和宽度都由外界决定，还有按钮的框架
 const props = defineProps<{
     text: string
-    width:string
+    width?:string
+    isRound:boolean
 }>()
 const buttonWidth=computed(()=>{
     if(props.width){

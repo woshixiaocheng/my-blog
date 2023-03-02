@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-affix>
-      <el-menu v-if="fullScreen" :default-active="activeIndex" :class="{ whiteMenu: whiteMenu,menu:true,wdMenu:true }" v-show="show"
+      <el-menu v-if="fullScreen" :default-active="activeIndex" :class="{ whiteMenu: whiteMenu,menu:true,webMenu:true }" 
         mode="horizontal" :ellipsis="false" router>
         <el-menu-item>IceCream</el-menu-item>
         <div class="flex-grow" />
@@ -35,6 +35,7 @@
     </el-affix>
     <router-view />
   </div>
+  <!-- 移动端左侧菜单 -->
   <el-drawer
    v-model="drawer"
    :show-close="false"
@@ -58,6 +59,14 @@
           <el-menu-item index="/admin">去后台</el-menu-item>
       </el-menu>
   </el-drawer>
+  <el-popconfirm  width="220">
+    <template #reference>
+      <div class="tool">
+    <img class="setting" src="@/assets/icon/setting.svg" alt="">
+  </div>
+    </template>
+
+</el-popconfirm>
   <!-- 音乐 -->
   <!-- <el-menu-item class="music">
      <img src="@/assets/icon/music.png" alt="" >
@@ -81,7 +90,7 @@ let management = ref(localStorage.getItem('userInfo') === "[]")
 let drawer=ref<boolean>(false)//控制手机导航抽屉的
 let aa=ref(true)
 //导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式
-let show = ref(true)
+let show = ref('100%')
 let whiteMenu = ref(false)
 let pastScroll = ref(0)//用它存之前的滚动距离
 const handleScroll = () => {
@@ -90,9 +99,9 @@ const handleScroll = () => {
     let scrollChange = scroll1 - pastScroll.value//前后距离的差
     if (scrollChange > 0) {
       //说明在往下滑，就不显示
-      show.value = false
+      show.value = '0'
     } else {
-      show.value = true
+      show.value = '100%'
     }
     if (scroll1 > 200) {
       //如果大于临界点，就改变样式
@@ -121,7 +130,7 @@ const handleWidth=()=>{
     //节流，一段时间才判断一次
     timeoutWidth = setTimeout(() => {
     clientWidth.value=document.body.clientWidth
-    console.log(clientWidth.value)
+    // console.log(clientWidth.value)
     }, 40)
   })
 }
@@ -157,11 +166,16 @@ const goSortArticle = (sortId: string) => {
   })
 }
 
+
 </script>
 
 <style scoped lang="less">
 @bgc: background-color;
-.wdMenu{
+//解决固钉在滚动后不变问题
+::v-deep .el-affix{
+  width: v-bind(clientWidth) !important;
+}
+.webMenu{
   width:100%;
   // hover时变背景颜色的判断(基于本身背景再看要不要设置这个)
   &:hover when(@bgc="transparent") {
@@ -192,12 +206,12 @@ const goSortArticle = (sortId: string) => {
 
 }
 .menu {
+  width: 100%;
   font-weight: 600;
   background-color: transparent;
   border: 0;
   color: #fff;
-
-
+  opacity: v-bind(show);
   //调整每一项的样式
   /deep/ .el-menu-item {
     position: relative;
@@ -211,6 +225,7 @@ const goSortArticle = (sortId: string) => {
 }
 //滚动到下边的时候menu的样式
 .whiteMenu {
+  width: 100%;
   background-color: #fff;
   color: #000;
   .ham{
@@ -249,6 +264,15 @@ const goSortArticle = (sortId: string) => {
     }
   }
    
+  }
+  .tool{
+    position: fixed;
+    bottom: 25px;
+    right:25px;
+  cursor: pointer;
+    .setting{
+      animation: setting 3s linear infinite;
+    }
   }
 
 

@@ -35,8 +35,8 @@
                         </div>
                        
                         <div class="buttonContainer">
-                            <HoverButton width="180px" text="我是谁" @click="goPage('/me')"></HoverButton>
-                            <HoverButton width="180px" text="前端日记" @click="goPage('/daily')"></HoverButton>
+                            <HoverButton :isRound="true" width="180px" text="我是谁" @click="goPage('/me')"></HoverButton>
+                            <HoverButton :isRound="true" width="180px" text="前端日记" @click="goPage('/daily')"></HoverButton>
                             <!-- <el-button round size="large" class="button" @click="goPage('/me')">
                                 <el-button round size="large" class="buttonChange1" />
                                 我是谁</el-button>
