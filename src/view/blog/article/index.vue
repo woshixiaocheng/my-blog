@@ -19,7 +19,7 @@
             </div>
  
         <!-- footer -->
-        <div class="footer"></div>
+        <!-- <div class="footer"></div> -->
      </div>
 </template>
 
@@ -74,17 +74,9 @@ watchEffect(async() => {
 <style scoped lang="less">
 .main {
     background-color: var(--content-bgc);
-    // height: fit-content;
-    // margin-bottom: 300px;
-//     .content {
-//     min-height: 490px;
-//     margin: 0 auto;
-//     padding: 10px 0;
-//     max-width: 780px;
-//     .item{
-//         margin: 0 30px;
-//     }
-// }
+    margin-bottom: 50px;
+    padding: 0 30px;
+
 }
 
 </style>

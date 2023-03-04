@@ -60,6 +60,8 @@ getArticleDeatail()
   color: #fff;
   padding-top: 50px;
   height: 200px;
+  width: 90%;
+  margin: 0 auto;
 
   .description {
     position: absolute;
@@ -74,6 +76,7 @@ getArticleDeatail()
     .other {
       margin-top: 10px;
       display: flex;
+      flex-wrap: wrap;
       font-size: 14px;
       position: relative;
       .good{
@@ -100,10 +103,14 @@ getArticleDeatail()
   .content {
     min-height: 490px;
     margin: 0 auto;
-    padding: 50px 20px;
+    padding: 50px 0px;
     max-width: 780px;
-    min-width: 400px;
     width: fit-content;//能够保证内容完全居中
+    line-height:30px ;
+    .item{
+      width: 90%;
+      margin: 0 auto;
+    }
    
     .lastTime{
       margin-top: 20px;

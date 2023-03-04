@@ -36,8 +36,8 @@
                         </div>
                        
                         <div class="buttonContainer">
-                            <HoverButton :isRound="true" width="180px" text="我是谁" @click="goPage('/me')"></HoverButton>
-                            <HoverButton :isRound="true" width="180px" text="前端日记" @click="goPage('/daily')"></HoverButton>
+                            <HoverButton :isRound="true" width="150px" text="我是谁" @click="goPage('/me')"></HoverButton>
+                            <HoverButton :isRound="true" width="150px" text="前端日记" @click="goPage('/daily')"></HoverButton>
                         </div>
 
                     </el-card>
@@ -154,13 +154,11 @@ onMounted(() => {
         clearInterval(timer)
         timer = setTimeout(() => {
             scrollHeight.value = window.scrollY
-            console.log(scrollHeight.value)
         }, 100)
 
     })
 })
 const startAn = computed(() => {
-    console.log(scrollHeight.value)
     if (scrollHeight.value >= 560) {
         return true
     } else {

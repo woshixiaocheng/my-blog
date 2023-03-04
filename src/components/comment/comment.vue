@@ -83,9 +83,10 @@ const closeDialog=()=>{
 const comments=ref([1])
 const total=ref(4)
 </script>
-<style lang="less">
+<style scoped lang="less">
 .comment{
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
  
   .comment-notice{
     margin-top: 40px;
@@ -127,9 +128,9 @@ const total=ref(4)
         cursor: pointer;
         color: #fff;
         font-size: 12px;
-        padding: 3px 6px;
+        padding: 0px 6px;
         box-sizing: content-box;
-       height: 16px;
+       height: 26px;
        border-radius: 3px;
         background-color: #7ec5c8;
       }
