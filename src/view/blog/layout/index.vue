@@ -58,6 +58,9 @@
           <el-menu-item index="/admin">去后台</el-menu-item>
       </el-menu>
   </el-drawer>
+  <!-- 回到顶部 -->
+  <div class="toTop" ref="toTop" @click="goToTop"><i class="iconfont icon-fanhuidingceng"></i></div>
+  <!-- 设置 -->
   <el-popover  :width="90" placement="right">
     <template #reference>
       <div class="tool">
@@ -72,7 +75,6 @@
       </div>
   
     </template>
-
 </el-popover>
   <!-- 音乐 -->
   <!-- <el-menu-item class="music">
@@ -91,13 +93,16 @@ import { ref, onMounted, onUnmounted,computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { userStore } from '@/store/index'
 
+const toTop=ref()//回到顶部实例
 const user = userStore()
 const activeIndex = ref('/')//设置目前高亮的
 let management = ref(localStorage.getItem('userInfo') === "[]")
 let drawer=ref<boolean>(false)//控制手机导航抽屉的
 let aa=ref(true)
-//导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式
+//导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式+显示隐藏滚动到顶部
 let show = ref('100%')
+let topCursor=ref('default')
+let topClick=ref('none')
 let whiteMenu = ref(false)
 let pastScroll = ref(0)//用它存之前的滚动距离
 const handleScroll = () => {
@@ -107,8 +112,17 @@ const handleScroll = () => {
     if (scrollChange > 0) {
       //说明在往下滑，就不显示
       show.value = '0'
+      toTop.value.style.setProperty('opacity','100%')
+      topCursor.value='pointer'
+      topClick.value='auto'
+
+      
     } else {
       show.value = '100%'
+      toTop.value.style.setProperty('opacity','0')
+      topCursor.value='default'
+      topClick.value='none'
+
     }
     if (scroll1 > 200) {
       //如果大于临界点，就改变样式
@@ -171,6 +185,10 @@ const goSortArticle = (sortId: string) => {
       id: sortId
     }
   })
+}
+//回到顶部
+const goToTop=()=>{
+  scrollTo(0,0)
 }
 
 //改变黑夜模式,枚举用ref限制类型
@@ -297,6 +315,16 @@ const changeStyle=()=>{
   }
    
   }
+  .toTop{
+    position: fixed;
+    right: 22px;
+    bottom: 65px;
+    transition: all 0.5s;
+    opacity: 0;
+    cursor: v-bind(topCursor);
+    pointer-events:v-bind(topClick);
+
+  }
   .tool{
     position: fixed;
     bottom: 25px;
@@ -310,10 +338,6 @@ const changeStyle=()=>{
     justify-content: center;
     padding:40px 40px ;
   }
-    .setting{
-     
-    
-    }
   }
 
 

@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     EditSortLabel: typeof import('./src/view/admin/article/components/edit-sort-label.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']

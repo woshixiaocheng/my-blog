@@ -1,9 +1,9 @@
 @import '../css/animation.css';
 @font-face {
   font-family: "iconfont"; /* Project id 3916470 */
-  src: url('iconfont.woff2?t=1677767868873') format('woff2'),
-       url('iconfont.woff?t=1677767868873') format('woff'),
-       url('iconfont.ttf?t=1677767868873') format('truetype');
+  src: url('iconfont.woff2?t=1677930872663') format('woff2'),
+       url('iconfont.woff?t=1677930872663') format('woff'),
+       url('iconfont.ttf?t=1677930872663') format('truetype');
 }
 
 .iconfont {
@@ -12,6 +12,9 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.icon-fanhuidingceng:before {
+  content: "\e618";
 }
 
 .icon-texiao:before {
@@ -111,6 +114,10 @@
   color: #7ec5c8;
 }
 .icon-shezhi{
-  font-size: 24px;
+  font-size: 28px;
   color: var(--settingColor);
+}
+.icon-fanhuidingceng{
+  color: var(--settingColor);
+  font-size: 32px;
 }
