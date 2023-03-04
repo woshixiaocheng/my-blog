@@ -21,11 +21,11 @@
     <div class="content"  >
       <div class="item">
       <div  v-html="article[0] ? (article[0] as any).article_content : ''"></div>
-      <div class="lastTime">文章最后更新于{{article[0] ?  formatDate((article[0]  as any).article_date) : ''}}</div>
+    </div>
+     <div class="lastTime">文章最后更新于{{article[0] ?  formatDate((article[0]  as any).article_date) : ''}}</div>
       <div class="goodnormal">
         <img  src="@/assets/icon/goodnormal.svg" alt="">
       </div>
-    </div>
     <Comment></Comment>
     </div>
    
@@ -105,10 +105,10 @@ getArticleDeatail()
     margin: 0 auto;
     padding: 50px 0px;
     max-width: 780px;
-    width: fit-content;//能够保证内容完全居中
+    width: 90%;//能够保证内容完全居中
     line-height:30px ;
     .item{
-      width: 90%;
+      width: fit-content;
       margin: 0 auto;
     }
    

@@ -85,8 +85,7 @@ const total=ref(4)
 </script>
 <style scoped lang="less">
 .comment{
-  width: 90%;
-  margin: 0 auto;
+  
  
   .comment-notice{
     margin-top: 40px;
