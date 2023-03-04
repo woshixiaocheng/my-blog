@@ -5,7 +5,7 @@ let user={
 }
 let article={
     queryAll:"select * from articles order by article_date desc",
-    queryBySortId:"select * from articlesort where sort_id=?",
+    queryBySortId:"select * from sort where sort_id=?",
     queryByLabelId:"select * from label where label_id=?",
     queryById:"select * from articles where article_id=?",
     queryByPage:"select * from articlelist limit ?,?",

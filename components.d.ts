@@ -61,6 +61,8 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/view/admin/layout/components/sidebar.vue')['default']
+    Signal: typeof import('./src/components/article-item/signal.vue')['default']
     Sort: typeof import('./src/view/admin/sort/index.vue')['default']
+    VirtualList: typeof import('./src/components/virtual-list/index.vue')['default']
   }
 }

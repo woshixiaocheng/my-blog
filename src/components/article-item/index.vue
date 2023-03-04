@@ -1,7 +1,7 @@
 
 <template>
     <!-- 文章条 -->
-    <div class="box">
+    <!-- <div class="box"> -->
         <el-card class="article-item" ref="articleItem" @click="goDetail">
             <!-- 图片 -->
             <div class="image">
@@ -11,19 +11,19 @@
             <div class="neirong">
                 <div class="description">
                     <img src="@/assets/icon/time.svg" alt="">
-                <span>发布于{{ formatDate(article[0].article_date) }}</span>
-                <h4 class="title">{{ article[0].article_title }}</h4>
+                <span>发布于{{ formatDate(article[0]?article[0].article_date:'') }}</span>
+                <h4 class="title">{{ article[0]?article[0].article_title :''}}</h4>
                 </div>
              
                 <div class="description">
                     <i class="iconfont icon-hot" />
-                    <span>{{ article[0].article_views }}热度</span>
+                    <span>{{ article[0]?article[0].article_views:'' }}热度</span>
                     <img src="@/assets/icon/message.svg" alt="">
-                    <span>{{ article[0].article_comment_count }}评论</span>
+                    <span>{{article[0]? article[0].article_comment_count:''}}评论</span>
                     <img src="@/assets/icon/good.svg" alt="" style="position:relative;top:-2px">
-                    <span>{{ article[0].article_like_count }}点赞</span>
+                    <span>{{ article[0]?article[0].article_like_count:'' }}点赞</span>
                 </div>
-                <div class="content" v-html="article[0].article_content"></div>
+                <div class="content" v-html="article[0]?article[0].article_content:''"></div>
                 <ul class="signal">
                     <!-- 文件分类 -->
                     <li v-for="item in sortList" :key="item.sort_id" @click.stop="goSortArticle(item.sort_id)"><img
@@ -36,11 +36,11 @@
             </div>
 
         </el-card>
-
-    </div>
+<!-- 
+    </div> -->
 </template>
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue'
+import { defineProps, computed ,ref,watchEffect} from 'vue'
 import formatDate from '@/utils/formatDate'
 import { getArticleSort, getArticleLabel, getAssignArticle } from '@/api/article'
 import { useRouter } from 'vue-router'
@@ -49,17 +49,30 @@ const props = defineProps<{
     articleId: number
     index: number
 }>()
+
 let artId: number = props.articleId//文章id,只是使用而已，不需要变成响应式对象
 //根据id获取文章内容
 // let article=ref<articles>({} as any)
-let article: articles[] = await getAssignArticle({ id: artId })
+let article=ref< articles[]>([])
 //展示文章的所有分类
-let sortList: sorts[] = await getArticleSort({ id: artId })
+let sortList=ref<sorts[] >() 
 //获取文章的所有标签
-let labelList: labels[] = await getArticleLabel({ id: artId })
+let labelList =ref<labels[]>() 
+const getArticle=async ()=>{
+   article.value= await getAssignArticle({ id: artId })
+}
+getArticle()
+const getSort=async()=>{
+    await getArticleSort({ id: artId })
+}
+getSort()
+const getLabel=async()=>{
+    await getArticleLabel({ id: artId })
+}
+getLabel()
 //实现内容交叉显示
-let direction = computed(() => {
-    if (props.index % 2 === 0) {
+const direction = computed(() => {
+    if (props.index&&props.index % 2 === 0) {
         return "row-reverse"
     } else {
         return "row"
@@ -77,7 +90,6 @@ const goSortArticle = (sortId: number) => {
     })
 }
 //按照标签跳转具体页面
-let router = useRouter()
 const goLabelArticle = (labelId: number) => {
     router1.push({
         path: '/article',
@@ -106,7 +118,7 @@ h1{
 
 .article-item {
     max-width: 780px;
-    margin-top: 40px;
+    // margin-top: 40px;
     cursor: pointer;
     border: 0;
     user-select: none; //不允许复制
@@ -235,8 +247,9 @@ h1{
 
 @media screen and(max-width: 770px) {
     .article-item {
+        height: 440px;
         /deep/.el-card__body {
-            flex-direction: column; //实现交叉展示
+            flex-direction: column; 
         }
 
         .neirong {

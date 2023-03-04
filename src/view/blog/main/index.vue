@@ -1,6 +1,7 @@
 <template>
     <div>
         <!-- banner -->
+        
         <div class="banner">
             <h1>小成日记</h1>
             <h2>我会继续加油的！</h2>
@@ -37,11 +38,6 @@
                         <div class="buttonContainer">
                             <HoverButton :isRound="true" width="180px" text="我是谁" @click="goPage('/me')"></HoverButton>
                             <HoverButton :isRound="true" width="180px" text="前端日记" @click="goPage('/daily')"></HoverButton>
-                            <!-- <el-button round size="large" class="button" @click="goPage('/me')">
-                                <el-button round size="large" class="buttonChange1" />
-                                我是谁</el-button>
-                            <el-button round size="large" class="button" @click="goPage('/daily')"><el-button round size="large"
-                                    class="buttonChange2" />前端日记</el-button> -->
                         </div>
 
                     </el-card>
@@ -84,23 +80,12 @@
                         <div class="find">
                             <i class="iconfont icon-find" /> 发现
                         </div>
-                        <div v-for="(item, index) in articleList" :key="index">
-                            <Suspense>
-                                <template #default>
-                                    <ArticleItem :index="index" :articleId="item.article_id"></ArticleItem>
-                                </template>
-                                <template #fallback>
-                                    <div>loading...</div>
-                                </template>
-                            </Suspense>
-
-                        </div>
+                        <VirtualList :article-list="articleList"></VirtualList>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- footer -->
-        <div class="footer"></div>
+            <!-- <div class="footer"></div> -->
     </div>
 </template>
 <script lang="ts" setup>
@@ -109,7 +94,7 @@ import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
 import type { articles, sorts, labels } from '@/utils/type'
 import HoverButton from '@/components/hoverbutton/index.vue'
-const ArticleItem = defineAsyncComponent(() => import('@/components/article-item/index.vue'))
+import VirtualList from '@/components/virtual-list/index.vue'
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {
     window.scrollTo(0, 760)
