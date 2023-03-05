@@ -28,7 +28,7 @@ service.interceptors.request.use((config:any) => {
   }
   if (user.token) {
     //增删改的操作都要检查超时
-    if(config.url==='/del/label'||config.url==='/edit/label'||config.url==='/add/label'||config.url==='/edit/label'||config.url==='/edit/sort'||config.url==='/add/sort'||config.url==='/del/sort'||config.url==='/add/sort'||config.url==='/add/article'||config.url==='/edit/article'||config.url==='/edit/articleSort'||config.url==='/edit/articleLabel' ||config.url==='/del/article'||config.url==='/userinfo'||config.url==='/add/daily'||config.url==='/edit/daily'||config.url==='/del/daily'){
+    if(config.url==='/del/label'||config.url==='/edit/label'||config.url==='/add/label'||config.url==='/edit/label'||config.url==='/edit/sort'||config.url==='/add/sort'||config.url==='/del/sort'||config.url==='/add/sort'||config.url==='/add/article'||config.url==='/edit/article'||config.url==='/edit/articleSort'||config.url==='/edit/articleLabel' ||config.url==='/del/article'||config.url==='/userinfo'||config.url==='/add/daily'||config.url==='/edit/daily'||config.url==='/del/daily'||config.url==='/add/comment'){
        //检查超时
       if(isCheckTimeOut()){
         user.logout()

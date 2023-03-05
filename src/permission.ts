@@ -22,7 +22,6 @@ router.beforeEach(async(to, from, next) => {
         //userInfo里没有内容的时候会进来
         //如果没有userInfo存储的时候要登出
         if(localStorage.getItem('userInfo')===null){
-          console.log(1)
           user.logout()
         }else{
 	//登录时在本地存info为[]数组即可用length

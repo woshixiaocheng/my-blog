@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <my-header></my-header>
         <sidebar></sidebar>
         <div class="content-box">
@@ -14,6 +14,9 @@ import myHeader from './components/myHeader.vue'
 import sidebar from './components/sidebar.vue'
 </script>
 <style scoped lang="less">
+.box{
+    overflow-y: hidden;
+}
 .content-box{
     padding: 20px ;
     position: absolute;

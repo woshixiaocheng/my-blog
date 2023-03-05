@@ -1,6 +1,8 @@
 <template>
   <div>
-    <el-affix>
+    <transition name="el-fade-in-linear">
+    <el-affix v-show="show">
+      
       <el-menu v-if="fullScreen" :default-active="activeIndex" :class="{ whiteMenu: whiteMenu,menu:true,webMenu:true }" 
         mode="horizontal" :ellipsis="false" router>
         <el-menu-item>IceCream</el-menu-item>
@@ -30,8 +32,8 @@
         <div class="flex-grow" />
         <i class="iconfont icon-menu ham " @click="drawer=true"></i>
       </el-menu>
-
-    </el-affix>
+ 
+    </el-affix>   </transition>
     <router-view />
   </div>
   <!-- 移动端左侧菜单 -->
@@ -100,7 +102,7 @@ let management = ref(localStorage.getItem('userInfo') === "[]")
 let drawer=ref<boolean>(false)//控制手机导航抽屉的
 let aa=ref(true)
 //导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式+显示隐藏滚动到顶部
-let show = ref('100%')
+let show = ref(true)
 let topCursor=ref('default')
 let topClick=ref('none')
 let whiteMenu = ref(false)
@@ -111,14 +113,15 @@ const handleScroll = () => {
     let scrollChange = scroll1 - pastScroll.value//前后距离的差
     if (scrollChange > 0) {
       //说明在往下滑，就不显示
-      show.value = '0'
+      show.value = false
       toTop.value.style.setProperty('opacity','100%')
+
       topCursor.value='pointer'
       topClick.value='auto'
 
       
     } else {
-      show.value = '100%'
+      show.value = true
       toTop.value.style.setProperty('opacity','0')
       topCursor.value='default'
       topClick.value='none'
@@ -189,6 +192,7 @@ const goSortArticle = (sortId: string) => {
 //回到顶部
 const goToTop=()=>{
   scrollTo(0,0)
+  toTop.value.style.setProperty('transform','translateY(-20px)')
 }
 
 //改变黑夜模式,枚举用ref限制类型

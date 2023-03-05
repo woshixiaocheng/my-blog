@@ -3,18 +3,18 @@
     <!-- 表单 -->
     <el-form label-width="120px" label-position="left" ref="sortForm" :model="form" :rules="sortRules">
       <el-form-item label="名称" prop="sort_name">
-        <el-input style="width:65%" placeholder="请输入分类名称" size="medium" v-model="form.sort_name" />
+        <el-input style="width:65%" placeholder="请输入分类名称" size="default" v-model="form.sort_name" />
       </el-form-item>
       <el-form-item label="描述" prop="sort_description">
-        <el-input style="width:60%" placeholder="请输入分类描述" size="medium" v-model="form.sort_description" />
+        <el-input style="width:60%" placeholder="请输入分类描述" size="default" v-model="form.sort_description" />
       </el-form-item>
     </el-form>
     <!-- footer插槽 -->
     <template v-slot:footer>
       <el-row type="flex" justify="center">
         <el-col :span="6">
-          <el-button size="medium" @click="btnCancel()">取消</el-button>
-          <el-button type="primary" size="medium" @click="subForm(sortForm)">确定</el-button>
+          <el-button size="default" @click="btnCancel()">取消</el-button>
+          <el-button type="primary" size="default" @click="subForm(sortForm)">确定</el-button>
         </el-col>
       </el-row>
     </template>
@@ -27,7 +27,7 @@ import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'
 import { getSorts, addSort, editSort } from '@/api/article'
 type Props = {
   showDialog: boolean
-  sort: object
+  sort?: object
 }
 const props = withDefaults(defineProps<Props>(), {
   showDialog: false

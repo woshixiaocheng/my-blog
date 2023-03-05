@@ -14,7 +14,7 @@ export const signStr='lalala'//密钥
 app.use(
     expressjwt({ secret: signStr, algorithms: ["HS256"] }).unless({
       //不想要带请求头请求的都放这
-      path: ['/article','/article/assign','/sort/article','/label/article','/sort','/article/sort','/label','/article/label','/daily','/login','/user','/register','/article/page','/article/sortByPage','/article/labelByPage','/article/SLByPage','/sort/page','/sort/assign','/label/page','/daily','/daily/page','/daily/assign'],
+      path: ['/article','/article/assign','/sort/article','/label/article','/sort','/article/sort','/label','/article/label','/daily','/login','/user','/register','/article/page','/article/sortByPage','/article/labelByPage','/article/SLByPage','/sort/page','/sort/assign','/label/page','/daily','/daily/page','/daily/assign','/comment/assign','/comment/username','/edit/articleLike','/edit/articleView','/edit/articleComment'],
     })
   );
 app.use(cors())

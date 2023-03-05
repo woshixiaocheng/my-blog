@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="修改分类和标签" v-model="props.showDialog" @close="btnCancel">
     <!-- 表单 -->
-    <el-form label-width="120px" label-position="left" ref="editForm" :model="form" :rules="rules">
+    <el-form label-width="120px" label-position="left" ref="editForm" :model="form" >
       <el-form-item label="分类">
         <el-select v-model="form.sort" placeholder="请选择分类" @change="sortChange">
           <el-option v-for="item in sorts" :key="item.sort_id" :label="item.sort_name" :value="item.sort_id" />

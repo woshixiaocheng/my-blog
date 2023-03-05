@@ -59,7 +59,6 @@ import { register, getUser } from '@/api/user'
 import formatDate from '@/utils/formatDate'
 import { Login } from '@/utils/type'
 import { ElMessage } from 'element-plus'
-import { val } from 'dom7'
 
 const user = userStore()
 //注册编程式导航
@@ -105,6 +104,7 @@ const submitLogin = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid) => {
     if (valid) {
       const result = await user.login(formLogin)
+  
       //登录后跳转主页
         $router.push({
           path: '/'

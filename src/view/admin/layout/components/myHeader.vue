@@ -9,11 +9,13 @@
   >
     <el-menu-item index="0" class="logo">后台管理</el-menu-item>
     <div class="flex-grow" />
-    <el-sub-menu router>
+    <el-menu-item index="1" >
+    <el-sub-menu router index="1">
       <template #title>头像</template>
       <el-menu-item index="2-1">退出</el-menu-item>
       <el-menu-item index="/">返回前台</el-menu-item>
     </el-sub-menu>
+  </el-menu-item>
   </el-menu>
   </div>
 </template>
@@ -23,7 +25,19 @@ import { ref } from 'vue'
  const activeIndex = ref('1')
 </script>
 
-<style lang="less">
+<style scoped lang="less">
+.my-header{
+.el-menu{
+  background-color: #fff;
+  border-right: solid 1px transparent !important;
+  ::deep .el-menu-item{
+    border: 0;
+  }
+}
+}
+ .el-menu--horizontal>.el-menu-item.is-active{
+border: 0;
+}
  .my-header {
   height: 70px;
   .logo{

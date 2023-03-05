@@ -2,8 +2,9 @@
     <div class="container">
          <el-card>
       <el-row type="flex" justify="space-between" align="middle">
-        <el-button type="primary" size="mini" class="button" @click="addDialog">
-          <el-icon><Plus/></el-icon> 新增分类</el-button>
+        <el-button type="primary" size="default" class="button" @click="addDialog">
+          <!-- <el-icon><Plus/></el-icon>  -->
+          新增分类</el-button>
       </el-row>
     </el-card>
     <el-card class="main">

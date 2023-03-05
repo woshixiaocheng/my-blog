@@ -23,10 +23,11 @@
       <div  v-html="article[0] ? (article[0] as any).article_content : ''"></div>
     </div>
      <div class="lastTime">文章最后更新于{{article[0] ?  formatDate((article[0]  as any).article_date) : ''}}</div>
-      <div class="goodnormal">
-        <img  src="@/assets/icon/goodnormal.svg" alt="">
+      <div class="goodnormal" @click="addArticleLike">
+        <i class="iconfont icon-dianzan" :style="{color:goodFoucus}"></i>
+        <!-- <img  src="@/assets/icon/goodnormal.svg" alt=""> -->
       </div>
-    <Comment></Comment>
+    <Comment :total="total" :articleId="article[0] ? (article[0] as any).article_id : 0" :commentList="commentList" @getComment="getComment"></Comment>
     </div>
    
   </div>
@@ -36,21 +37,43 @@
 
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
-import { getAssignArticle } from '@/api/article'
+import { ref,  watchEffect } from 'vue'
+import { getAssignArticle,getCommentAssign ,editArticleLike,editArticleView,editArticleComment} from '@/api/article'
 import { useRoute } from 'vue-router'
 import formatDate from '@/utils/formatDate'
-
+import tranListToTreeData from '@/utils/tranListToTreeData'
 import Comment from '@/components/comment/comment.vue'
 //获取路由传入的值
 let route = useRoute()//当前路由对象
-let article = ref([])
+let article = ref<any[]>([])
 const getArticleDeatail = async () => {
-  article.value = await getAssignArticle({ id: Number(route.query.article_id as any) })
+  article.value = await getAssignArticle({ id: route.query.article_id })
+   await editArticleView({viewCount:article.value[0].article_views+1,id:article.value[0].article_id})
 }
 getArticleDeatail()
 
+//获取文章评论
+let commentList=ref<any[]>([])
+let total=ref<number>(0)
+const getComment=async()=>{
+ let list= await getCommentAssign({id: route.query.article_id })
+ total.value=list.length
+ commentList.value= tranListToTreeData(list,0)
+await editArticleComment({commentCount:total.value,id:article.value[0].article_id})
+}
+getComment()
 
+//新增文章点赞
+let goodFoucus=ref('var(--settingColor)')
+const addArticleLike=async()=>{
+  if(article.value[0]&&goodFoucus.value!=='var(--buttonHover)'){
+ await editArticleLike({likeCount:article.value[0].article_like_count+1,id:article.value[0].article_id})
+ goodFoucus.value='var(--buttonHover)'
+}else{
+  await editArticleLike({likeCount:article.value[0].article_like_count-1,id:article.value[0].article_id})
+ goodFoucus.value='var(--settingColor)'
+}
+}
 
 
 </script>
@@ -122,6 +145,7 @@ getArticleDeatail()
       width: 100%;
     display: flex;
     justify-content: center;  
+    cursor: pointer;
     }
 
   }

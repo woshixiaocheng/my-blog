@@ -133,7 +133,7 @@ onUnmounted(() => {
     padding: 10px 0;
     max-width: 780px;
     transition: all 0.2s;
-    overflow: hidden;
+    // overflow: hidden;
 
 }
 

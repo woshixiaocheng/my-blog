@@ -49,7 +49,9 @@ export const userStore=defineStore('user',{
     },
     //获取用户个人信息
     async getUserInfo(){
+        
         const data=await getUserInfo({phone:this.phone})
+        console.log(data)
         let str=JSON.stringify([...data])
         localStorage.setItem('userInfo',str)
         return data
@@ -66,6 +68,9 @@ export const userStore=defineStore('user',{
     // localStorage.setItem('routes',JSON.stringify(routes) )
     return routes// 这里是为了路由addRoutes
   }
+    },
+    getters:{
+        userId:(state)=>state.userInfo
     }
 })
 export default userStore

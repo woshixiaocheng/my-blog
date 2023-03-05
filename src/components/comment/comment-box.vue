@@ -1,23 +1,27 @@
 <template>
       <div class="comment-box">
       <div class="text"><img src="@/assets/icon/liuyan.svg" alt="">评论</div>
-      <textarea class="comment-textarea" placeholder="写下点什么..." maxlength="2500"></textarea>
+      <textarea class="comment-textarea" placeholder="写下点什么..." maxlength="2500" v-model="content"></textarea>
       <!-- //按钮 -->
       <div class="tool">
         <HoverButton :is-round="false" text="提交" width="70px" @click="closeDialog"></HoverButton>
+       
       </div>
     </div>
 </template>
 <script setup lang="ts">
 import HoverButton from '@/components/hoverbutton/index.vue'
+import {ref} from 'vue'
 const props = defineProps<{
-    isDialog?:boolean
+    isDialog?:boolean//控制弹框
 }>()
-const emit=defineEmits(['onCloseDialog'])
+const content=ref('')
+const emit=defineEmits(['onCloseDialog','addComment'])
 const closeDialog=()=>{
     if(props.isDialog){
         emit('onCloseDialog',false)
     }
+    emit('addComment',content)//把content传到comment中处理新增
 }
 </script>
 <style scoped lang="less">

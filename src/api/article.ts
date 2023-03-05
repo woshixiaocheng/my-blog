@@ -136,6 +136,7 @@ export function getArticleUser(data:Object){
     })
 }
 
+
 //删除指定文章
 export function delArticle(params:Object){
     return request({
@@ -228,5 +229,58 @@ export function editArticleSort(params:Object){
         method:'GET',
         url:'/edit/articleSort',
         params
+    })
+}
+
+//修改文章的点赞量
+export function editArticleLike(params:Object){
+    return request({
+        method:'GET',
+        url:'/edit/articleLike',
+        params
+    })
+}
+
+
+//修改文章的浏览量
+export function editArticleView(params:Object){
+    return request({
+        method:'GET',
+        url:'/edit/articleView',
+        params
+    })
+}
+//修改文章的评论量
+export function editArticleComment(params:Object){
+    return request({
+        method:'GET',
+        url:'/edit/articleComment',
+        params
+    })
+}
+//获取某文章评论
+export function getCommentAssign(params:Object){
+    return request({
+        method:'GET',
+        url:'/comment/assign',
+        params
+    })
+}
+//获取某文章评论
+export function getCommentUsername(params:Object){
+    return request({
+        method:'GET',
+        url:'/comment/username',
+        params
+    })
+}
+
+//新增评论
+export function addComment(params:Object){
+    return request({
+        method:'GET',
+        url:'/add/comment',
+        params
+
     })
 }

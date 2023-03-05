@@ -18,8 +18,16 @@ let article={
     querySLCount:"select count(*) as total  from articlelist where sort_id=? and label_id=?",
     delById:"delete from articles where article_id=?",
     updateAll:"update articles set article_title=?,article_description=?,article_content=?,article_update_date=?  where article_id=?",
-    insertAll:"insert into articles (article_title,article_description,article_content,user_id,article_date) values (?,?,?,?,?)"
+    insertAll:"insert into articles (article_title,article_description,article_content,user_id,article_date) values (?,?,?,?,?)",
+    updateLike:"update articles set article_like_count=? where article_id=?",
+    updateView:"update articles set article_views=? where article_id=?",
+    updateComment:"update articles set article_comment_count=? where article_id=?"
 
+}
+let comment={
+    queryByArticleId:'select * from commentuser where article_id=?',
+    insertAll:'insert into comments (comment_date,comment_content,comment_pid,user_id,article_id,comment_parentName) values(?,?,?,?,?,?)',
+    queryByParentId:'select (user_name) from commentuser where comment_id=?'
 }
 let sort={
     queryAll:"select * from sorts",
@@ -56,6 +64,7 @@ module.exports={
     sort,
     label,
     daily,
-    user
+    user,
+    comment
 }
 export{}

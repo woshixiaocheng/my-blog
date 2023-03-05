@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="修改分类和标签" v-model="props.showDialog" @close="btnCancel">
     <!-- 表单 -->
-    <el-form label-width="120px" label-position="left" ref="editForm" :model="form" :rules="rules">
+    <el-form label-width="120px" label-position="left" ref="editForm" :model="form" >
       <el-form-item label="分类">
         <el-select v-model="form.sort" placeholder="请选择分类" @change="sortChange">
           <el-option v-for="item in sorts" :key="item.sort_id" :label="item.sort_name" :value="item.sort_id" />
@@ -18,8 +18,8 @@
     <template v-slot:footer>
       <el-row type="flex" justify="center">
         <el-col :span="6">
-          <el-button size="medium" @click="btnCancel()">取消</el-button>
-          <el-button type="primary" size="medium" @click="subForm(editForm)">确定</el-button>
+          <el-button size="default" @click="btnCancel()">取消</el-button>
+          <el-button type="primary" size="default" @click="subForm(editForm)">确定</el-button>
         </el-col>
       </el-row>
     </template>
@@ -31,14 +31,10 @@ import { reactive, ref, defineProps,withDefaults } from 'vue'
 import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'
 import { getLabels, getSorts, editArticleLabel, editArticleSort } from '@/api/article'
 import {sorts,labels} from '@/utils/type'
-//props
-type Props = {
+const props = defineProps<{
   showDialog: boolean,
   articleItem?: object
-}
-const props = withDefaults(defineProps<Props>(), {
-  showDialog: false,
-})
+}>()
 
 //定义emit事件
 const emit = defineEmits(['update:showDialog','reload'])

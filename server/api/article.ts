@@ -72,6 +72,18 @@ db.dbDelById('article',res,[req.query.id])
 exports.editArticle=(req:Request,res:Response)=>{
   db.dbUpdateById('article','updateAll',res,[req.query.title,req.query.description,req.query.content,req.query.newDate,req.query.id])
 }
+//修改文章点赞量
+exports.editArticleLike=(req:Request,res:Response)=>{
+  db.dbUpdateById('article','updateLike',res,[req.query.likeCount,req.query.id])
+}
+//修改文章浏览量
+exports.editArticleView=(req:Request,res:Response)=>{
+  db.dbUpdateById('article','updateView',res,[req.query.viewCount,req.query.id])
+}
+//修改文章评论量
+exports.editArticleComment=(req:Request,res:Response)=>{
+  db.dbUpdateById('article','updateComment',res,[req.query.commentCount,req.query.id])
+}
 
 
 

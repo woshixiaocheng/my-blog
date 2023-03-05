@@ -16,11 +16,12 @@
           </el-select>
 
         </div>
-        <el-button type="primary" size="mini" class="button"
+        <el-button type="primary" size="default" class="button"
           @click="$router.push({ path: `/admin/doArticle`, query: { way: 'add' }, })">
-          <el-icon>
+          <!-- <el-icon>
             <Plus />
-          </el-icon> 新增文章</el-button>
+          </el-icon>  -->
+          新增文章</el-button>
       </el-row>
     </el-card>
     <!-- 主要表单展示 -->

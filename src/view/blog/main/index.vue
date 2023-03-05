@@ -1,7 +1,7 @@
 <template>
+    
     <div>
         <!-- banner -->
-        
         <div class="banner">
             <h1>小成日记</h1>
             <h2>我会继续加油的！</h2>
@@ -16,7 +16,7 @@
             <img src="@/assets/svg/wave-5.svg" alt="">
         </div>
         <!-- content -->
-        <div :class="{ main: true, start: startAn }">
+        <div class="main">
             <div class="content">
                 <!-- 左侧栏 -->
                 <div class="left">
@@ -147,24 +147,24 @@ const goPage=(path:string)=>{
 }
 
 //滚动到内容区出现动画
-let scrollHeight = ref<number>(0)
-let timer: any
-onMounted(() => {
-    window.addEventListener('scroll', () => {
-        clearInterval(timer)
-        timer = setTimeout(() => {
-            scrollHeight.value = window.scrollY
-        }, 100)
+// let scrollHeight = ref<number>(0)
+// let timer: any
+// onMounted(() => {
+//     window.addEventListener('scroll', () => {
+//         clearInterval(timer)
+//         timer = setTimeout(() => {
+//             scrollHeight.value = window.scrollY
+//         }, 100)
 
-    })
-})
-const startAn = computed(() => {
-    if (scrollHeight.value >= 560) {
-        return true
-    } else {
-        return false
-    }
-})
+//     })
+// })
+// const startAn = computed(() => {
+//     if (scrollHeight.value >= 560) {
+//         return true
+//     } else {
+//         return false
+//     }
+// })
 </script>
 
 <style scoped lang="less">

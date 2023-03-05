@@ -6,40 +6,44 @@
         router
       >
       <el-menu-item index="/admin" >
-          <el-icon><House /></el-icon>
+          <!-- <el-icon><House /></el-icon> -->
           <span>主页</span>
         </el-menu-item>
        <el-menu-item index="/admin/user">
-          <el-icon><User /></el-icon>
+          <!-- <el-icon><User /></el-icon> -->
           <span>用户管理</span>
         </el-menu-item>
          <el-menu-item index="/admin/article">
-          <el-icon><Document /></el-icon>
+          <!-- <el-icon><Document /></el-icon> -->
           <span>文章管理</span>
         </el-menu-item>
          <el-menu-item index="/admin/sort">
-          <el-icon><Files /></el-icon>
+          <!-- <el-icon><Files /></el-icon> -->
           <span>分类管理</span>
         </el-menu-item>
          <el-menu-item index="/admin/label">
-          <el-icon><Paperclip /></el-icon>
+          <!-- <el-icon><Paperclip /></el-icon> -->
           <span>标签管理</span>
         </el-menu-item>
-        <el-menu-item index="/admin/daily">
-          <el-icon><Paperclip /></el-icon>
+        <el-menu-item index="/admin/admindaily">
+          <!-- <el-icon><Paperclip /></el-icon> -->
           <span>日记管理</span>
         </el-menu-item>
       </el-menu>
   </div>
 </template>
+<script setup lang="ts"></script>
 <style scoped>
+.el-menu{
+  background-color:  #fff;
+}
   .sidebar {
     position: absolute;
     height: calc(100%,-58px);
     left: 0;
     top: 58px;
     bottom: 0;
-    background-color: #fff;
+    background-color:#fff;
     border: 0;
   }
   .sidebar-el-menu{

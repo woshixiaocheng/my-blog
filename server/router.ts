@@ -9,6 +9,7 @@ let article=require('./api/article')
 let sort=require('./api/sort')
 let label=require('./api/label')
 let daily=require('./api/daily')
+let comment=require('./api/comment')
 //给接口设置路由路径,这里的路径是接口路径
 
 /*查找系列*/
@@ -40,6 +41,10 @@ router.get('/daily',daily.getDaily)//获取日记列表
 router.get('/daily/page',daily.getDailyByPage)//按照分页获取日记列表
 router.get('/daily/assign',daily.getAssignDaily)//根据id获取日记
 
+//评论
+router.get('/comment/assign',comment.getCommentByArtId)//根据id获取
+router.get('/comment/username',comment.getCommentByParId)//根据parentId获取username
+
 // router.post('/article/user',article.getArticleUser)//获取文章的用户信息
 
 //删除系列
@@ -53,9 +58,13 @@ router.get('/add/article',article.addArticle)
 router.get('/add/sort',sort.addSort)
 router.get('/add/label',label.addLabel)
 router.get('/add/daily',daily.addDaily)
+router.get('/add/comment',comment.addComment)
 
 // //修改系列
 router.get('/edit/article',article.editArticle)//修改某文章
+router.get('/edit/articleLike',article.editArticleLike)//修改文章点赞量
+router.get('/edit/articleView',article.editArticleView)//修改文章浏览量
+router.get('/edit/articleComment',article.editArticleComment)//修改文章评论区
 router.get('/edit/sort',sort.editSort)//修改某分类
 router.get('/edit/label',label.editLabel)
 router.get('/edit/articleLabel',label.editArticleLabel)//修改某文章的标签

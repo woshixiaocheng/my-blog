@@ -157,14 +157,14 @@ router.addRoute({
         component:()=>import('../view/admin/label/index.vue')
     },
     {
-        path:'daily',
+        path:'admindaily',
         name:'adminDaily',
-        component:()=>import('../view/admin/daily/index.vue')
+        component:()=>import('@/view/admin/daily/index.vue')
     },
     {
         path:'doDaily',
         name:'adminDoDaily',
-        component:()=>import('../view/admin/daily/add-daily.vue')
+        component:()=>import('@/view/admin/daily/add-daily.vue')
     },
     {
         path:'article',

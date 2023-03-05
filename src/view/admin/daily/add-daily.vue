@@ -1,12 +1,13 @@
 <template>
   <!-- 主要文章 -->
-  <el-dialog  :title="title" v-model="props.showDialog" @close="btnCancel">
+  <el-dialog  :title="title" v-model="props.showDialog" @close="btnCancel" width="80%">
     <div class="content">
-    <!-- 富文本编辑器 -->
+              <!-- md编辑器 -->
     <div class="editor">
-     <Editor :content="content" 
-     v-if="props.showDialog" @update="updateContent"></Editor>
+      <div class="neirong">内容</div>
+      <v-md-editor v-model="content" height="400px"></v-md-editor>
     </div>
+
     <div class="button">
       <el-button type="primary" @click="submit()">提交</el-button>
       <el-button @click="reset()">重置</el-button>
@@ -21,8 +22,8 @@ import { ref, reactive, defineProps,watchEffect,defineEmits} from 'vue'
 import { addDaily,getAssignDaily, editDaily } from '@/api/daily'
 import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
-import Editor from '@/components/Editor/index.vue'
 import { ElMessage, FormInstance } from 'element-plus'
+import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
 type Props={
   dailyId:number
   showDialog:boolean

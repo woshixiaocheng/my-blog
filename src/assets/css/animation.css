@@ -89,3 +89,36 @@ transform: translate(-32px,10px);
       transform: rotate(360deg);
     }
   }
+
+  /* 下移 */
+@keyframes my-shake {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    30% {
+        opacity: 0.5;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+/* 上移 */
+@keyframes scatter {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0;
+    }
+}

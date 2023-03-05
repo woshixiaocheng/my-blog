@@ -3,18 +3,18 @@
     <!-- 表单 -->
     <el-form label-width="120px" label-position="left" ref="labelForm" :model="form" :rules="labelRules">
       <el-form-item label="名称" prop="label_name">
-        <el-input style="width:65%" placeholder="请输入标签名称" size="medium" v-model="form.label_name" />
+        <el-input style="width:65%" placeholder="请输入标签名称" size="default" v-model="form.label_name" />
       </el-form-item>
       <el-form-item label="描述" prop="label_description">
-        <el-input style="width:60%" placeholder="请输入标签描述" size="medium" v-model="form.label_description" />
+        <el-input style="width:60%" placeholder="请输入标签描述" size="default" v-model="form.label_description" />
       </el-form-item>
     </el-form>
     <!-- footer插槽 -->
     <template v-slot:footer>
       <el-row type="flex" justify="center">
         <el-col :span="6">
-          <el-button size="medium" @click="btnCancel()">取消</el-button>
-          <el-button type="primary" size="medium" @click="subForm(labelForm)">确定</el-button>
+          <el-button size="default" @click="btnCancel()">取消</el-button>
+          <el-button type="primary" size="default" @click="subForm(labelForm)">确定</el-button>
         </el-col>
       </el-row>
     </template>
@@ -27,7 +27,7 @@ import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'
 import { getLabels, addLabel, editLabel } from '@/api/article'
 type Props = {
   showDialog: boolean
-  editContent: object
+  editContent?: object
 }
 const props = withDefaults(defineProps<Props>(), {
   showDialog: false
