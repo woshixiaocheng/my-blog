@@ -9,10 +9,9 @@
   >
     <el-menu-item index="0" class="logo">后台管理</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="1" >
-    <el-sub-menu router index="1">
+    <el-menu-item index="/" >
+    <el-sub-menu router index="/">
       <template #title>头像</template>
-      <el-menu-item index="2-1">退出</el-menu-item>
       <el-menu-item index="/">返回前台</el-menu-item>
     </el-sub-menu>
   </el-menu-item>

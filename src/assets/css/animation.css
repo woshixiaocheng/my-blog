@@ -122,3 +122,14 @@ transform: translate(-32px,10px);
         top: 0;
     }
 }
+
+/* 淡入淡出 */
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}

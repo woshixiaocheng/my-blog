@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="banner" v-for="item in article">
     <div class="description">
       <h2 class="title">{{ (item as any).article_title }}</h2>
@@ -32,7 +33,7 @@
    
   </div>
   <div class="footer"></div>
-
+</div>
 </template>
 
 

@@ -13,7 +13,7 @@
         <el-menu-item index="2" :route="{ path: '/article', query: { sort_id: 2 } }">生活随笔</el-menu-item>
         <el-menu-item index="/daily">学习日记</el-menu-item>
         <el-menu-item index="/me">关于我</el-menu-item>
-        <el-menu-item index="/message">留言板</el-menu-item>
+        <!-- <el-menu-item index="/message">留言板</el-menu-item> -->
         <el-sub-menu index="7">
           <template #title>
             <img src="@/assets/img/photo.jpeg" alt="" style="width:40px;border-radius:50%;">
@@ -22,7 +22,7 @@
             <el-menu-item index="/login" v-if="!user.token">登录</el-menu-item>
             <el-menu-item index="/login" v-else @click="user.logout()">登出</el-menu-item>
           </div>
-          <el-menu-item index="/admin">去后台</el-menu-item>
+          <el-menu-item index="/admin/article">去后台</el-menu-item>
         </el-sub-menu>
 
       </el-menu>
@@ -34,7 +34,13 @@
       </el-menu>
  
     </el-affix>   </transition>
-    <router-view />
+
+      <router-view v-slot="{Component}">
+        <transition name="transitionFadeIn" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+      </router-view>
+    
   </div>
   <!-- 移动端左侧菜单 -->
   <el-drawer
@@ -53,7 +59,7 @@
         <el-menu-item index="1" :route="{ path: '/article', query: { sort_id: 1 } }">技术文章</el-menu-item>
         <el-menu-item index="2" :route="{ path: '/article', query: { sort_id: 2 } }">生活随笔</el-menu-item>
         <el-menu-item index="/daily">学习日记</el-menu-item>
-        <el-menu-item index="/me">关于我</el-menu-item>
+        <!-- <el-menu-item index="/me">关于我</el-menu-item> -->
         <el-menu-item index="/message">留言板</el-menu-item>
         <el-menu-item index="/login" v-if="!user.token">登录</el-menu-item>
             <el-menu-item index="/login" v-else @click="user.logout()">登出</el-menu-item>
@@ -98,18 +104,18 @@ import { userStore } from '@/store/index'
 const toTop=ref()//回到顶部实例
 const user = userStore()
 const activeIndex = ref('/')//设置目前高亮的
-let management = ref(localStorage.getItem('userInfo') === "[]")
 let drawer=ref<boolean>(false)//控制手机导航抽屉的
-let aa=ref(true)
+
+let transitionName=ref('')
+
 //导航栏随着窗口的滚动方向判断是否要显示+根据窗口的位置判断显示的样式+显示隐藏滚动到顶部
 let show = ref(true)
 let topCursor=ref('default')
 let topClick=ref('none')
 let whiteMenu = ref(false)
 let pastScroll = ref(0)//用它存之前的滚动距离
-const handleScroll = () => {
-  window.addEventListener('scroll', () => {
-    let scroll1 = window.scrollY//页面的滚动距离
+const handleScroll=()=>{
+  let scroll1 = window.scrollY//页面的滚动距离
     let scrollChange = scroll1 - pastScroll.value//前后距离的差
     if (scrollChange > 0) {
       //说明在往下滑，就不显示
@@ -134,9 +140,7 @@ const handleScroll = () => {
       whiteMenu.value = false
     }
     pastScroll.value = window.scrollY
-  })
 }
-
 //监听视口变化，小于910px的时候切换导航栏样式 
 let clientWidth=ref<number>(document.body.clientWidth)
 let fullScreen = computed(()=>{
@@ -148,7 +152,6 @@ let fullScreen = computed(()=>{
 })
 let timeoutWidth: any//节流
 const handleWidth=()=>{
-  window.addEventListener('resize', () => {
     //使用闭包返回数值
     clearTimeout(timeoutWidth)
     //节流，一段时间才判断一次
@@ -156,7 +159,6 @@ const handleWidth=()=>{
     clientWidth.value=document.body.clientWidth
     // console.log(clientWidth.value)
     }, 40)
-  })
 }
 //关闭抽屉
 const closeDrawer=()=>{
@@ -164,8 +166,8 @@ const closeDrawer=()=>{
 }
 //渲染后
 onMounted(() => {
-  handleScroll()
-  handleWidth()
+  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('resize',handleWidth)
   let drawerBox=document.querySelector('.drawer')
   drawerBox?.addEventListener('click',(e)=>{
     if(e.target && (e.target as any).tagName=='LI'){
@@ -178,6 +180,8 @@ onMounted(() => {
 //离开页面后清除定时器
 onUnmounted(()=>{
   clearTimeout(timeoutWidth)
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize',handleWidth)
 })
 //按照分类跳转具体文章展示页面
 let router = useRouter()
@@ -191,7 +195,7 @@ const goSortArticle = (sortId: string) => {
 }
 //回到顶部
 const goToTop=()=>{
-  scrollTo(0,0)
+  scrollTo({left:0 ,top:0 ,behavior:'smooth'})
   toTop.value.style.setProperty('transform','translateY(-20px)')
 }
 
@@ -225,6 +229,18 @@ const changeStyle=()=>{
 
 <style scoped lang="less">
 @bgc: background-color;
+
+//transition路由过渡动画
+
+.transitionFadeIn-enter-from,.transitionFadeIn-leave-to{
+  opacity: 0;
+}
+.transitionFadeIn-enter-active{
+  transition: all 0.6s ease-out;
+}
+.transitionFadeIn-enter-to{
+  opacity: 100%;
+}
 //解决固钉在滚动后不变问题
 ::v-deep .el-affix{
   width: v-bind(clientWidth) !important;

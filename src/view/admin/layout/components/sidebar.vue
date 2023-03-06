@@ -5,14 +5,14 @@
         default-active="2"
         router
       >
-      <el-menu-item index="/admin" >
+      <!-- <el-menu-item index="/admin" > -->
           <!-- <el-icon><House /></el-icon> -->
-          <span>主页</span>
-        </el-menu-item>
-       <el-menu-item index="/admin/user">
+          <!-- <span>主页</span>
+        </el-menu-item> -->
+       <!-- <el-menu-item index="/admin/user"> -->
           <!-- <el-icon><User /></el-icon> -->
-          <span>用户管理</span>
-        </el-menu-item>
+          <!-- <span>用户管理</span>
+        </el-menu-item> -->
          <el-menu-item index="/admin/article">
           <!-- <el-icon><Document /></el-icon> -->
           <span>文章管理</span>
@@ -38,6 +38,7 @@
   background-color:  #fff;
 }
   .sidebar {
+    padding-top: 12px;
     position: absolute;
     height: calc(100%,-58px);
     left: 0;

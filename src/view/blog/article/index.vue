@@ -29,7 +29,6 @@ import { reactive, ref, watchEffect, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSortArticle, getLabelArticle } from '@/api/article'
 import { articleSort,articleLabel, Banner } from '@/utils/type'
-// import VirtualList from '@/components/virtual-list/index.vue'
 const VirtualList = defineAsyncComponent(() => import('@/components/virtual-list/index.vue'))
 const banner= reactive<Banner>({
     title: '',
@@ -49,10 +48,11 @@ watchEffect(async() => {
          await getSortArticle({ id: sortId.value }).then((res:any)=>articleList.value=res)
        if(articleList.value.length<=0){
            banner.title = '此分类暂无文章'
-        //    banner.content = '快催博主写文章！'
+           banner.content = '快催博主写文章！'
        }else{
+        console.log(articleList.value[0])
            banner.title = (articleList.value[0] as any).sort_name
-        //    banner.content =(articleList.value[0] as articleSort).sort_description
+           banner.content =(articleList.value[0] as any).sort_description
        }
     }   
     //获取标签
@@ -62,10 +62,10 @@ watchEffect(async() => {
         })
         if(articleList.value.length<=0){
            banner.title = '此分类暂无文章'
-        //    banner.content = '快催博主写文章！'
+           banner.content = '快催博主写文章！'
        }else{
            banner.title = (articleList.value[0] as any).label_name
-        //    banner.content =(articleList.value[0] as articleSort).sort_description
+           banner.content =(articleList.value[0] as any).label_description
        }
     }
 })

@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="content" ref="content">
         <ul class="list" ref="list">
             <li class="item" v-for="(item) in visibleData" ref="item"
@@ -33,8 +34,10 @@
                 </el-card>
 
             </li>
-        </ul>
+        </ul> 
     </div>
+    <div class="bottom"> ~~到底啦~~</div>
+</div>
 </template>
 <script setup lang='ts'>
 import { ref, computed, onMounted, watchEffect, nextTick, onUnmounted } from 'vue'
@@ -266,5 +269,11 @@ h1 {
             height: 180px;
         }
     }
+}
+.bottom{
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    color: var(--fontGray);
 }
 </style>

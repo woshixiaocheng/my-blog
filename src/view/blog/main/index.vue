@@ -1,5 +1,4 @@
-<template>
-    
+<template>   
     <div>
         <!-- banner -->
         <div class="banner">
@@ -27,7 +26,7 @@
                         <div class="detail">
                             <div class="firstD">
                                 <div>文章</div>
-                                <div>10</div>
+                                <div>{{articleList.length}}</div>
                             </div>
                             <div>
                                 <div>获赞</div>
@@ -59,13 +58,9 @@
                             <span>文章标签</span>
                         </div>
                         <div class="sign">
-                            <el-tag effect="dark" round v-for="item in labels" :key="item.label_id"
+                            <el-tag effect="dark" :style="{backgroundColor:labelColor}" round v-for="item in labels" :key="item.label_id"
                                 @click="goLabelArticle(item.label_id)">{{ item.label_name }}</el-tag>
-                            <el-tag effect="dark" color="#FA7C92" round>html</el-tag>
-                            <el-tag effect="dark" color="#6EC4DB" round>Vue项目</el-tag>
-                            <el-tag effect="dark" color="#66Ab8C" round>React</el-tag>
-                            <el-tag effect="dark" color="#FA7C92" round>React</el-tag>
-                            <el-tag effect="dark" color="#6ec4db" round>React</el-tag>
+                      
                         </div>
                     </el-card>
                 </div>
@@ -119,6 +114,15 @@ const showLabels = async () => {
     labels.value = await getLabels()
 }
 showLabels()
+//实现以下随机生成颜色
+let randomColorList=['#FA7C92','#6EC4DB','#66Ab8C','#FA7C92','#6ec4db']
+const labelColor=computed(()=>{
+    let num=Math.ceil(Math.random()*5)
+
+   return randomColorList[num-1]
+})
+
+
 //按照分类跳转具体文章展示页面
 let router = useRouter()
 const goSortArticle = (sortId: number) => {
