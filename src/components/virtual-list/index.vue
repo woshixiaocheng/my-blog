@@ -67,6 +67,7 @@ const visibleData = computed(() => {
 const scrollEvent = () => {
     //当前滚动位置
     let curscrollTop = document.documentElement.scrollTop
+    // console.log(list.value.firstElementChild)
     //实际上滚动位置
     //当前开始索引
     if (curscrollTop > firstHeight.value) {

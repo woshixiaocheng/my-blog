@@ -1,7 +1,8 @@
 <template>
   <div>
     <transition name="el-fade-in-linear">
-    <el-affix v-show="show">
+    <el-affix >
+      <div v-show="show">
       
       <el-menu v-if="fullScreen" :default-active="activeIndex" :class="{ whiteMenu: whiteMenu,menu:true,webMenu:true }" 
         mode="horizontal" :ellipsis="false" router>
@@ -32,6 +33,7 @@
         <div class="flex-grow" />
         <i class="iconfont icon-menu ham " @click="drawer=true"></i>
       </el-menu>
+    </div>
  
     </el-affix>   </transition>
 
@@ -114,18 +116,19 @@ let topCursor=ref('default')
 let topClick=ref('none')
 let whiteMenu = ref(false)
 let pastScroll = ref(0)//用它存之前的滚动距离
+let timeoutScroll: any//节流
 const handleScroll=()=>{
-  let scroll1 = window.scrollY//页面的滚动距离
-    let scrollChange = scroll1 - pastScroll.value//前后距离的差
+  clearTimeout(timeoutScroll)
+  timeoutScroll=setTimeout(()=>{
+    let scroll1 = Math.floor(window.scrollY)//页面的滚动距离
+    let scrollChange =  scroll1 - pastScroll.value//前后距离的差
+    console.log(scroll1)
     if (scrollChange > 0) {
       //说明在往下滑，就不显示
       show.value = false
       toTop.value.style.setProperty('opacity','100%')
-
       topCursor.value='pointer'
       topClick.value='auto'
-
-      
     } else {
       show.value = true
       toTop.value.style.setProperty('opacity','0')
@@ -139,7 +142,9 @@ const handleScroll=()=>{
     } else {
       whiteMenu.value = false
     }
-    pastScroll.value = window.scrollY
+    pastScroll.value = Math.floor(window.scrollY)
+  },40)
+
 }
 //监听视口变化，小于910px的时候切换导航栏样式 
 let clientWidth=ref<number>(document.body.clientWidth)
