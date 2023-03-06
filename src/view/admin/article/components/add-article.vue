@@ -12,7 +12,7 @@
         <!-- md编辑器 -->
     <div class="editor">
       <div class="neirong">内容</div>
-      <v-md-editor v-model="content" height="400px"></v-md-editor>
+      <Editor v-model:content="content"></Editor>
     </div>
     <div class="button">
       <el-button type="primary" @click="submit(articleForm)">提交</el-button>
@@ -28,6 +28,7 @@ import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
 import { ElMessage, FormInstance } from 'element-plus'
 import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
+import Editor from '@/components/editor/index.vue'
 
 const props = defineProps<{
   articleId?: number
@@ -81,6 +82,9 @@ const submit = (formEl:FormInstance|undefined) => {
         //新增
       } else {
         await addArticle({ ...form, content: htmlContent.value, userId: 1, date: formatDate(Date.now()) })
+        $router.push({
+          path:'/admin/article'
+        })
         ElMessage({
           message: '新增成功',
           type: 'success'
@@ -118,19 +122,17 @@ const reset = (formEl:FormInstance|undefined) => {
   width: calc(90%, -80px);
 
   .editor {
-    display: flex;
-    justify-content: space-between;
-
     .neirong {
       width: 50px;
       margin-left: 18px;
       color: #606266;
       font-size: 14px;
+      margin-bottom: 8px;
     }
   }
 
   .button {
-    margin-top: 30px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
   }

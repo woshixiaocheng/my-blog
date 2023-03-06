@@ -1,9 +1,9 @@
 <template>
     <div>
     <div class="content" ref="content">
-        <ul class="list" ref="list">
+        <ul class="list" ref="list"> 
             <li class="item" v-for="(item) in visibleData" ref="item"
-                :key="(item as any).sort_id ? (item as any).sort_id : (item as any).label_id">
+                :key="(item as any).sort_id ? (item as any).sort_id : (item as any).label_id" >
                 <el-card class="article-item"
                     :style="{ 'flex-direction': item.article_id % 2 === 0 ? 'row-reverse' : 'row' }" ref="articleItem"
                     @click="goDetail(item.article_id)">
@@ -32,8 +32,8 @@
                         <Signal :articleId="item.article_id"></Signal>
                     </div>
                 </el-card>
-
             </li>
+        
         </ul> 
     </div>
     <div class="bottom"> ~~到底啦~~</div>
@@ -44,11 +44,13 @@ import { ref, computed, onMounted, watchEffect, nextTick, onUnmounted } from 'vu
 import Signal from '@/components/article-item/signal.vue'
 import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
+import isFadeIn from '@/utils/isFadeIn'
 const props = defineProps<{
     articleList: any[]
 }>()
 const list = ref()
 const content = ref()
+const item=ref()
 const containerHeight = document.documentElement.clientHeight//可视区域高度
 const start = ref(0)//起始索引
 // const end=ref<number>()//结束索引
@@ -62,12 +64,13 @@ const visibleData = computed(() => {
     //数据源是数组不是对象
     return props.articleList.slice(start.value, Math.min(end, props.articleList.length))
 })
+let pastScroll = ref()//用它存之前的滚动距离
+
 
 //滚动事件修改变量
 const scrollEvent = () => {
     //当前滚动位置
     let curscrollTop = document.documentElement.scrollTop
-    // console.log(list.value.firstElementChild)
     //实际上滚动位置
     //当前开始索引
     if (curscrollTop > firstHeight.value) {
@@ -79,20 +82,25 @@ const scrollEvent = () => {
         start.value = 0
         list.value.style.setProperty('padding-top', '0px')
     }
+    let scrollChange = pastScroll.value? curscrollTop- pastScroll.value:0//前后距离的差
+    //监听三个item距离顶部的值实现显示动画
+    for(let i=0;i<list.value.children.length;i++){
+        const item=list.value.children[i]
+        isFadeIn(item,scrollChange,40)
+    }
+    pastScroll.value =  document.documentElement.scrollTop
+
 
 }
 onMounted(() => {
     //实时计算itemSize高度
     window.addEventListener('resize', () => {
-        // console.log(document.body.clientWidth)
         if (document.body.clientWidth <= 770) {
             itemSize.value = 480
         } else {
             itemSize.value = 300
         }
-        // console.log(itemSize.value)
     })
-
 })
 //要计算列表距离顶部的高度
 watchEffect(() => {
@@ -107,9 +115,9 @@ watchEffect(() => {
             /*watchEffect计算当itemSize有变化的时候重新计算listHeight*/
             const listHeight = itemSize.value * props.articleList.length
             content.value.style.setProperty('height', `${listHeight}px`)
-
             window.removeEventListener('scroll', scrollEvent)
             window.addEventListener('scroll', scrollEvent)
+
 
         })
     }
@@ -128,6 +136,7 @@ const goDetail = (id: any) => {
 }
 onUnmounted(() => {
     window.removeEventListener('scroll', scrollEvent)
+    
 })
 </script>
 <style scoped lang="less">
@@ -136,10 +145,13 @@ onUnmounted(() => {
     margin: 0 auto;
     padding: 10px 0;
     max-width: 780px;
-    transition: all 0.2s;
-    // overflow: hidden;
+  }
 
-}
+  //展示动画
+  .item{
+    animation-fill-mode : forwards;
+
+  }
 
 
 h1 {

@@ -4,7 +4,7 @@ import { defineAsyncComponent } from 'vue'
 
 //引入要和路由关联的组件们
 import Layout from '@/view/blog/layout/index.vue'
-import Layout2 from '../view/admin/layout/index.vue'
+
 //路由规则
 export const constantRoutes:RouteRecordRaw[]=[
     //静态路由是都可以访问的内容(博客网页的全部)
@@ -79,7 +79,7 @@ export const asyncRoutes:RouteRecordRaw[]=[
     path:'/admin',
     name:'管理',
     // redirect:'/admin',
-    component:Layout2,
+    component:()=>import( '../view/admin/layout/index.vue'),
     children:[{
         path:'',
         name:'main',
@@ -103,7 +103,7 @@ export const asyncRoutes:RouteRecordRaw[]=[
         component:()=>import('../view/admin/article/detail.vue')
     },
     {
-        path:'daily',
+        path:'admindaily',
         name:'adminDaily',
         component:()=>import('../view/admin/daily/index.vue')
     },
@@ -142,7 +142,7 @@ if(!router.hasRoute('tempRoute')){
 router.addRoute({
     path:'/admin',
     name:'tempRoute',
-    component:Layout2,
+    component:()=>import( '../view/admin/layout/index.vue'),
     children:[{
         path:'',
         name:'main',
@@ -174,7 +174,10 @@ router.addRoute({
     {
         path:'doArticle',
         name:'adminDoArticle',
-        component:()=>import('../view/admin/article/detail.vue')
+        component:()=>import('../view/admin/article/detail.vue'),
+        meta: {
+            keepAlive: true
+        }
     },
 ]
 })

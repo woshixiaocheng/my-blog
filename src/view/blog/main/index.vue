@@ -5,6 +5,7 @@
             <h1>小成日记</h1>
             <h2>我会继续加油的！</h2>
         </div>
+      
         <!-- 波浪 -->
         <div class="wave">
             <img src="@/assets/icon/arrow.png" alt="" class="arrow" @click="arrow">
@@ -18,10 +19,10 @@
         <div class="main">
             <div class="content">
                 <!-- 左侧栏 -->
-                <div class="left">
+                <div class="left" ref="left">
                     <!-- 个人信息 -->
                     <el-card class="userInfo" shadow="hover">
-                        <img src="@/assets/img/photo.jpeg" alt="">
+                        <img src="http://rr3jdop8a.hn-bkt.clouddn.com/photo.jpeg?e=1678106800&token=-gzBsh4qcld1M6EObzhJ0sjtNl-bLQv9rUAjsVxY:R19rtRQ24zFpOidSVzIEzG5TrnU=" alt="">
                         <h3>小成</h3>
                         <div class="detail">
                             <div class="firstD">
@@ -84,12 +85,13 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, defineAsyncComponent, computed, onMounted } from 'vue'
+import { ref, computed, onMounted,onUnmounted } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'
 import { useRouter } from 'vue-router'
 import type { articles, sorts, labels } from '@/utils/type'
 import HoverButton from '@/components/hoverbutton/index.vue'
 import VirtualList from '@/components/virtual-list/index.vue'
+import isFadeIn from '@/utils/isFadeIn'
 //点击箭头跳转到760px（再思考如何更丝滑)
 const arrow = () => {
     window.scrollTo(0, 760)
@@ -151,24 +153,24 @@ const goPage=(path:string)=>{
 }
 
 //滚动到内容区出现动画
-// let scrollHeight = ref<number>(0)
-// let timer: any
-// onMounted(() => {
-//     window.addEventListener('scroll', () => {
-//         clearInterval(timer)
-//         timer = setTimeout(() => {
-//             scrollHeight.value = window.scrollY
-//         }, 100)
+const left=ref()//left面板实例
+let pastScroll1 = ref(0)//用它存之前的滚动距离
+const handleScroll=()=>{
+    let scroll1 = window.scrollY//页面的滚动距离
+    let scrollChange =  scroll1 - pastScroll1.value//前后距离的差
+         for(let i=0;i<left.value.children.length;i++){
+         isFadeIn(left.value.children[i],scrollChange,0)
+         }
 
-//     })
-// })
-// const startAn = computed(() => {
-//     if (scrollHeight.value >= 560) {
-//         return true
-//     } else {
-//         return false
-//     }
-// })
+    pastScroll1.value = window.scrollY
+}
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll)
+})
+onUnmounted(()=>{
+    window.removeEventListener('scroll', handleScroll)
+})
+
 </script>
 
 <style scoped lang="less">
