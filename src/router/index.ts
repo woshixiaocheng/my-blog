@@ -1,6 +1,5 @@
 //管理页面路由
 import {createRouter,createWebHistory,RouteRecordRaw}from 'vue-router'//引入要使用的方法
-import { defineAsyncComponent } from 'vue'
 
 //引入要和路由关联的组件们
 import Layout from '@/view/blog/layout/index.vue'
@@ -24,7 +23,7 @@ export const constantRoutes:RouteRecordRaw[]=[
          {
         path:'',
         name:'Main',
-        component:()=>import('@/view/blog/main/index.vue'),
+        component:()=>import('@/view/blog/main/index.vue')
          },
          {
             path:'/classify',
@@ -63,14 +62,7 @@ export const constantRoutes:RouteRecordRaw[]=[
         component:()=>import('@/view/blog/message/index.vue')
     }
         ]
-        },
-
-    // //后台管理系统的登录
-    // {
-    //     path:'/admin/login',
-    //     name:'adminLogin',
-    //     component:()=>import('@/view/admin/login/index.vue')
-    // }
+        }
 ]
 
 //动态路由，主要是后台管理系统
@@ -100,18 +92,16 @@ export const asyncRoutes:RouteRecordRaw[]=[
     {
         path:'doArticle',
         name:'adminDoArticle',
-        component:()=>import('../view/admin/article/detail.vue')
+        component:()=>import('../view/admin/article/detail.vue'),
+        meta: {
+            keepAlive: true
+        }
     },
     {
         path:'admindaily',
         name:'adminDaily',
         component:()=>import('../view/admin/daily/index.vue')
-    },
-    {
-        path:'doDaily',
-        name:'adminDoDaily',
-        component:()=>import('../view/admin/daily/add-daily.vue')
-    },
+    }
 ]
 }
 ]
@@ -160,11 +150,6 @@ router.addRoute({
         path:'admindaily',
         name:'adminDaily',
         component:()=>import('@/view/admin/daily/index.vue')
-    },
-    {
-        path:'doDaily',
-        name:'adminDoDaily',
-        component:()=>import('@/view/admin/daily/add-daily.vue')
     },
     {
         path:'article',

@@ -8,6 +8,9 @@
       <el-form-item prop="description" label="摘要">
         <el-input placeholder="文章摘要" v-model="form.description" style="height:40px"></el-input>
       </el-form-item>
+      <el-form-item prop="description" label="封面">
+        <el-input placeholder="文章摘要" v-model="form.imgUrl" style="height:40px"></el-input>
+      </el-form-item>
     </el-form>
         <!-- md编辑器 -->
     <div class="editor">
@@ -51,11 +54,11 @@ if(props.articleId){
   showArticle()
 }
 })
-
 //存数据的
 const form = reactive({
   title: '',
   description: '',
+  imgUrl:''
 })
 const rules = reactive({
   title: [

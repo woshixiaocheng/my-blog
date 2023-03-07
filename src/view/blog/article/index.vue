@@ -6,18 +6,20 @@
     </Transition>
    
         <div class="main">
+            <div style="animation: article-effect 1s;" >
             <Suspense>
                         <template #default>
-                            <VirtualList :articleList="articleList">
+                            <VirtualList :addNum="120" :articleList="articleList">
                 </VirtualList>
                         </template>
                         <template #fallback>
                 <div>
-                    <el-skeleton :rows="5" animated />
+                    <el-skeleton :rows="5" animated  class="content"/>
                 </div>
             </template>
             </Suspense>
                 
+            </div>
             </div>
  
         <!-- footer -->
@@ -30,7 +32,7 @@ import Banner1 from '@/components/banner/index.vue'
 import { reactive, ref, watchEffect, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSortArticle, getLabelArticle } from '@/api/article'
-import { articleSort,articleLabel, Banner } from '@/utils/type'
+import {  Banner } from '@/utils/type'
 const VirtualList = defineAsyncComponent(() => import('@/components/virtual-list/index.vue'))
 const banner= reactive<Banner>({
     title: '',
@@ -75,10 +77,17 @@ watchEffect(async() => {
 </script>
 <style scoped lang="less">
 .main {
+    position: relative;
+    top: -100px;
     background-color: var(--content-bgc);
     margin-bottom: 50px;
     padding: 0 30px;
 
 }
-
+.content {
+    min-height: 490px;
+    margin: 0 auto;
+    padding: 10px 0;
+    max-width: 780px;
+  }
 </style>

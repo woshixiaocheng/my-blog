@@ -46,7 +46,8 @@ import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
 import isFadeIn from '@/utils/isFadeIn'
 const props = defineProps<{
-    articleList: any[]
+    articleList: any[],
+    addNum:number
 }>()
 const list = ref()
 const content = ref()
@@ -85,8 +86,9 @@ const scrollEvent = () => {
     let scrollChange = pastScroll.value? curscrollTop- pastScroll.value:0//前后距离的差
     //监听三个item距离顶部的值实现显示动画
     for(let i=0;i<list.value.children.length;i++){
+
         const item=list.value.children[i]
-        isFadeIn(item,scrollChange,40)
+        isFadeIn(item,scrollChange,props.addNum)
     }
     pastScroll.value =  document.documentElement.scrollTop
 
@@ -148,10 +150,6 @@ onUnmounted(() => {
   }
 
   //展示动画
-  .item{
-    animation-fill-mode : forwards;
-
-  }
 
 
 h1 {

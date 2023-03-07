@@ -4,8 +4,7 @@
     <div class="content">
               <!-- md编辑器 -->
     <div class="editor">
-      <div class="neirong">内容</div>
-      <v-md-editor v-model="content" height="400px"></v-md-editor>
+    <Editor v-model:content="content"></Editor>
     </div>
 
     <div class="button">
@@ -23,6 +22,7 @@ import { addDaily,getAssignDaily, editDaily } from '@/api/daily'
 import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
 import { ElMessage, FormInstance } from 'element-plus'
+import Editor from '@/components/editor/index.vue'
 import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
 type Props={
   dailyId:number
@@ -34,13 +34,9 @@ const props = withDefaults(defineProps<Props>(),{
 }) 
 const emit=defineEmits(['update:showDialog','reload'])
 const $router = useRouter()
-const content=ref()//富文本编辑器的内容
+const content=ref('')//富文本编辑器的内容
 const title=ref('新增日记')
-
-//同步content内容
-const updateContent=(html:any)=>{
-  content.value=html
-}
+const htmlContent=ref('')//html的内容
 //编辑日记的内容展示
 const showDaily = async () => {
   const  data  = await getAssignDaily({ id: props.dailyId })
@@ -56,11 +52,12 @@ if(props.dailyId){
 
 //创建日记 //
 const submit =async () => {
+  htmlContent.value = xss.process(VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(content.value));//把content变成html格式的
       if (props.dailyId) {
         //编辑日记
-        await editDaily({  id: props.dailyId, content: content.value,date: formatDate(Date.now())})
+        await editDaily({  id: props.dailyId, content: htmlContent.value,date: formatDate(Date.now())})
         $router.push({
-          path:'/admin/daily'
+          path:'/admin/admindaily'
         })
         ElMessage({
           message: '修改成功',
@@ -68,7 +65,10 @@ const submit =async () => {
         })     
         //新增
       } else {
-         await addDaily({ content: content.value, date: formatDate(Date.now()) })
+         await addDaily({ content: htmlContent.value, date: formatDate(Date.now()) })
+         $router.push({
+          path:'/admin/admindaily'
+        })
         ElMessage({
           message: '新增成功',
           type: 'success'
@@ -76,10 +76,6 @@ const submit =async () => {
       }
       emit('update:showDialog',false)
       emit('reload')
-      // ElMessage({
-      //     message: '失败',
-      //     type: 'info'
-      //   })
     }
 
 //重置
@@ -89,6 +85,7 @@ const reset = () => {
     showDaily()
   }else{
   content.value = ''
+  htmlContent.value=''
   }
 }
 //关闭
@@ -96,6 +93,7 @@ const reset = () => {
 const btnCancel = () => {
   emit('update:showDialog', false)
   content.value = ''
+  htmlContent.value=''
 }
 
 
@@ -107,9 +105,6 @@ const btnCancel = () => {
   width: calc(90%, -80px);
 
   .editor {
-    display: flex;
-    justify-content: space-between;
-
     .neirong {
       width: 50px;
       margin-left: 18px;

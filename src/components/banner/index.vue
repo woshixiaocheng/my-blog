@@ -1,5 +1,5 @@
 <template>
-        <div class="banner">
+        <div class="banner" style="animation: header-effect 1.5s">
                 <h1>{{banner?.title||1}}</h1>
     <h2>{{banner?.content||2}}</h2>    
     </div>
@@ -15,11 +15,13 @@ import {Banner} from '@/utils/type'
 <style scoped lang="less">
 .banner{
         color: #fff;
-    margin-top:50px ;
-    height: 200px;
+   padding-top:100px ;
+    height: 38vh;
     text-align: center;
     h2{
-        margin-top: 50px;
+       padding-top: 50px;
     }
+    background-image: url('@/assets/img/banner1.jpg');
+    background-size: cover;
 }
 </style>

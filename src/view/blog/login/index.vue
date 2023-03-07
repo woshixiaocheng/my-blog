@@ -1,5 +1,7 @@
 <template>
+   <div class="bg"></div>
   <div class="main">
+   
     <!-- <video src="@/assets/video/bg.mp4" class="bg" muted loop autoplay></video> -->
     <div class="box">
       <div class="login left" :class="{ loginChange: !isLogin }">
@@ -184,7 +186,9 @@ const goLogin = () => {
 .bg {
   width: 100%;
   height: 100%;
-  object-fit: cover; //让背景视频充满全屏幕
+  background-image: url('@/assets/img/login.jpg');
+  background-size:cover ;
+  // object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;

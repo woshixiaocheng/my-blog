@@ -70,7 +70,7 @@
           @current-change="changePage" />
       </div>
     </el-card>
-    <EditSortLabel v-model="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="showArticle">
+    <EditSortLabel v-model:show-dialog="showDialog" v-if="showDialog" :articleItem="articleItem" @reload="showArticle">
     </EditSortLabel>
   </div>
 </template>

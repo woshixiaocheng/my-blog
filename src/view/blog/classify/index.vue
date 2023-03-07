@@ -4,7 +4,7 @@
         <Banner :banner="banner"></Banner>
         <!-- 标题 -->
         <div class="main">
-            <div class="content">
+            <div class="content" style="animation: article-effect 1.5s">
                 <el-card class="classify">
                     <img src="@/assets/icon/folder.png" alt="">
                     <span>文章分类</span>
@@ -77,8 +77,10 @@ const goLabelArticle = (labelId: number) => {
 
 <style scoped lang="less">
 .main {
-    background-color: #fff;
+    background-color: var(--content-bgc);
     min-height: 500px;
+    position: relative;
+    top: -100px;
 
     .content {
         width: 70%;

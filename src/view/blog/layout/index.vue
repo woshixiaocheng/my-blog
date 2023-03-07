@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-affix>
+    <el-affix position="top" taget="body">
       <transition name="el-fade-in-linear">
         <div v-show="show">
 
@@ -38,11 +38,12 @@
       </transition>
 
     </el-affix>
-    <router-view v-slot="{ Component }">
-      <transition name="transitionFadeIn" mode="out-in">        
-          <component :is="Component"  />
+    <router-view></router-view>
+    <!-- <router-view v-slot="{ Component }">
+      <transition name="transitionFadeIn">
+          <component :is="Component"  /> 
       </transition>
-    </router-view>
+    </router-view> -->
 
   </div>
   <!-- 移动端左侧菜单 -->
@@ -238,13 +239,9 @@ const changeStyle = () => {
   opacity: 100%;
 }
 
-//解决固钉在滚动后不变问题
-::v-deep .el-affix {
-  width: v-bind(clientWidth) !important;
-}
-
 .webMenu {
   width: 100%;
+
 
   // hover时变背景颜色的判断(基于本身背景再看要不要设置这个)
   &:hover when(@bgc="transparent") {
@@ -284,6 +281,11 @@ const changeStyle = () => {
   border: 0;
   color: #fff;
   opacity: v-bind(show);
+  transition: all 0.3s;
+  &:hover{
+    background-color: #00000063;
+  }
+
 
   //调整每一项的样式
   /deep/ .el-menu-item {
@@ -302,7 +304,9 @@ const changeStyle = () => {
   width: 100%;
   background-color: #fff;
   color: #000;
-
+  &:hover{
+    background-color: #fff;
+  }
   .ham {
     color: #000;
   }
@@ -336,6 +340,8 @@ const changeStyle = () => {
 
 //抽屉菜单样式设置
 .mobileMenu {
+
+
   /deep/ .el-menu-item {
     &:hover {
       background-color: transparent;

@@ -1,12 +1,10 @@
 <template>   
     <div>
-        <!-- banner -->
-        <div class="banner">
+        <!-- banner -->           
+        <div class="banner" style="animation: header-effect 2s">
             <h1>小成日记</h1>
             <h2>我会继续加油的！</h2>
-        </div>
-      
-        <!-- 波浪 -->
+            <!-- 波浪 -->
         <div class="wave">
             <img src="@/assets/icon/arrow.png" alt="" class="arrow" @click="arrow">
             <img src="@/assets/svg/wave-1.svg" alt="">
@@ -15,6 +13,9 @@
             <img src="@/assets/svg/wave-4.svg" alt="">
             <img src="@/assets/svg/wave-5.svg" alt="">
         </div>
+        </div>
+
+        
         <!-- content -->
         <div class="main">
             <div class="content">
@@ -22,7 +23,7 @@
                 <div class="left" ref="left">
                     <!-- 个人信息 -->
                     <el-card class="userInfo" shadow="hover">
-                        <img src="http://rr3jdop8a.hn-bkt.clouddn.com/photo.jpeg?e=1678106800&token=-gzBsh4qcld1M6EObzhJ0sjtNl-bLQv9rUAjsVxY:R19rtRQ24zFpOidSVzIEzG5TrnU=" alt="">
+                        <img src="@/assets/img/photo.jpeg" alt="">
                         <h3>小成</h3>
                         <div class="detail">
                             <div class="firstD">
@@ -76,7 +77,7 @@
                         <div class="find">
                             <i class="iconfont icon-find" /> 发现
                         </div>
-                        <VirtualList :article-list="articleList"></VirtualList>
+                        <VirtualList :add-num="100" :article-list="articleList"></VirtualList>
                     </div>
                 </div>
             </div>
@@ -175,4 +176,5 @@ onUnmounted(()=>{
 
 <style scoped lang="less">
 @import '@/assets/css/main.less'; //千万别忘记；
+
 </style>

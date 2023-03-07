@@ -70,7 +70,7 @@ db.dbDelById('article',res,[req.query.id])
 
 //修改文章
 exports.editArticle=(req:Request,res:Response)=>{
-  db.dbUpdateById('article','updateAll',res,[req.query.title,req.query.description,req.query.content,req.query.newDate,req.query.id])
+  db.dbUpdateById('article','updateAll',res,[req.query.title,req.query.description,req.query.content,req.query.newDate,req.query.imgUrl,req.query.id])
 }
 //修改文章点赞量
 exports.editArticleLike=(req:Request,res:Response)=>{

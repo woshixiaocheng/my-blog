@@ -26,6 +26,7 @@ drop:["console"]
       "@": resolve("src"),
     },
   },
+
   server: {
     //配置前端服务器地址和端口
     host: "", //主机号

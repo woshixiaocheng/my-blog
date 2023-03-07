@@ -17,7 +17,7 @@ let article={
     queryLabelCount:"select count(*) as total  from articlelist where label_id=?",
     querySLCount:"select count(*) as total  from articlelist where sort_id=? and label_id=?",
     delById:"delete from articles where article_id=?",
-    updateAll:"update articles set article_title=?,article_description=?,article_content=?,article_update_date=?  where article_id=?",
+    updateAll:"update articles set article_title=?,article_description=?,article_content=?,article_update_date=?,article_img=?  where article_id=?",
     insertAll:"insert into articles (article_title,article_description,article_content,user_id,article_date) values (?,?,?,?,?)",
     updateLike:"update articles set article_like_count=? where article_id=?",
     updateView:"update articles set article_views=? where article_id=?",

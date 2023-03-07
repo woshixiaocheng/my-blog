@@ -3,7 +3,7 @@
         <BannerShow :banner="banner"></BannerShow>
         <div class="main">
             <!-- 制作时间轴 -->
-            <div class="wrap">
+            <div class="wrap" style="animation: article-effect 1s">
                 <div class="box" v-for="(item,index) in dailyList" :key="item.daily_id">
                     <div class="left" >
                         <div v-if="index%2!==0" class="center">
@@ -65,6 +65,8 @@ onMounted(()=>{
     padding-bottom:100px;
     background-color: var(--content-bgc);
     overflow: hidden;
+    position: relative;
+    top: -100px;
 }
 .wrap {
     width: 80%;

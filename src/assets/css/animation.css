@@ -133,3 +133,28 @@ transform: translate(-32px,10px);
         opacity: 1;
     }
 }
+
+/* 首图动画：下移 */
+@keyframes header-effect {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 文章展示：上移 */
+@keyframes article-effect {
+    0% {
+        /* opacity: 0; */
+        transform: translateY(100px);
+    }
+
+    100% {
+        /* opacity: 1; */
+        transform: translateY(0);
+    }
+}
