@@ -23,7 +23,11 @@
     </div>
   </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'addarticle',
+    };
+</script>
 <script setup lang="ts">
 import { ref, reactive, defineProps,watchEffect} from 'vue'
 import { addArticle,getAssignArticle, editArticle } from '@/api/article'

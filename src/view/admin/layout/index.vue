@@ -3,18 +3,19 @@
         <my-header></my-header>
         <sidebar></sidebar>
         <div class="content-box">
-            <router-view></router-view>
-            <!-- <router-view v-slot="{ Component, route }">
-        <keep-alive v-if="route.meta.keepAlive">
-          <component  :is="Component"  />
-        </keep-alive>
-        <component :is="Component" v-else />
+            <keep-alive >
+    <router-view  v-if="$route.meta.keepAlive"></router-view>
+  </keep-alive>
+  <router-view v-if="!$route.meta.keepAlive" ></router-view>
 
-    </router-view> -->
         </div>
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: '管理',
+    };
+</script>
 <script setup lang="ts">
 import myHeader from './components/myHeader.vue'
 import sidebar from './components/sidebar.vue'

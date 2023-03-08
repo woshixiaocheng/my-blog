@@ -15,7 +15,11 @@
 </el-dialog> 
   
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'adddaily',
+    };
+</script>
 <script setup lang="ts">
 import { ref, reactive, defineProps,watchEffect,defineEmits} from 'vue'
 import { addDaily,getAssignDaily, editDaily } from '@/api/daily'

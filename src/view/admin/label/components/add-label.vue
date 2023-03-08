@@ -20,7 +20,11 @@
     </template>
   </el-dialog>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'addlabel',
+    };
+</script>
 <script setup lang="ts">
 import { reactive, ref, toRefs, defineProps } from 'vue'
 import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'

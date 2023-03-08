@@ -29,7 +29,11 @@
 
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'classify',
+    };
+</script>
 <script setup lang="ts">
 import Banner from '@/components/banner/index.vue'
 import { reactive, ref } from 'vue'

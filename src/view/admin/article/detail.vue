@@ -2,7 +2,9 @@
    <el-card class="main">
     <el-tabs v-model="activeName" class="tabs" >
     <el-tab-pane :label="label" name="do">
+      <KeepAlive>
          <AddArticle :articleId="id"></AddArticle>
+        </KeepAlive>
     </el-tab-pane>
     <el-tab-pane label="其他信息" name="second" v-if="id">
     </el-tab-pane>
@@ -14,6 +16,7 @@ import AddArticle from './components/add-article.vue'
 import {ref} from 'vue'
 import { useRoute } from 'vue-router'
 export default{
+  name:'adminDoArticle',
     components:{
         AddArticle
     },

@@ -1,9 +1,8 @@
 <template>
  
     <div>
-        <Transition name="el-zoom-in-top">
         <Banner1 :banner="banner"></Banner1>
-    </Transition>
+   
    
         <div class="main">
             <div style="animation: article-effect 1s;" >
@@ -26,7 +25,11 @@
         <!-- <div class="footer"></div> -->
      </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'article',
+    };
+</script>
 <script lang="ts" setup>
 import Banner1 from '@/components/banner/index.vue'
 import { reactive, ref, watchEffect, defineAsyncComponent } from 'vue'

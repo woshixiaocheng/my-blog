@@ -32,6 +32,11 @@
       </el-menu>
   </div>
 </template>
+<script lang="ts">
+    export default {
+      name: 'sidebar',
+    };
+</script>
 <script setup lang="ts"></script>
 <style scoped>
 .el-menu{

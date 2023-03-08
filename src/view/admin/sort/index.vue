@@ -59,7 +59,11 @@
     v-model:showDialog="showDialog" :sort="sort"  v-if="showDialog"></AddSort>
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'sort',
+    };
+</script>
 <script setup lang="ts">
 import {getSorts,getSortsByPage,delSort} from '@/api/article'
 import {ref} from 'vue'

@@ -52,6 +52,11 @@
     </div>
   </div>
 </template>
+<script lang="ts">
+    export default {
+      name: 'login',
+    };
+</script>
 <script setup lang="ts" >
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'

@@ -20,7 +20,11 @@
     </template>
   </el-dialog>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'addsort',
+    };
+</script>
 <script setup lang="ts">
 import { reactive, ref, defineProps, withDefaults, defineEmits } from 'vue'
 import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'

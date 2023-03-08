@@ -74,7 +74,11 @@
     </EditSortLabel>
   </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'adminArticle',
+    };
+</script>
 <script setup lang="ts">
 import { ref,watchEffect } from 'vue'
 import {getArticleByPage, getSortArticleByPage, getLabelArticleByPage, getSLArticleByPage, getSorts, getLabels, delArticle } from '@/api/article'

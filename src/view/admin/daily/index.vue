@@ -58,7 +58,11 @@
     <AddDaily v-model:showDialog="showDialog" :dailyId="dailyId" @reload="showDailysByPage"></AddDaily>
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'adminDaily',
+    };
+</script>
 <script setup lang="ts">
 import { getDailyByPage,delDaily } from '@/api/daily';
 import formatDate from '@/utils/formatDate';

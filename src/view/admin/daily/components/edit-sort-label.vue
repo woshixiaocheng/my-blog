@@ -25,7 +25,11 @@
     </template>
   </el-dialog>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'editsortlabeldaily',
+    };
+</script>
 <script setup lang="ts">
 import { reactive, ref, defineProps,withDefaults } from 'vue'
 import { ElMessageBox, ElMessage, FormInstance } from 'element-plus'

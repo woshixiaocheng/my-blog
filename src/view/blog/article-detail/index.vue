@@ -36,7 +36,11 @@
 </div>
 </template>
 
-
+<script lang="ts">
+    export default {
+      name: 'articledetail',
+    };
+</script>
 <script setup lang='ts'>
 import { ref,  watchEffect } from 'vue'
 import { getAssignArticle,getCommentAssign ,editArticleLike,editArticleView,editArticleComment} from '@/api/article'

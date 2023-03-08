@@ -18,7 +18,11 @@
   </el-menu>
   </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'myHeader',
+    };
+</script>
 <script setup lang="ts">
 import { ref } from 'vue'
  const activeIndex = ref('1')

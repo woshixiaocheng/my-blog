@@ -7,6 +7,7 @@ import { ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 const resolve = (dir: string) => path.join(__dirname, dir);
 // https://vitejs.dev/config/
 export default defineConfig({
+  
   esbuild:{
 //打包时去除console
 drop:["console"]
@@ -17,8 +18,8 @@ drop:["console"]
     dirs: ['src'], // 按需加载的文件夹
     resolvers: [
         ElementPlusResolver(),  //   按需加载
-
-    ]
+    ],
+    directoryAsNamespace: true,//解决组件冲突问题，因为这里获取组件的名字是获取文件名的
   })
 ],
   resolve: {

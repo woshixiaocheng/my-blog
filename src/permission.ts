@@ -73,10 +73,18 @@ next()
       next()
     }
   }
-//   NProgress.done()
 })
 // 后置守卫
 router.afterEach(function() {
   NProgress.done() // 关闭进度条
 })
 
+// router.beforeRouteEnter((to, from, next) = > { // 写在当前组件
+//   to.meta.keepAlive = false 
+//   next()
+//  })
+//   beforeRouteLeave: (to, from, next) = > { //写在前一个组件
+//   to.meta.keepAlive = false
+//   next()
+//  })
+ 

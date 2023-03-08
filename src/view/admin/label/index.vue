@@ -59,7 +59,11 @@
     v-model:showDialog="showDialog" :editContent="editContent"  v-if="showDialog"></AddLabel>
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'label',
+    };
+</script>
 <script setup lang="ts">
 import {getLabels,getLabelsByPage,delLabel} from '@/api/article'
 import {ref} from 'vue'

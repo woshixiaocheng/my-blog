@@ -38,13 +38,11 @@
       </transition>
 
     </el-affix>
-    <router-view></router-view>
-    <!-- <router-view v-slot="{ Component }">
-      <transition name="transitionFadeIn">
-          <component :is="Component"  /> 
-      </transition>
-    </router-view> -->
 
+     <keep-alive >
+    <router-view  v-if="$route.meta.keepAlive"></router-view>
+  </keep-alive>
+  <router-view v-if="!$route.meta.keepAlive" ></router-view>
   </div>
   <!-- 移动端左侧菜单 -->
   <el-drawer v-model="drawer" :show-close="false" size="60%" direction="ltr" class="drawer">
@@ -94,6 +92,11 @@
       <img src="@/assets/icon/moon.png" alt="" >
     </el-menu-item> -->
 </template>
+<script lang="ts">
+    export default {
+      name: 'layout',
+    };
+</script>
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter } from 'vue-router'

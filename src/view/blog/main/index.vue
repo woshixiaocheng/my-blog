@@ -85,6 +85,11 @@
             <!-- <div class="footer"></div> -->
     </div>
 </template>
+<script lang="ts">
+    export default {
+      name: 'main',
+    };
+</script>
 <script lang="ts" setup>
 import { ref, computed, onMounted,onUnmounted } from 'vue'
 import { showArticle, getSorts, getLabels } from '@/api/article'

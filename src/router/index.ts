@@ -13,51 +13,53 @@ export const constantRoutes:RouteRecordRaw[]=[
         path: '/',
         component: Layout,
         redirect: '',
+        name:'layout',
         children:[
         //登录注册
         {
-            path:'/login',
+            path:'login',
+            name:'login',
             component:()=>import('@/view/blog/login/index.vue'),
         },
          //首页
          {
         path:'',
-        name:'Main',
+        name:'main',
         component:()=>import('@/view/blog/main/index.vue')
          },
          {
-            path:'/classify',
+            path:'classify',
             name:'classify',
             component:()=>import('@/view/blog/classify/index.vue'),
          },
          
     // 文章
     {
-        path:'/article',
+        path:'article',
         name:'article',
         component:()=>import('@/view/blog/article/index.vue'),
      },
      //文章详情
      {
-        path:'/articledetail',
-        name:'article detail',
+        path:'articledetail',
+        name:'articledetail',
         component:()=>import('@/view/blog/article-detail/index.vue'),
      },
 
     //日记
     {
-        path:'/daily',
+        path:'daily',
         name:'daily',
         component:()=>import('@/view/blog/daily/index.vue')
     },
     //关于我
     {
-        path:'/me',
+        path:'me',
         name:'me',
         component:()=>import('@/view/blog/me/index.vue')
     },
     {
-        path:'/message',
+        path:'message',
         name:'message',
         component:()=>import('@/view/blog/message/index.vue')
     }
@@ -73,10 +75,6 @@ export const asyncRoutes:RouteRecordRaw[]=[
     // redirect:'/admin',
     component:()=>import( '../view/admin/layout/index.vue'),
     children:[{
-        path:'',
-        name:'main',
-        component:()=>import('../view/admin/main/index.vue')
-    },{
         path:'sort',
         name:'sort',
         component:()=>import('../view/admin/sort/index.vue')
@@ -93,9 +91,9 @@ export const asyncRoutes:RouteRecordRaw[]=[
         path:'doArticle',
         name:'adminDoArticle',
         component:()=>import('../view/admin/article/detail.vue'),
-        meta: {
-            keepAlive: true
-        }
+        // meta: {
+        //     keepAlive: true
+        // }
     },
     {
         path:'admindaily',
@@ -134,10 +132,6 @@ router.addRoute({
     name:'tempRoute',
     component:()=>import( '../view/admin/layout/index.vue'),
     children:[{
-        path:'',
-        name:'main',
-        component:()=>import('../view/admin/main/index.vue')
-    },{
         path:'sort',
         name:'sort',
         component:()=>import('../view/admin/sort/index.vue')

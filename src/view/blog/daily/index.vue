@@ -33,7 +33,11 @@
         <div class="footer"></div>
     </div>
 </template>
-
+<script lang="ts">
+    export default {
+      name: 'daily',
+    };
+</script>
 <script lang="ts" setup>
 import BannerShow from '@/components/banner/index.vue'
 import { reactive, ref ,onMounted} from 'vue'
