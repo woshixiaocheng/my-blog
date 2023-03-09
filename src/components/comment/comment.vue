@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref,nextTick} from 'vue'
+import {nextTick} from 'vue'
 import CommentBox from './comment-box.vue'
 import formatDate from '@/utils/formatDate';
 import { addComment } from '@/api/article';

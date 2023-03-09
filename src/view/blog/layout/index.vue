@@ -39,10 +39,13 @@
 
     </el-affix>
 
-     <keep-alive >
-    <router-view  v-if="$route.meta.keepAlive"></router-view>
-  </keep-alive>
-  <router-view v-if="!$route.meta.keepAlive" ></router-view>
+    <router-view v-slot="{ Component, route }">
+ <transition name="transitionFadeIn">
+ <keep-alive v-if="route.meta.keepAlive">
+ </keep-alive>
+ <component :key="route.name" :is="Component" v-else />
+ </transition>
+</router-view>
   </div>
   <!-- 移动端左侧菜单 -->
   <el-drawer v-model="drawer" :show-close="false" size="60%" direction="ltr" class="drawer">
@@ -55,8 +58,8 @@
       <el-menu-item index="1" :route="{ path: '/article', query: { sort_id: 1 } }">技术文章</el-menu-item>
       <el-menu-item index="2" :route="{ path: '/article', query: { sort_id: 2 } }">生活随笔</el-menu-item>
       <el-menu-item index="/daily">学习日记</el-menu-item>
-      <!-- <el-menu-item index="/me">关于我</el-menu-item> -->
-      <el-menu-item index="/message">留言板</el-menu-item>
+      <el-menu-item index="/me">关于我</el-menu-item>
+      <!-- <el-menu-item index="/message">留言板</el-menu-item> -->
       <el-menu-item index="/login" v-if="!user.token">登录</el-menu-item>
       <el-menu-item index="/login" v-else @click="user.logout()">登出</el-menu-item>
       <el-menu-item index="/admin">去后台</el-menu-item>
@@ -235,7 +238,7 @@ const changeStyle = () => {
 }
 
 .transitionFadeIn-enter-active {
-  transition: all 0.6s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .transitionFadeIn-enter-to {
@@ -244,13 +247,9 @@ const changeStyle = () => {
 
 .webMenu {
   width: 100%;
-
-
-  // hover时变背景颜色的判断(基于本身背景再看要不要设置这个)
-  &:hover when(@bgc="transparent") {
-    background-color: rgba(0, 0, 0, 0.2);
+  &:hover{
+    background-color: #00000063;
   }
-
   /deep/ .el-menu-item {
     //加hover时下边框进入动画
     //在每一项的后面加一条线藏起来
@@ -276,7 +275,6 @@ const changeStyle = () => {
   }
 
 }
-
 .menu {
   width: 100%;
   font-weight: 600;
@@ -285,10 +283,6 @@ const changeStyle = () => {
   color: #fff;
   opacity: v-bind(show);
   transition: all 0.3s;
-  &:hover{
-    background-color: #00000063;
-  }
-
 
   //调整每一项的样式
   /deep/ .el-menu-item {
@@ -343,17 +337,13 @@ const changeStyle = () => {
 
 //抽屉菜单样式设置
 .mobileMenu {
-
-
   /deep/ .el-menu-item {
     &:hover {
       background-color: transparent;
       color: var(--buttonHover);
     }
   }
-
 }
-
 .toTop {
   position: fixed;
   right: 22px;
@@ -364,7 +354,6 @@ const changeStyle = () => {
   pointer-events: v-bind(topClick);
 
 }
-
 .tool {
   position: fixed;
   bottom: 25px;
@@ -372,7 +361,6 @@ const changeStyle = () => {
   cursor: pointer;
   -webkit-animation: rotate 3s linear infinite;
   animation: rotate 3s linear infinite;
-
   .popover {
     display: flex;
     justify-content: center;
@@ -394,4 +382,5 @@ const changeStyle = () => {
 //     width: 35px;
 //     margin-top: 12px;
 //   }
-// }</style>
+// }
+</style>

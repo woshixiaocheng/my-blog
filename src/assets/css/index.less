@@ -98,6 +98,10 @@ border-radius: 15px !important;
 .el-menu--horizontal>.el-menu-item :hover,.el-menu--horizontal>.el-menu-item :focus{
     background-color: #fff;
 }
+.el-sub-menu.is-active .el-sub-menu__title{
+    color: #000;
+    border: none;
+}
 .footer{
     box-sizing: content-box;
        width: 100%;
@@ -111,7 +115,8 @@ border-radius: 15px !important;
   
   //菜单抽屉
 .drawer{
-    background: var(--bgc);
+    background: url('@/assets/img/drawer.jpg');
+    background-size: cover;
     font-size: 10px;
     .el-drawer__header{
         color: #fff;

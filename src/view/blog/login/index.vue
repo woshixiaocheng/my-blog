@@ -1,4 +1,5 @@
 <template>
+  <div>
    <div class="bg"></div>
   <div class="main">
    
@@ -51,6 +52,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script lang="ts">
     export default {
@@ -110,8 +112,9 @@ const submitLogin = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid) => {
     if (valid) {
+      try{
       const result = await user.login(formLogin)
-  
+
       //登录后跳转主页
         $router.push({
           path: '/'
@@ -120,7 +123,14 @@ const submitLogin = (formEl: FormInstance | undefined) => {
         message: '登录成功！',
         type: 'success',
       })
+    }catch(err:any){
+      ElMessage({
+        message: '登录失败，请检查是否用户名或密码错误！！',
+        type: 'info',
+      })
+    }
     } else {
+      
       return false
     }
   })

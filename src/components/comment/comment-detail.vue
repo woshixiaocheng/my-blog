@@ -76,7 +76,6 @@ const props = defineProps<{
 const emit =defineEmits(['addCommentContentBox'])
 const addCommentContent=(event:any,pid:number,name:string)=>{
     nextTick()
-    console.log(name)
     emit('addCommentContentBox',event,pid,name)
 }
 //回复弹框的开关

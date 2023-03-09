@@ -24,8 +24,8 @@ export const constantRoutes:RouteRecordRaw[]=[
          //首页
          {
         path:'',
-        name:'main',
-        component:()=>import('@/view/blog/main/index.vue')
+        name:'master',
+        component:()=>import('@/view/blog/master/index.vue')
          },
          {
             path:'classify',
@@ -36,8 +36,8 @@ export const constantRoutes:RouteRecordRaw[]=[
     // 文章
     {
         path:'article',
-        name:'article',
-        component:()=>import('@/view/blog/article/index.vue'),
+        name:'articleshow',
+        component:()=>import('@/view/blog/articleshow/index.vue'),
      },
      //文章详情
      {

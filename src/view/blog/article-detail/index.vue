@@ -42,12 +42,13 @@
     };
 </script>
 <script setup lang='ts'>
-import { ref,  watchEffect } from 'vue'
+import { ref } from 'vue'
 import { getAssignArticle,getCommentAssign ,editArticleLike,editArticleView,editArticleComment} from '@/api/article'
 import { useRoute } from 'vue-router'
 import formatDate from '@/utils/formatDate'
 import tranListToTreeData from '@/utils/tranListToTreeData'
 import Comment from '@/components/comment/comment.vue'
+
 //获取路由传入的值
 let route = useRoute()//当前路由对象
 let article = ref<any[]>([])
@@ -62,9 +63,13 @@ let commentList=ref<any[]>([])
 let total=ref<number>(0)
 const getComment=async()=>{
  let list= await getCommentAssign({id: route.query.article_id })
- total.value=list.length
+ if(list){
+ total.value=list?list.length:0
  commentList.value= tranListToTreeData(list,0)
+ }
+ if(article.value[0]){
 await editArticleComment({commentCount:total.value,id:article.value[0].article_id})
+ }
 }
 getComment()
 
@@ -88,12 +93,14 @@ const addArticleLike=async()=>{
   color: #fff;
   padding-top: 50px;
   height: 200px;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
-
+  background-image: url('@/assets/img/banner.jpg');
+  background-size: cover;
   .description {
     position: absolute;
     bottom: 5px;
+    padding: 0 5px;
     @media screen and (min-width:570px) {
       left: 20%;
     }

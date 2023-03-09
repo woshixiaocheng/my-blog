@@ -1,43 +1,43 @@
 <template>
     <div>
-    <div class="content" ref="content">
-        <ul class="list" ref="list"> 
-            <li class="item" v-for="(item) in visibleData" ref="item"
-                :key="(item as any).sort_id ? (item as any).sort_id : (item as any).label_id" >
-                <el-card class="article-item"
-                    :style="{ 'flex-direction': item.article_id % 2 === 0 ? 'row-reverse' : 'row' }" ref="articleItem"
-                    @click="goDetail(item.article_id)">
-                    <!-- 图片 -->
+        <div class="content" ref="content">
+            <ul class="list" ref="list">
+                <li class="item" v-for="(item) in visibleData"
+                    :key="(item as any).sort_id ? (item as any).sort_id : (item as any).label_id">
+                    <el-card class="article-item"
+                        :style="{ 'flex-direction': item.article_id % 2 === 0 ? 'row-reverse' : 'row' }" ref="articleItem"
+                        @click="goDetail(item.article_id)">
+                        <!-- 图片 -->
 
-                    <div class="image">
-                        <img src="@/assets/img/banner.jpg" alt="">
-                    </div>
-                    <!-- 文章详情 -->
-                    <div class="neirong">
-                        <div class="description">
-                            <img src="@/assets/icon/time.svg" alt="">
-                            <span>发布于{{ formatDate(item.article_date) }}</span>
-                            <h4 class="title">{{ item.article_title }}</h4>
+                        <div class="image">
+                            <img src="@/assets/img/banner.jpg" alt="">
                         </div>
+                        <!-- 文章详情 -->
+                        <div class="neirong">
+                            <div class="description">
+                                <img src="@/assets/icon/time.svg" alt="">
+                                <span>发布于{{ formatDate(item.article_date) }}</span>
+                                <h4 class="title">{{ item.article_title }}</h4>
+                            </div>
 
-                        <div class="description">
-                            <i class="iconfont icon-hot" />
-                            <span>{{ item.article_views }}热度</span>
-                            <img src="@/assets/icon/message.svg" alt="">
-                            <span>{{ item.article_comment_count }}评论</span>
-                            <img src="@/assets/icon/good.svg" alt="" style="position:relative;top:-2px">
-                            <span>{{ item.article_like_count }}点赞</span>
+                            <div class="description">
+                                <i class="iconfont icon-hot" />
+                                <span>{{ item.article_views }}热度</span>
+                                <img src="@/assets/icon/message.svg" alt="">
+                                <span>{{ item.article_comment_count }}评论</span>
+                                <img src="@/assets/icon/good.svg" alt="" style="position:relative;top:-2px">
+                                <span>{{ item.article_like_count }}点赞</span>
+                            </div>
+                            <div class="detail" v-html="item.article_content"></div>
+                            <Signal :articleId="item.article_id"></Signal>
                         </div>
-                        <div class="detail" v-html="item.article_content"></div>
-                        <Signal :articleId="item.article_id"></Signal>
-                    </div>
-                </el-card>
-            </li>
-        
-        </ul> 
+                    </el-card>
+                </li>
+
+            </ul>
+        </div>
+        <div class="bottom"> ~~到底啦~~</div>
     </div>
-    <div class="bottom"> ~~到底啦~~</div>
-</div>
 </template>
 <script setup lang='ts'>
 import { ref, computed, onMounted, watchEffect, nextTick, onUnmounted } from 'vue'
@@ -47,11 +47,11 @@ import { useRouter } from 'vue-router'
 import isFadeIn from '@/utils/isFadeIn'
 const props = defineProps<{
     articleList: any[],
-    addNum:number
+    addNum: number
 }>()
 const list = ref()
 const content = ref()
-const item=ref()
+
 const containerHeight = document.documentElement.clientHeight//可视区域高度
 const start = ref(0)//起始索引
 // const end=ref<number>()//结束索引
@@ -70,6 +70,14 @@ let pastScroll = ref()//用它存之前的滚动距离
 
 //滚动事件修改变量
 const scrollEvent = () => {
+    if(content.value&&list.value&&list.value.children[0]){
+    firstHeight.value = content.value.getBoundingClientRect().top + document.documentElement.scrollTop
+    itemSize.value = list.value.children[0].offsetHeight + 40//为了content自己的padding        
+    visibleCount.value = Math.ceil(containerHeight / itemSize.value) + 1//这样先在缓存区渲染出一个
+
+    /*watchEffect计算当itemSize有变化的时候重新计算listHeight*/
+    const listHeight = itemSize.value * props.articleList.length
+    content.value.style.setProperty('height', `${listHeight}px`)
     //当前滚动位置
     let curscrollTop = document.documentElement.scrollTop
     //实际上滚动位置
@@ -83,15 +91,15 @@ const scrollEvent = () => {
         start.value = 0
         list.value.style.setProperty('padding-top', '0px')
     }
-    let scrollChange = pastScroll.value? curscrollTop- pastScroll.value:0//前后距离的差
+    let scrollChange = pastScroll.value ? curscrollTop - pastScroll.value : 0//前后距离的差
     //监听三个item距离顶部的值实现显示动画
-    for(let i=0;i<list.value.children.length;i++){
+    for (let i = 0; i < list.value.children.length; i++) {
 
-        const item=list.value.children[i]
-        isFadeIn(item,scrollChange,props.addNum)
+        const item = list.value.children[i]
+        isFadeIn(item, scrollChange, props.addNum)
     }
-    pastScroll.value =  document.documentElement.scrollTop
-
+    pastScroll.value = document.documentElement.scrollTop
+    }
 
 }
 onMounted(() => {
@@ -103,27 +111,22 @@ onMounted(() => {
             itemSize.value = 300
         }
     })
+    window.addEventListener('scroll', scrollEvent)
 })
 //要计算列表距离顶部的高度
-watchEffect(() => {
-    if (props.articleList.length > 0 && content.value && list.value) {
-        nextTick(() => {
-            //dom对页面的操作获取了后再操作下面的
-            //上面内容+滚动的才是它实际的距离
-            firstHeight.value = content.value.getBoundingClientRect().top + document.documentElement.scrollTop
-            itemSize.value = list.value.children[0].offsetHeight + 40//为了content自己的padding        
-            visibleCount.value = Math.ceil(containerHeight / itemSize.value) + 1//这样先在缓存区渲染出一个
-
-            /*watchEffect计算当itemSize有变化的时候重新计算listHeight*/
-            const listHeight = itemSize.value * props.articleList.length
-            content.value.style.setProperty('height', `${listHeight}px`)
-            window.removeEventListener('scroll', scrollEvent)
-            window.addEventListener('scroll', scrollEvent)
+// watchEffect(() => {
+//     if (props.articleList.length > 0 && content.value && list.value) {
+//         nextTick(() => {
+//             //dom对页面的操作获取了后再操作下面的
+//             //上面内容+滚动的才是它实际的距离
 
 
-        })
-    }
-})
+
+
+
+//         })
+//     }
+// })
 
 //按照分类跳转具体文章展示页面
 let router1 = useRouter()
@@ -138,7 +141,6 @@ const goDetail = (id: any) => {
 }
 onUnmounted(() => {
     window.removeEventListener('scroll', scrollEvent)
-    
 })
 </script>
 <style scoped lang="less">
@@ -147,9 +149,9 @@ onUnmounted(() => {
     margin: 0 auto;
     padding: 10px 0;
     max-width: 780px;
-  }
+}
 
-  //展示动画
+//展示动画
 
 
 h1 {
@@ -281,7 +283,8 @@ h1 {
         }
     }
 }
-.bottom{
+
+.bottom {
     width: 100%;
     text-align: center;
     padding: 40px 0;

@@ -1,7 +1,5 @@
 import commonRes from "../utils/commonRes"
-import e, { Response } from "express"
-import { devNull } from "os"
-import { fi } from "element-plus/es/locale"
+import  { Response } from "express"
 let db=require('../db/index')
 let sql=require("./sql")
 
