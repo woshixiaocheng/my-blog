@@ -54,10 +54,6 @@ const showDaily = async () => {
     dailyList.value = await getDaily() 
 }
 showDaily()
-onMounted(()=>{
-   console.log(document.body.clientWidth)
-   //临界点是660px
-})
 
 </script>
 
@@ -77,7 +73,7 @@ onMounted(()=>{
     position: relative;
     top: 100px;
     z-index: 10;
-    margin-bottom:100px;
+    padding-bottom:100px;
     &::after {
     content: ''; //必须设置这个属性才生效
     position: absolute;

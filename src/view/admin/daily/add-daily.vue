@@ -2,6 +2,15 @@
   <!-- 主要文章 -->
   <el-dialog  :title="title" v-model="props.showDialog" @close="btnCancel" width="80%">
     <div class="content">
+      <div style="margin-bottom: 20px;">
+        <span style="margin-right: 20px;">日期时间</span>
+      <el-date-picker
+        v-model="date"
+        type="datetime"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        placeholder="请选择日期和时间"
+      />
+    </div>
               <!-- md编辑器 -->
     <div class="editor">
     <Editor v-model:content="content"></Editor>
@@ -21,7 +30,7 @@
     };
 </script>
 <script setup lang="ts">
-import { ref, reactive, defineProps,watchEffect,defineEmits} from 'vue'
+import { ref, defineProps,watchEffect,defineEmits, nextTick} from 'vue'
 import { addDaily,getAssignDaily, editDaily } from '@/api/daily'
 import formatDate from '@/utils/formatDate'
 import { useRouter } from 'vue-router'
@@ -39,6 +48,7 @@ const props = withDefaults(defineProps<Props>(),{
 const emit=defineEmits(['update:showDialog','reload'])
 const $router = useRouter()
 const content=ref('')//富文本编辑器的内容
+const date=ref('')
 const title=ref('新增日记')
 const htmlContent=ref('')//html的内容
 //编辑日记的内容展示
@@ -52,6 +62,7 @@ watchEffect(()=>{
 if(props.dailyId){
   showDaily()
 }
+
 })
 
 //创建日记 //
@@ -59,7 +70,12 @@ const submit =async () => {
   htmlContent.value = xss.process(VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(content.value));//把content变成html格式的
       if (props.dailyId) {
         //编辑日记
-        await editDaily({  id: props.dailyId, content: htmlContent.value,date: formatDate(Date.now())})
+        if(date.value){
+          await editDaily({  id: props.dailyId, content: htmlContent.value,date: formatDate(date.value)})
+        }else{
+          await editDaily({  id: props.dailyId, content: htmlContent.value,date: formatDate(Date.now())})
+        }
+        
         $router.push({
           path:'/admin/admindaily'
         })
@@ -69,7 +85,11 @@ const submit =async () => {
         })     
         //新增
       } else {
+        if(date.value){
+            await addDaily({ content: htmlContent.value,date:formatDate(date.value)})
+        }else{
          await addDaily({ content: htmlContent.value, date: formatDate(Date.now()) })
+        }
          $router.push({
           path:'/admin/admindaily'
         })
@@ -105,7 +125,7 @@ const btnCancel = () => {
 
 <style scoped lang="less">
 .content {
-  margin: 0 40px 0 20px;
+  margin: 0 10px 0 10px;
   width: calc(90%, -80px);
 
   .editor {
