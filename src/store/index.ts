@@ -51,7 +51,6 @@ export const userStore=defineStore('user',{
     async getUserInfo(){
         
         const data=await getUserInfo({phone:this.phone})
-        console.log(data)
         let str=JSON.stringify([...data])
         localStorage.setItem('userInfo',str)
         return data

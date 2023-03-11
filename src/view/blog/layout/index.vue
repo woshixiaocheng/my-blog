@@ -213,6 +213,14 @@ const enableLightMode = () => {
   document.body.classList.remove('dark-mode')
   localStorage.setItem('theme', 'light')
 }
+//根据时间自动判断
+let nowDate=new Date()
+let hour=nowDate.getHours()
+//黑夜时
+if(hour>18&&hour<=24||hour<6){
+  enableDarkMode()
+}
+//根据本地存储状态设置
 if (darkMode === 'dark') { enableDarkMode() }
 const changeStyle = () => {
   isDark.value = !isDark.value

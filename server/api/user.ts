@@ -43,13 +43,24 @@ exports.register=(req:Request,res:Response)=>{
             commonRes.error(res,'paramError')
         }
     })
+    //插入注册信息
     const sql=`insert into users (user_name,user_phone,user_password,user_registration_time) values (?,?,?,?)`
     conn.query(sql,[user.name,user.phone,user.password,user.createTime],(err:any,data:any)=>{
         if(err){
             throw err
         }
+
+        //获取插入后得到的id
+            const sql1=`insert into set_user_permission (user_id,permission_id) values (?,?)`
+    conn.query(sql1,[data.insertId,1],(err:any,data:any)=>{
+        if(err){
+            throw err
+        }
         commonRes(res,data)
     })
+    })
+    //插入权限信息
+
 }
 //获取用户信息列表
 exports.getUser=(req:Request,res:Response)=>{

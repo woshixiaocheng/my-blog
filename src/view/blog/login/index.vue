@@ -176,11 +176,15 @@ const submitRegister = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid) => {
     if (valid) {
+      try{
       await register({ ...formRegister, createTime: formatDate(Date.now()) })
       ElMessage({
         message: '注册成功！去登录吧~',
         type: 'success',
       })
+    }catch(err){
+      console.log(err)
+    }
       goLogin()
     } else {
       return false

@@ -1,7 +1,7 @@
 //对操作不同表的sql语句进行封装
 let user={
     queryByPhone:"select * from users where user_phone=?",
-    queryById:"select * from userpermissions where user_phone=?"
+    queryById:"select user_id,user_name,user_phone,user_photo,permission_id,permission_name from userpermissions where user_phone=?"
 }
 let article={
     queryAll:"select * from articles order by article_date desc",
