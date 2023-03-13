@@ -10,12 +10,12 @@
                         <!-- 图片 -->
 
                         <div class="image">
-                            <img src="@/assets/img/banner.jpg" alt="">
+                            <img v-lazy src="@/assets/img/banner.jpg" alt="">
                         </div>
                         <!-- 文章详情 -->
                         <div class="neirong">
                             <div class="description">
-                                <img src="@/assets/icon/time.svg" alt="">
+                                <img v-lazy src="@/assets/icon/time.svg" alt="">
                                 <span>发布于{{ formatDate(item.article_date) }}</span>
                                 <h4 class="title">{{ item.article_title }}</h4>
                             </div>
@@ -23,9 +23,9 @@
                             <div class="description">
                                 <i class="iconfont icon-hot" />
                                 <span>{{ item.article_views }}热度</span>
-                                <img src="@/assets/icon/message.svg" alt="">
+                                <img v-lazy src="@/assets/icon/message.svg" alt="">
                                 <span>{{ item.article_comment_count }}评论</span>
-                                <img src="@/assets/icon/good.svg" alt="" style="position:relative;top:-2px">
+                                <img v-lazy src="@/assets/icon/good.svg" alt="" style="position:relative;top:-2px">
                                 <span>{{ item.article_like_count }}点赞</span>
                             </div>
                             <div class="detail" v-html="item.article_content"></div>

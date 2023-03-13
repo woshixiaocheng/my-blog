@@ -4,13 +4,13 @@
     <div class="description">
       <h2 class="title">{{ (item as any).article_title }}</h2>
       <div class="other">
-        <img src="@/assets/icon/time.svg" alt="">
+        <img v-lazy src="@/assets/icon/time.svg" alt="">
         <span>发布于{{ formatDate((item as any).article_date) }} · </span>
-        <img src="@/assets/icon/hot.svg" alt="">
+        <img v-lazy src="@/assets/icon/hot.svg" alt="">
         <span>{{ (item as any).article_views  }} · </span>
-        <img src="@/assets/icon/message.svg" alt="">
+        <img v-lazy src="@/assets/icon/message.svg" alt="">
         <span>{{ (item as any).article_comment_count  }} · </span>
-        <img class="good" src="@/assets/icon/good.svg" alt="">
+        <img class="good" v-lazy src="@/assets/icon/good.svg" alt="">
         <span>{{ (item as any).article_like_count  }}</span>
   
       </div>

@@ -6,12 +6,12 @@
             <h2>我会继续加油的！</h2>
             <!-- 波浪 -->
         <div class="wave">
-            <img src="@/assets/icon/arrow.png" alt="" class="arrow" @click="arrow">
-            <img src="@/assets/svg/wave-1.svg" alt="">
-            <img src="@/assets/svg/wave-2.svg" alt="">
-            <img src="@/assets/svg/wave-3.svg" alt="">
-            <img src="@/assets/svg/wave-4.svg" alt="">
-            <img src="@/assets/svg/wave-5.svg" alt="">
+            <img v-lazy src="@/assets/icon/arrow.png" alt="" class="arrow" @click="arrow">
+            <img v-lazy src="@/assets/svg/wave-1.svg" alt="">
+            <img v-lazy src="@/assets/svg/wave-2.svg" alt="">
+            <img v-lazy src="@/assets/svg/wave-3.svg" alt="">
+            <img v-lazy src="@/assets/svg/wave-4.svg" alt="">
+            <img v-lazy src="@/assets/svg/wave-5.svg" alt="">
         </div>
         </div>
 
@@ -23,7 +23,7 @@
                 <div class="left" ref="left">
                     <!-- 个人信息 -->
                     <el-card class="userInfo" shadow="hover">
-                        <img src="@/assets/img/photo.jpeg" alt="">
+                        <img v-lazy src="@/assets/img/photo.jpeg" alt="">
                         <h3>小成</h3>
                         <div class="detail">
                             <div class="firstD">
@@ -45,7 +45,7 @@
                     <!-- 文章分类 -->
                     <el-card class="articleMenu">
                         <div>
-                            <img src="@/assets/icon/folder.svg" alt="">
+                            <img v-lazy src="@/assets/icon/folder.svg" alt="">
                             <span>文章分类</span>
                         </div>
                         <ul>
@@ -56,7 +56,7 @@
                     <!-- 文章标签 -->
                     <el-card class="articleMenu">
                         <div>
-                            <img src="@/assets/icon/sign.svg" alt="">
+                            <img v-lazy src="@/assets/icon/sign.svg" alt="">
                             <span>文章标签</span>
                         </div>
                         <div class="sign">
@@ -69,7 +69,7 @@
                 <div class="right">
                     <!-- 公告 -->
                     <div class="notice">
-                        <img src="@/assets/icon/laba.png" alt="">
+                        <img v-lazy src="@/assets/icon/laba.png" alt="">
                         <div>欢迎来到我的博客！一起学习前端呀</div>
                     </div>
                     <!-- 文章展示 -->
