@@ -22,7 +22,7 @@
             </div>
  
         <!-- footer -->
-        <!-- <div class="footer"></div> -->
+        <div class="footer"></div>
      </div>
 </template>
 <script lang="ts">
@@ -81,9 +81,8 @@ watchEffect(async() => {
 <style scoped lang="less">
 .main {
     position: relative;
-    top: -100px;
     background-color: var(--content-bgc);
-    margin-bottom: 50px;
+    padding-bottom: 50px;
     padding: 0 30px;
 
 }

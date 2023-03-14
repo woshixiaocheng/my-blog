@@ -66,7 +66,7 @@ showDaily()
     background-color: var(--content-bgc);
     overflow: hidden;
     position: relative;
-    top: -100px;
+   
 }
 .wrap {
     width: 80%;

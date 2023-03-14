@@ -77,12 +77,12 @@
                         <div class="find">
                             <i class="iconfont icon-find" /> 发现
                         </div>
-                        <VirtualList :add-num="100" :article-list="articleList"></VirtualList>
+                        <VirtualList :add-num="0" :article-list="articleList"></VirtualList>
                     </div>
                 </div>
             </div>
         </div>
-            <!-- <div class="footer"></div> -->
+            <div class="footer"></div>
     </div>
 </template>
 <script lang="ts">
