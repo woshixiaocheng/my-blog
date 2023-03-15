@@ -84,7 +84,6 @@ const goLabelArticle = (labelId: number) => {
     background-color: var(--content-bgc);
     min-height: 500px;
     position: relative;
-    top: -100px;
 
     .content {
         width: 70%;

@@ -219,6 +219,8 @@ let hour=nowDate.getHours()
 //黑夜时
 if(hour>18&&hour<=24||hour<6){
   enableDarkMode()
+}else{
+  enableLightMode()
 }
 //根据本地存储状态设置
 if (darkMode === 'dark') { enableDarkMode() }
